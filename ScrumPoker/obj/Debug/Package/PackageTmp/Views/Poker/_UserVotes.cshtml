@@ -1,0 +1,18 @@
+﻿    <table border="1">
+            <thead>
+            @foreach (var taskEstimate in ViewBag.Estimates)
+            {
+                <td>@taskEstimate.Name</td>
+            }
+            </thead>
+            <tr>
+            @{int colorCounter = 0;}
+            @foreach (var taskEstimate in ScrumPoker.Models.TaskEstimates.EstimateList)
+            {
+                int colorIndex = colorCounter % 5;
+                <td style="height:40px;font-size:xx-large;text-align:center;background-color:@ViewBag.Colors[colorIndex]">@taskEstimate.Estimate</td>
+                colorCounter += 1;
+            }
+            </tr>
+    </table>
+  <input type="submit" value="Refresh"/>

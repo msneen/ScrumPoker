@@ -23,6 +23,8 @@ namespace ScrumPoker
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+            Models.TaskEstimates.EstimateList = new List<Models.TaskEstimate>();
         }
     }
 }
