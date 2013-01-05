@@ -712,11 +712,14 @@ tr.pager td {
             font-size: 1.5em;
             font-weight: 600;
         }
+        
+
 
     /* forms */
     input {
         width: 90%;
     }
+   
 
     /* login page */
     #loginForm {

@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Poker";
+}
+
+<h2>Poker</h2>
+
+@using (Html.BeginForm("Poker", "Home", FormMethod.Post))
+{
+    <div>
+    @Html.TextBox("estimate", "", new { id = "estimate", @style = "width:35px; background-color:red;font-size: xx-large;" })
+    </div>
+    <input type="submit" value="Submit"/>
+
+}

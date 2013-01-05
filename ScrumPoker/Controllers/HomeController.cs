@@ -8,6 +8,12 @@ namespace ScrumPoker.Controllers
 {
     public class HomeController : Controller
     {
+
+        public ActionResult Poker()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
@@ -28,5 +34,7 @@ namespace ScrumPoker.Controllers
 
             return View();
         }
+
+
     }
 }
