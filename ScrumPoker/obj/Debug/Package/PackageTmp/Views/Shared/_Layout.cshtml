@@ -21,7 +21,7 @@
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Scrum Poker", "Vote", "Poker")</li><!-- This line is  a link to the first poker page -->
-                            @if (User.Identity.Name == "msneen")
+                            @if (User.Identity.Name == "msneen" || User.Identity.Name == "dle" || User.Identity.Name == "jjohnston" || User.Identity.Name == "rhanson" || User.Identity.Name == "rodoughty")
                             {
                             <li>@Html.ActionLink("Clear Votes", "ClearVotes", "Poker")</li>
                             <li>@Html.ActionLink("Clear All", "ClearAll", "Poker")</li>
