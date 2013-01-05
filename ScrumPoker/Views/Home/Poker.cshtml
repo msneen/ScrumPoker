@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Poker";
+    ViewBag.Title = "Scrum Poker";
     int colorCounter = 0;
 }
 
@@ -20,14 +20,22 @@
     <hr />
     if (ViewBag.Estimates != null)
     {
-        <div>
-        @foreach (var taskEstimate in ViewBag.Estimates)
-        {
-            int colorIndex = colorCounter % 5;
-            <div>@taskEstimate.Name</div><div style="height:40px;width:35px;font-size:xx-large;background-color:@ViewBag.Colors[colorIndex]">@taskEstimate.Estimate</div>
-            colorCounter += 1;
-        }
-    </div>
+        <table border="1">
+            <thead>
+            @foreach (var taskEstimate in ViewBag.Estimates)
+            {
+                <td>@taskEstimate.Name</td>
+            }
+            </thead>
+            <tr>
+            @foreach (var taskEstimate in ViewBag.Estimates)
+            {
+                int colorIndex = colorCounter % 5;
+                <td style="height:40px;font-size:xx-large;text-align:center;background-color:@ViewBag.Colors[colorIndex]">@taskEstimate.Estimate</td>
+                colorCounter += 1;
+            }
+            </tr>
+    </table>
 }
     
 

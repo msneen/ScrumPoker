@@ -15,16 +15,17 @@ namespace ScrumPoker.Controllers
         public ActionResult Poker(string estimate, string firstname)
         {
             List<string> colors = new List<string>() { "Red", "Green", "Cyan", "Chartreuse", "Coral" };
+            //Session["TaskEstimates"] = null;
+            List<TaskEstimate> taskEstimates = Session["TaskEstimates"] as List<TaskEstimate>;
+            if (taskEstimates == null)
+            {
+                taskEstimates = new List<TaskEstimate>();
+                Session["TaskEstimates"] = taskEstimates;
+            }
 
             if (!string.IsNullOrEmpty(estimate))
             {
-                //Session["TaskEstimates"] = null;
-                List<TaskEstimate> taskEstimates = Session["TaskEstimates"] as List<TaskEstimate>;
-                if (taskEstimates == null)
-                {
-                    taskEstimates = new List<TaskEstimate>();
-                    Session["TaskEstimates"] = taskEstimates;
-                }
+
 
                 TaskEstimate currentEstimate = (from e in taskEstimates
                                                 where  firstname.Equals(e.Name, StringComparison.OrdinalIgnoreCase)
@@ -42,9 +43,10 @@ namespace ScrumPoker.Controllers
 
                 ViewBag.Estimate = estimate;
                 ViewBag.FirstName = firstname;
-                ViewBag.Estimates = taskEstimates;
-                ViewBag.Colors = colors;
             }
+
+            ViewBag.Estimates = taskEstimates;
+            ViewBag.Colors = colors;
 
             return View();
         }
