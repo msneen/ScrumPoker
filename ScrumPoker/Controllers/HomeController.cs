@@ -10,7 +10,10 @@ namespace ScrumPoker.Controllers
     public class HomeController : Controller
     {
 
-        
+        public ActionResult Poker()
+        {
+            return RedirectToAction("Vote", "Poker");
+        }
         public ActionResult Index()
         {
             return RedirectToAction("Vote", "Poker");
