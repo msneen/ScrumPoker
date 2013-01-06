@@ -1,0 +1,17 @@
+﻿@using ScrumPoker.Models;
+@if (User.Identity.Name == "msneen" || User.Identity.Name == "dle" || User.Identity.Name == "jjohnston" || User.Identity.Name == "rhanson" || User.Identity.Name == "rodoughty")
+{
+    <hr />
+    using (Html.BeginForm("AddUser", "Poker", FormMethod.Post))
+    {
+    <br /><br />
+    <input type="text" id="userName" name="userName" /><br />
+    <select name="theUsers" onChange="combo(this, 'userName')">
+        @foreach (User user in Users.UserList)
+        {
+        <option>@user.UserName</option>
+        }
+    </select> 
+    <input type="submit" value="Add User"/>
+    }
+}

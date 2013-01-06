@@ -164,6 +164,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PokerController.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -171,6 +172,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\TaskEstimate.cs" />
     <Compile Include="Models\TaskEstimates.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -296,6 +298,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Poker\_UserVotes.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Poker\_UserList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

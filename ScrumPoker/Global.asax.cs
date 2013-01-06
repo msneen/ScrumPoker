@@ -25,6 +25,7 @@ namespace ScrumPoker
             AuthConfig.RegisterAuth();
 
             Models.TaskEstimates.EstimateList = new List<Models.TaskEstimate>();
+            Models.Users.UserList = new List<Models.User>();
         }
     }
 }
