@@ -93,7 +93,7 @@ h5, h6 {
 
 /* main layout
 ----------------------------------------------------------*/
-.content-wrapper {
+.content-wrapper {/*This class is what moves page elements to the center of the page*/
     margin: 0 auto;
     max-width: 960px;
 }
