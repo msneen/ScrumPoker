@@ -2,12 +2,12 @@
 @{
     ViewBag.Title = "Scrum Poker";
 }
-<h2>Poker</h2>
+<h2>Scrum Poker</h2>
 @using (Html.BeginForm("Vote", "Poker", FormMethod.Post))
 {
         <br />
         <div>
-        <div>First Name</div>
+        <div>First Name*</div>
     @Html.TextBox("firstName", (string)ViewBag.FirstName, new { id = "firstName", maxlength="12", size="12", list="users" })
     <datalist id="users">
         @foreach (User user in Users.UserList)
@@ -25,4 +25,5 @@
     @Html.Partial("_UserVotes")
     @Html.ActionLink("Refresh", "Vote", "Poker", new { @style = "font-size:x-large;" })       
 }
-@Html.Partial("_UserList")
+@Html.Partial("_UserList")<br />
+<h4>* (if your ScrumMaster has made a closed list, be sure to pick you name from the suggestions in auto-complete)</h4>
