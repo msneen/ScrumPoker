@@ -431,7 +431,7 @@ input, textarea {
     font-size: 1.2em;
     margin: 5px 0 6px 0;
     padding: 5px;
-    width: 300px;
+    /*width: 300px;*/
 }
 
 textarea {
@@ -578,7 +578,7 @@ th {
     }
 
 td {
-    padding: 0.25em 2em 0.25em 0em;
+    padding: 3px 3px 3px 3px;
     border: 0 none;
 }
 

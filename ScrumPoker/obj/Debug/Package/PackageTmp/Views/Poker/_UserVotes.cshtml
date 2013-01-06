@@ -1,20 +1,17 @@
 ﻿    @using ScrumPoker;
-    @using ScrumPoker.Models;
-        
-    <table border="1">
+    @using ScrumPoker.Models;        
+    <table>
             <thead>
               @{int colorCounter = 0;
                 List<TaskEstimate> taskEstimates = TaskEstimates.EstimateList;
                 taskEstimates.Sort(delegate(TaskEstimate T1, TaskEstimate T2) { return T1.Estimate.CompareTo(T2.Estimate); }); //Sort
               }
-
             @foreach (var taskEstimate in taskEstimates)
             {
                 <td>@taskEstimate.Name</td>
             }
             </thead>
             <tr>
-
             @foreach (var taskEstimate in taskEstimates)
             {
                 int colorIndex = colorCounter % 5;
