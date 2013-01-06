@@ -22,7 +22,8 @@
                         <ul id="menu">
                             <li>@Html.ActionLink("Scrum Poker", "Vote", "Poker")</li><!-- This line is  a link to the first poker page -->
                             @if ("msneen".Equals(User.Identity.Name, StringComparison.OrdinalIgnoreCase) 
-                                    || "michael.sneen@gmail.com".Equals(User.Identity.Name, StringComparison.OrdinalIgnoreCase) 
+                                    || "michael.sneen@gmail.com".Equals(User.Identity.Name, StringComparison.OrdinalIgnoreCase)
+                                    || "michael.sneen.gmail.com".Equals(User.Identity.Name, StringComparison.OrdinalIgnoreCase) 
                                     || User.Identity.Name == "dle" 
                                     || User.Identity.Name == "jjohnston" 
                                     || User.Identity.Name == "rhanson" 

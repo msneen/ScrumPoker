@@ -1,5 +1,11 @@
 ﻿@using ScrumPoker.Models;
-@if (User.Identity.Name == "msneen" || User.Identity.Name == "dle" || User.Identity.Name == "jjohnston" || User.Identity.Name == "rhanson" || User.Identity.Name == "rodoughty")
+@if (   "msneen".Equals(User.Identity.Name, StringComparison.OrdinalIgnoreCase)
+            || "michael.sneen@gmail.com".Equals(User.Identity.Name, StringComparison.OrdinalIgnoreCase)
+            || "michael.sneen.gmail.com".Equals(User.Identity.Name, StringComparison.OrdinalIgnoreCase) 
+            || User.Identity.Name == "dle" 
+            || User.Identity.Name == "jjohnston" 
+            || User.Identity.Name == "rhanson" 
+            || User.Identity.Name == "rodoughty")
 {
     <hr />
     using (Html.BeginForm("AddUser", "Poker", FormMethod.Post))
