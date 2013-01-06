@@ -5,13 +5,14 @@
     using (Html.BeginForm("AddUser", "Poker", FormMethod.Post))
     {
     <br /><br />
-    <input type="text" id="userName" name="userName" /><br />
+    <input type="text" id="userName" name="userName" /><input type="submit" value="Add User"/>
+    <br />
     <select name="theUsers" onChange="combo(this, 'userName')">
         @foreach (User user in Users.UserList)
         {
         <option>@user.UserName</option>
         }
     </select> 
-    <input type="submit" value="Add User"/>
+    
     }
 }
