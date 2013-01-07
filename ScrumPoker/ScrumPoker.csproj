@@ -191,6 +191,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ScrumPokerModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Services\ScrumMasterSvc.cs" />
     <Compile Include="webpages_Membership.cs">
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>

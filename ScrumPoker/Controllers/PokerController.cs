@@ -102,5 +102,33 @@ namespace ScrumPoker.Controllers
             return RedirectToAction("Vote", "Poker");
         }
 
+        [HttpPost]
+        public ActionResult MakeRoles()
+        {            
+            AddRole("Developer");
+            AddRole("ScrumMaster");
+            AddRole("SiteAdmin");
+
+            return RedirectToAction("Vote", "Poker");
+        }
+
+        private static void AddRole(string roleName)
+        {
+            using (var db = new ScrumPoker.Entities())
+            {
+                var developerQuery = from r in db.webpages_Roles
+                                     where r.RoleName == roleName
+                                     select r;
+
+                if (developerQuery.Count() < 1)
+                {
+                    webpages_Roles newRole = new webpages_Roles();
+                    newRole.RoleName = roleName;
+                    db.webpages_Roles.Add(newRole);
+                    db.SaveChanges();
+                }
+            }
+        }
+
     }
 }
