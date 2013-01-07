@@ -175,11 +175,33 @@
     <Compile Include="Models\TaskEstimate.cs" />
     <Compile Include="Models\TaskEstimates.cs" />
     <Compile Include="Models\Users.cs" />
+    <Compile Include="PokerModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PokerModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PokerModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScrumPokerModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ScrumPokerModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_Membership.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_OAuthMembership.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_Roles.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_UsersInRoles.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +336,19 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ScrumPokerModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PokerModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PokerModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="PokerModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PokerModel.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

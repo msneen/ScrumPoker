@@ -184,6 +184,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
@@ -191,11 +192,11 @@
       <Diagram Name="ScrumPokerModel">
         <EntityTypeShape EntityType="Model.webpages_Membership" Width="1.5" PointX="0.75" PointY="3.75" Height="3.1340950520833335" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.webpages_OAuthMembership" Width="1.5" PointX="2.75" PointY="3.75" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.webpages_Roles" Width="1.5" PointX="0.75" PointY="0.875" Height="1.5956835937499994" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.webpages_UsersInRoles" Width="1.5" PointX="3" PointY="0.875" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.webpages_Roles" Width="2.25" PointX="0.75" PointY="0.875" Height="1.5956835937499994" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.webpages_UsersInRoles" Width="1.5" PointX="5.25" PointY="1.125" Height="1.5956835937499996" IsExpanded="true" />
         <AssociationConnector Association="Model.fk_RoleId" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="1.6728417968749998" />
-          <ConnectorPoint PointX="3" PointY="1.6728417968749998" />
+          <ConnectorPoint PointX="3" PointY="1.7978417968749998" />
+          <ConnectorPoint PointX="5.25" PointY="1.7978417968749998" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
