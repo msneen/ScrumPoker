@@ -29,7 +29,7 @@
 @Html.Partial("_UserList")<br />
 <h4>* (if your ScrumMaster has made a closed list, be sure to pick you name from the suggestions in auto-complete)</h4>
 
-@if ( ScrumMasterSvc.IsScrumMaster() )
+@if ( SiteAdminSvc.IsSiteAdmin() )
 {
     using (Html.BeginForm("MakeRoles", "Poker", FormMethod.Post))
     {
