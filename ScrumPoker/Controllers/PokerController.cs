@@ -45,19 +45,23 @@ namespace ScrumPoker.Controllers
             {
                 Session["FirstName"] = firstname;
 
-                TaskEstimate currentEstimate = (from e in TaskEstimates.EstimateList
-                                                where firstname.Equals(e.Name, StringComparison.OrdinalIgnoreCase)
-                                                //&& estimate.Equals(e.Estimate, StringComparison.OrdinalIgnoreCase)
-                                                select e).FirstOrDefault<TaskEstimate>();
+                AddEstimate(estimate, firstname);
+            }
+        }
 
-                if (currentEstimate != null)
-                {
-                    currentEstimate.Estimate = estimate;
-                }
-                else
-                {
-                    TaskEstimates.EstimateList.Add(new TaskEstimate() { Name = firstname, Estimate = estimate });
-                }
+        private static void AddEstimate(string estimate, string firstname)
+        {
+            TaskEstimate currentEstimate = (from e in TaskEstimates.EstimateList
+                                            where firstname.Equals(e.Name, StringComparison.OrdinalIgnoreCase)
+                                            select e).FirstOrDefault<TaskEstimate>();
+
+            if (currentEstimate != null)
+            {
+                currentEstimate.Estimate = estimate;
+            }
+            else
+            {
+                TaskEstimates.EstimateList.Add(new TaskEstimate() { Name = firstname, Estimate = estimate });
             }
         }
 
@@ -71,6 +75,7 @@ namespace ScrumPoker.Controllers
             {
                 Users.UserList.Add(new User() { UserName = userName, IsSelected = true });
             }
+            AddEstimate("", userName);
 
             return RedirectToAction("Vote", "Poker");
         }
@@ -132,6 +137,24 @@ namespace ScrumPoker.Controllers
                                          select up).FirstOrDefault();
             }
             pokerGame.Votes = TaskEstimates.EstimateList;
+            pokerGame.Votes.Sort(delegate(TaskEstimate T1, TaskEstimate T2) 
+            { 
+                decimal t1 = 0;
+                decimal t2 = 0;
+
+                decimal.TryParse(T1.Estimate, out t1);
+                decimal.TryParse(T2.Estimate, out t2);
+
+                int estimateCompare = t1.CompareTo(t2);
+                if(t1.CompareTo(t2) != 0)
+                {
+                    return estimateCompare;
+                }
+                else
+                {
+                    return T1.Name.CompareTo(T2.Name);
+                }
+            });
 
             JsonResult jsonResult = Json(pokerGame, JsonRequestBehavior.AllowGet);
             return jsonResult;
