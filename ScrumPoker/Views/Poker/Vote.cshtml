@@ -26,10 +26,9 @@
     <div>
     @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:35px; background-color:red;font-size: xx-large;", type = "number" })
     
-    <input type="submit" value="Submit"/>
+    <input id="SubmitVote" type="button" value="Vote"/>
     </div>
-    @Html.Partial("_UserVotes")
-    @Html.ActionLink("Refresh", "Vote", "Poker", new { @style = "font-size:x-large;" })       
+    @Html.Partial("_UserVotes")     
 }
 @Html.Partial("_UserList")<br />
 <h4>* (if your ScrumMaster has made a closed list, be sure to pick you name from the suggestions in auto-complete)</h4>

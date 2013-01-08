@@ -4,9 +4,15 @@ var logonUserProfile = {
     UserId: 0
 };
 
+var newUserEstimate = {
+    Name: "",
+    Estimate: ""
+}
+
 var PokerGame = new function () {
     this.Votes = $.extend({}, []);
     this.UserProfile = $.extend({}, logonUserProfile);
+    this.UserEstimate = $.extend({}, newUserEstimate);
 }
 
 function GetVotes(callback) {
@@ -57,7 +63,15 @@ function RefreshVotes() {
 }
 
 $(document).ready(function () {
-        keepRefreshing = true;
-        RefreshVotes();
+    $("#SubmitVote").click(function () {
+        if ($("#firstName").val().length != 0 && $("#estimate").val().length != 0) {
+            PokerGame.UserEstimate.Name = $("#firstName").val();
+            PokerGame.UserEstimate.Estimate = $("#estimate").val();
+            $("#estimate").val("");
+            RefreshVotes();
+        }
+    });
+    keepRefreshing = true;
+    RefreshVotes();
 });
 

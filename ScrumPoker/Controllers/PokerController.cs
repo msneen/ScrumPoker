@@ -20,13 +20,23 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Vote(string estimate, string firstname)
         {
-            var user = (from u in Users.UserList
-                       where u.UserName == firstname
-                       select u).FirstOrDefault<User>();
+            SaveEstimateToSession(estimate, firstname);
 
-            if (    !string.IsNullOrEmpty(estimate)   //if "estimate" contains a value
+            ViewBag.Estimate = estimate;
+            ViewBag.FirstName = Session["FirstName"];
+        
+            return View();
+        }
+
+        private void SaveEstimateToSession(string estimate, string firstname)
+        {
+            var user = (from u in Users.UserList
+                        where u.UserName == firstname
+                        select u).FirstOrDefault<User>();
+
+            if (!string.IsNullOrEmpty(estimate)   //if "estimate" contains a value
                     && !string.IsNullOrEmpty(firstname)  //and "firstname" contains a value
-                    && (    Users.UserList.Count == 0 ||  //and the userlist doesn't have any values
+                    && (Users.UserList.Count == 0 ||  //and the userlist doesn't have any values
                                 (Users.UserList.Count > 0  // OR the userlist does have values, and the submitted "firstname" is in the list of users.
                                 && user != null  //To see the list of users, you must be logged in as one of the developers with firstInitialLastname
                                 )
@@ -48,13 +58,7 @@ namespace ScrumPoker.Controllers
                 {
                     TaskEstimates.EstimateList.Add(new TaskEstimate() { Name = firstname, Estimate = estimate });
                 }
-
-                ViewBag.Estimate = estimate;              
             }
-
-            ViewBag.FirstName = Session["FirstName"];
-        
-            return View();
         }
 
         [HttpPost]
@@ -114,6 +118,13 @@ namespace ScrumPoker.Controllers
 
         public JsonResult GetVotes(PokerGame pokerGame)
         {
+            if (pokerGame.UserEstimate != null && !string.IsNullOrEmpty(pokerGame.UserEstimate.Name) && !string.IsNullOrEmpty(pokerGame.UserEstimate.Estimate))
+            {
+                SaveEstimateToSession(pokerGame.UserEstimate.Estimate, pokerGame.UserEstimate.Name);
+
+                pokerGame.UserEstimate.Name = "";
+                pokerGame.UserEstimate.Estimate = "";
+            }
             using (var db = new ScrumPoker.Models.UsersContext())
             {
                 pokerGame.UserProfile = (from up in db.UserProfiles
