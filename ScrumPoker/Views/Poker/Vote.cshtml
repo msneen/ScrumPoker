@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Scrum Poker";
 }
+    @section scripts  {
+        <script language="javascript" type="text/javascript">
+            var getVotesAjaxUrl = '@Url.Action("GetVotes", "Poker")';
+        </script>
+    }
 <h2>Scrum Poker</h2>
 @using (Html.BeginForm("Vote", "Poker", FormMethod.Post))
 {

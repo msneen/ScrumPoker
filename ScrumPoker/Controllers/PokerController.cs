@@ -112,6 +112,20 @@ namespace ScrumPoker.Controllers
             return RedirectToAction("Vote", "Poker");
         }
 
+        public JsonResult GetVotes(PokerGame pokerGame)
+        {
+            using (var db = new ScrumPoker.Models.UsersContext())
+            {
+                pokerGame.UserProfile = (from up in db.UserProfiles
+                                         where up.UserName == User.Identity.Name
+                                         select up).FirstOrDefault();
+            }
+            pokerGame.Votes = TaskEstimates.EstimateList;
+
+            JsonResult jsonResult = Json(pokerGame, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
         private static void AddRole(string roleName)
         {
             using (var db = new ScrumPoker.Entities())
