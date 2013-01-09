@@ -39,8 +39,7 @@ namespace ScrumPoker.Services
             {
                 List<UserProfile> userProfiles = db.UserProfiles.ToList();
                 var Rolesquery = (from u in userProfiles
-
-
+                                            where u.UserId == id
                                   select new UserProfile
                                   {
                                       UserId = u.UserId,
