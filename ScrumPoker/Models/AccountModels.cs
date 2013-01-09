@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Linq;
 
 namespace ScrumPoker.Models
 {
@@ -22,10 +23,14 @@ namespace ScrumPoker.Models
     [Table("UserProfile")]
     public class UserProfile
     {
+
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+
+        [NotMapped]
+        public List<webpages_Roles> Roles { get; set; }
     }
 
     public class RegisterExternalLoginModel

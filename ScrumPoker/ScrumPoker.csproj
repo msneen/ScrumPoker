@@ -166,6 +166,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PokerController.cs" />
+    <Compile Include="Controllers\UserManagementController.cs" />
     <Compile Include="Models\PokerGame.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -192,8 +193,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ScrumPokerModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Services\RoleSvc.cs" />
     <Compile Include="Services\ScrumMasterSvc.cs" />
     <Compile Include="Services\SiteAdminSvc.cs" />
+    <Compile Include="Services\UserProfileSvc.cs" />
+    <Compile Include="ViewModels\UserManagement\UserProfileEdit.cs" />
     <Compile Include="webpages_Membership.cs">
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>
@@ -350,6 +354,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PokerModel.cs</LastGenOutput>
     </None>
+    <Content Include="Views\UserManagement\Index.cshtml" />
+    <Content Include="Views\UserManagement\Details.cshtml" />
+    <Content Include="Views\UserManagement\Create.cshtml" />
+    <Content Include="Views\UserManagement\Edit.cshtml" />
+    <Content Include="Views\UserManagement\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
