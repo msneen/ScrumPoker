@@ -21,9 +21,9 @@ namespace ScrumPoker.Services
                                   {
                                       UserId = u.UserId,
                                       UserName = u.UserName,
-                                      Roles = ((from ur in entitiesDb.webpages_UsersInRoles
+                                      Roles = ((from ur in entitiesDb.UsersInRoles
                                                 where ur.UserId == u.UserId
-                                                select ur.webpages_Roles).ToList<webpages_Roles>())
+                                                select ur.webpages_Roles).ToList<Roles>())
                                   }).ToList<UserProfile>();
 
                 profilesWithRoles = Rolesquery;
@@ -44,9 +44,9 @@ namespace ScrumPoker.Services
                                   {
                                       UserId = u.UserId,
                                       UserName = u.UserName,
-                                      Roles = ((from ur in entitiesDb.webpages_UsersInRoles
+                                      Roles = ((from ur in entitiesDb.UsersInRoles
                                                 where ur.UserId == u.UserId
-                                                select ur.webpages_Roles).ToList<webpages_Roles>())
+                                                select ur.webpages_Roles).ToList<Roles>())
                                   }).ToList<UserProfile>();
 
                 return Rolesquery.FirstOrDefault<UserProfile>();
@@ -57,10 +57,10 @@ namespace ScrumPoker.Services
         {
             using (ScrumPoker.Entities entitiesDb = new Entities())
             {
-                webpages_UsersInRoles newUserRole = new webpages_UsersInRoles();
+                UsersInRoles newUserRole = new UsersInRoles();
                 newUserRole.UserId = userId;
                 newUserRole.RoleId = roleId;
-                entitiesDb.webpages_UsersInRoles.Add(newUserRole);
+                entitiesDb.UsersInRoles.Add(newUserRole);
                 entitiesDb.SaveChanges();
                 return true;
             }
@@ -70,7 +70,7 @@ namespace ScrumPoker.Services
         {
             using (ScrumPoker.Entities entitiesDb = new Entities())
             {
-                webpages_UsersInRoles userRole = (from ur in entitiesDb.webpages_UsersInRoles
+                UsersInRoles userRole = (from ur in entitiesDb.UsersInRoles
                                where ur.UserId == userId
                                && ur.RoleId == roleId
                                select ur).FirstOrDefault();
@@ -103,10 +103,10 @@ namespace ScrumPoker.Services
                 {
                     UserProfile userprofile = db.UserProfiles.Find(id);
 
-                    var userRoles = (from ur in entitiesDb.webpages_UsersInRoles
+                    var userRoles = (from ur in entitiesDb.UsersInRoles
                                     where ur.UserId == userprofile.UserId
                                     select ur).ToList();
-                    foreach (webpages_UsersInRoles userRole in userRoles)
+                    foreach (UsersInRoles userRole in userRoles)
                     {
                         entitiesDb.Entry(userRole).State = EntityState.Deleted;                       
                     }
@@ -130,11 +130,11 @@ namespace ScrumPoker.Services
                                     {
                                         UserId = u.UserId,
                                         UserName = u.UserName,
-                                        Roles = ((from ur in entitiesDb.webpages_UsersInRoles
-                                                  join r in entitiesDb.webpages_Roles on ur.RoleId equals r.RoleId
+                                        Roles = ((from ur in entitiesDb.UsersInRoles
+                                                  join r in entitiesDb.Roles on ur.RoleId equals r.RoleId
                                                   where ur.UserId == u.UserId
                                                   && r.RoleName.Equals(roleName, System.StringComparison.OrdinalIgnoreCase)
-                                                  select ur.webpages_Roles).ToList<webpages_Roles>())
+                                                  select ur.webpages_Roles).ToList<Roles>())
                                     }).FirstOrDefault<UserProfile>();
 
                 if (user != null && user.Roles.Count > 0)

@@ -12,7 +12,7 @@ namespace ScrumPoker
     using System;
     using System.Collections.Generic;
     
-    public partial class webpages_OAuthMembership
+    public partial class OAuthMembership
     {
         public string Provider { get; set; }
         public string ProviderUserId { get; set; }

@@ -12,16 +12,16 @@ namespace ScrumPoker
     using System;
     using System.Collections.Generic;
     
-    public partial class webpages_Roles
+    public partial class Roles
     {
-        public webpages_Roles()
+        public Roles()
         {
-            this.webpages_UsersInRoles = new HashSet<webpages_UsersInRoles>();
+            this.webpages_UsersInRoles = new HashSet<UsersInRoles>();
         }
     
         public int RoleId { get; set; }
         public string RoleName { get; set; }
     
-        public virtual ICollection<webpages_UsersInRoles> webpages_UsersInRoles { get; set; }
+        public virtual ICollection<UsersInRoles> webpages_UsersInRoles { get; set; }
     }
 }

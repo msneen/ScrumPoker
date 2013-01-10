@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
-    <EntitySetMapping Name="webpages_Membership">
-      <EntityTypeMapping TypeName="Model.webpages_Membership">
+    <EntitySetMapping Name="Memberships">
+      <EntityTypeMapping TypeName="Model.Membership">
         <MappingFragment StoreEntitySet="webpages_Membership">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
@@ -18,8 +18,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="webpages_OAuthMembership">
-      <EntityTypeMapping TypeName="Model.webpages_OAuthMembership">
+    <EntitySetMapping Name="OAuthMemberships">
+      <EntityTypeMapping TypeName="Model.OAuthMembership">
         <MappingFragment StoreEntitySet="webpages_OAuthMembership">
           <ScalarProperty Name="Provider" ColumnName="Provider" />
           <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
@@ -27,16 +27,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="webpages_Roles">
-      <EntityTypeMapping TypeName="Model.webpages_Roles">
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="Model.Roles">
         <MappingFragment StoreEntitySet="webpages_Roles">
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="webpages_UsersInRoles">
-      <EntityTypeMapping TypeName="Model.webpages_UsersInRoles">
+    <EntitySetMapping Name="UsersInRoles">
+      <EntityTypeMapping TypeName="Model.UsersInRoles">
         <MappingFragment StoreEntitySet="webpages_UsersInRoles">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />

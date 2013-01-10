@@ -30,7 +30,7 @@ namespace ScrumPoker.Models
         public string UserName { get; set; }
 
         [NotMapped]
-        public List<webpages_Roles> Roles { get; set; }
+        public List<Roles> Roles { get; set; }
     }
 
     public class RegisterExternalLoginModel

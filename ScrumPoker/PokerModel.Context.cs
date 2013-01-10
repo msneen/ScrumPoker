@@ -25,9 +25,9 @@ namespace ScrumPoker
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<webpages_Membership> webpages_Membership { get; set; }
-        public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
-        public DbSet<webpages_Roles> webpages_Roles { get; set; }
-        public DbSet<webpages_UsersInRoles> webpages_UsersInRoles { get; set; }
+        public DbSet<Membership> Memberships { get; set; }
+        public DbSet<OAuthMembership> OAuthMemberships { get; set; }
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<UsersInRoles> UsersInRoles { get; set; }
     }
 }

@@ -167,6 +167,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PokerController.cs" />
     <Compile Include="Controllers\UserManagementController.cs" />
+    <Compile Include="Membership.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PokerGame.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -177,6 +180,9 @@
     <Compile Include="Models\TaskEstimate.cs" />
     <Compile Include="Models\TaskEstimates.cs" />
     <Compile Include="Models\Users.cs" />
+    <Compile Include="OAuthMembership.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PokerModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -188,6 +194,9 @@
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ScrumPokerModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -197,19 +206,10 @@
     <Compile Include="Services\ScrumMasterSvc.cs" />
     <Compile Include="Services\SiteAdminSvc.cs" />
     <Compile Include="Services\UserProfileSvc.cs" />
+    <Compile Include="UsersInRoles.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\UserManagement\UserProfileEdit.cs" />
-    <Compile Include="webpages_Membership.cs">
-      <DependentUpon>PokerModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="webpages_OAuthMembership.cs">
-      <DependentUpon>PokerModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="webpages_Roles.cs">
-      <DependentUpon>PokerModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="webpages_UsersInRoles.cs">
-      <DependentUpon>PokerModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

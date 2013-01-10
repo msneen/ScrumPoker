@@ -88,7 +88,7 @@ namespace ScrumPoker.Controllers
                 return HttpNotFound();
             }
 
-            List< webpages_Roles> roles =  _roleSvc.GetAll();
+            List< Roles> roles =  _roleSvc.GetAll();
             UserProfileEdit viewModel = new UserProfileEdit();
             viewModel.UserProfile = userprofile;
             viewModel.Roles = roles;
@@ -106,8 +106,8 @@ namespace ScrumPoker.Controllers
             //Do I need to change the incoming param to UserProfileEdit and then get the UserProfile from it?
             if (ModelState.IsValid)
             {
-                List<webpages_Roles> roles = _roleSvc.GetAll();
-                List<webpages_Roles> originalRoles = _userProfileSvc.Find(userprofile.UserId).Roles;
+                List<Roles> roles = _roleSvc.GetAll();
+                List<Roles> originalRoles = _userProfileSvc.Find(userprofile.UserId).Roles;
                 var Query = (from r in roles                                   
                             select new
                             {
@@ -120,7 +120,7 @@ namespace ScrumPoker.Controllers
                                 WasChecked = (
                                                             ((from or in originalRoles 
                                                             where or.RoleId == r.RoleId 
-                                                            select or).FirstOrDefault<webpages_Roles>()) == null ? false : true
+                                                            select or).FirstOrDefault<Roles>()) == null ? false : true
                                                         )
                             }).ToList();
 
