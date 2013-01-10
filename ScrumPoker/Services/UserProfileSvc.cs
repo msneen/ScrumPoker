@@ -116,5 +116,33 @@ namespace ScrumPoker.Services
                     db.SaveChanges();
                 }
         }
+
+        public static bool IsInRole(string userName, string roleName)
+        {
+            using (UsersContext db = new UsersContext())
+            using (ScrumPoker.Entities entitiesDb = new Entities())
+            {
+
+                List<UserProfile> userProfiles = db.UserProfiles.ToList();
+                UserProfile user = (from u in userProfiles
+                                    where u.UserName.Equals(userName, System.StringComparison.OrdinalIgnoreCase)
+                                    select new UserProfile
+                                    {
+                                        UserId = u.UserId,
+                                        UserName = u.UserName,
+                                        Roles = ((from ur in entitiesDb.webpages_UsersInRoles
+                                                  join r in entitiesDb.webpages_Roles on ur.RoleId equals r.RoleId
+                                                  where ur.UserId == u.UserId
+                                                  && r.RoleName.Equals(roleName, System.StringComparison.OrdinalIgnoreCase)
+                                                  select ur.webpages_Roles).ToList<webpages_Roles>())
+                                    }).FirstOrDefault<UserProfile>();
+
+                if (user != null && user.Roles.Count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }    
 }

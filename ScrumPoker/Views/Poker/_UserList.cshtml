@@ -1,6 +1,6 @@
 ﻿@using ScrumPoker.Models;
 @using ScrumPoker.Services;
-@if ( ScrumMasterSvc.IsScrumMaster() )
+@if ( ScrumMasterSvc.IsScrumMaster(User.Identity.Name) )
 {
     <hr />
     using (Html.BeginForm("AddUser", "Poker", FormMethod.Post))

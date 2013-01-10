@@ -7,10 +7,9 @@ namespace ScrumPoker.Services
 {
     public class SiteAdminSvc
     {
-        public static bool IsSiteAdmin()
+        public static bool IsSiteAdmin(string userName)
         {
-            //this is just temporary.  Should be determined by membership classes
-            return ScrumMasterSvc.IsScrumMaster();
+            return false; // UserProfileSvc.IsInRole(userName, "SiteAdmin"); // turn this on to add roles to your database
         }
     }
 }

@@ -22,7 +22,7 @@
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Scrum Poker", "Vote", "Poker")</li><!-- This line is  a link to the first poker page -->
-                            @if ( ScrumMasterSvc.IsScrumMaster() )
+                            @if ( ScrumMasterSvc.IsScrumMaster(User.Identity.Name) )
                             {
                             <li>@Html.ActionLink("Clear Votes", "ClearVotes", "Poker")</li>
                             <li>@Html.ActionLink("Clear All", "ClearAll", "Poker")</li>
