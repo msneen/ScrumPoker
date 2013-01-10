@@ -3,11 +3,21 @@
   <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Memberships" EntityType="Model.Membership" />
     <EntitySet Name="OAuthMemberships" EntityType="Model.OAuthMembership" />
-    <EntitySet Name="Roles" EntityType="Model.Roles" />
+    <EntitySet Name="Roles1" EntityType="Model.Role" />
     <EntitySet Name="UsersInRoles" EntityType="Model.UsersInRoles" />
     <AssociationSet Name="fk_RoleId" Association="Model.fk_RoleId">
-      <End Role="webpages_Roles" EntitySet="Roles" />
+      <End Role="webpages_Roles" EntitySet="Roles1" />
       <End Role="webpages_UsersInRoles" EntitySet="UsersInRoles" />
+    </AssociationSet>
+    <EntitySet Name="UserProfileScrums" EntityType="Model.UserProfileScrum" />
+    <AssociationSet Name="UsersInRolesUserProfileScrum" Association="Model.UsersInRolesUserProfileScrum">
+      <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+      <End Role="UserProfileScrum" EntitySet="UserProfileScrums" />
+    </AssociationSet>
+    <EntitySet Name="Projects" EntityType="Model.Project" />
+    <AssociationSet Name="FK_Project_UserProfile" Association="Model.FK_Project_UserProfile">
+      <End Role="UserProfileScrum" EntitySet="UserProfileScrums" />
+      <End Role="Project" EntitySet="Projects" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Membership">
@@ -35,7 +45,7 @@
     <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
   </EntityType>
-  <EntityType Name="Roles">
+  <EntityType Name="Role">
     <Key>
       <PropertyRef Name="RoleId" />
     </Key>
@@ -51,9 +61,10 @@
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <Property Name="RoleId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="webpages_Roles" Relationship="Model.fk_RoleId" FromRole="webpages_UsersInRoles" ToRole="webpages_Roles" />
+    <NavigationProperty Name="UserProfileScrum" Relationship="Model.UsersInRolesUserProfileScrum" FromRole="UsersInRoles" ToRole="UserProfileScrum" />
   </EntityType>
   <Association Name="fk_RoleId">
-    <End Role="webpages_Roles" Type="Model.Roles" Multiplicity="1" />
+    <End Role="webpages_Roles" Type="Model.Role" Multiplicity="1" />
     <End Role="webpages_UsersInRoles" Type="Model.UsersInRoles" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="webpages_Roles">
@@ -61,6 +72,50 @@
       </Principal>
       <Dependent Role="webpages_UsersInRoles">
         <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UserProfileScrum">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="UserName" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UsersInRoles" Relationship="Model.UsersInRolesUserProfileScrum" FromRole="UserProfileScrum" ToRole="UsersInRoles" />
+    <NavigationProperty Name="Projects" Relationship="Model.FK_Project_UserProfile" FromRole="UserProfileScrum" ToRole="Project" />
+  </EntityType>
+  <Association Name="UsersInRolesUserProfileScrum">
+    <End Type="Model.UsersInRoles" Role="UsersInRoles" Multiplicity="*" />
+    <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="UserProfileScrum">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UsersInRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="CreatedUserId" Nullable="false" />
+    <NavigationProperty Name="UserProfile" Relationship="Model.FK_Project_UserProfile" FromRole="Project" ToRole="UserProfileScrum" />
+  </EntityType>
+  <Association Name="FK_Project_UserProfile">
+    <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1" />
+    <End Type="Model.Project" Role="Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfileScrum">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="CreatedUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

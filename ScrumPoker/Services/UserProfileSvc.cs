@@ -23,7 +23,7 @@ namespace ScrumPoker.Services
                                       UserName = u.UserName,
                                       Roles = ((from ur in entitiesDb.UsersInRoles
                                                 where ur.UserId == u.UserId
-                                                select ur.webpages_Roles).ToList<Roles>())
+                                                select ur.webpages_Roles).ToList<Role>())
                                   }).ToList<UserProfile>();
 
                 profilesWithRoles = Rolesquery;
@@ -46,7 +46,7 @@ namespace ScrumPoker.Services
                                       UserName = u.UserName,
                                       Roles = ((from ur in entitiesDb.UsersInRoles
                                                 where ur.UserId == u.UserId
-                                                select ur.webpages_Roles).ToList<Roles>())
+                                                select ur.webpages_Roles).ToList<Role>())
                                   }).ToList<UserProfile>();
 
                 return Rolesquery.FirstOrDefault<UserProfile>();
@@ -131,10 +131,10 @@ namespace ScrumPoker.Services
                                         UserId = u.UserId,
                                         UserName = u.UserName,
                                         Roles = ((from ur in entitiesDb.UsersInRoles
-                                                  join r in entitiesDb.Roles on ur.RoleId equals r.RoleId
+                                                  join r in entitiesDb.Roles1 on ur.RoleId equals r.RoleId
                                                   where ur.UserId == u.UserId
                                                   && r.RoleName.Equals(roleName, System.StringComparison.OrdinalIgnoreCase)
-                                                  select ur.webpages_Roles).ToList<Roles>())
+                                                  select ur.webpages_Roles).ToList<Role>())
                                     }).FirstOrDefault<UserProfile>();
 
                 if (user != null && user.Roles.Count > 0)

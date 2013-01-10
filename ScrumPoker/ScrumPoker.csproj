@@ -193,8 +193,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Project.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Roles.cs">
+    <Compile Include="Role.cs">
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ScrumPokerModel.Designer.cs">
@@ -206,6 +209,9 @@
     <Compile Include="Services\ScrumMasterSvc.cs" />
     <Compile Include="Services\SiteAdminSvc.cs" />
     <Compile Include="Services\UserProfileSvc.cs" />
+    <Compile Include="UserProfileScrum.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="UsersInRoles.cs">
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>

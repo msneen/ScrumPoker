@@ -27,7 +27,9 @@ namespace ScrumPoker
     
         public DbSet<Membership> Memberships { get; set; }
         public DbSet<OAuthMembership> OAuthMemberships { get; set; }
-        public DbSet<Roles> Roles { get; set; }
+        public DbSet<Role> Roles1 { get; set; }
         public DbSet<UsersInRoles> UsersInRoles { get; set; }
+        public DbSet<UserProfileScrum> UserProfileScrums { get; set; }
+        public DbSet<Project> Projects { get; set; }
     }
 }

@@ -1,15 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Project" EntityType="Model.Store.Project" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserProfile" EntityType="Model.Store.UserProfile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_Membership" EntityType="Model.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_OAuthMembership" EntityType="Model.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_Roles" EntityType="Model.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_UsersInRoles" EntityType="Model.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Project_UserProfile" Association="Model.Store.FK_Project_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
     <AssociationSet Name="fk_RoleId" Association="Model.Store.fk_RoleId">
       <End Role="webpages_Roles" EntitySet="webpages_Roles" />
       <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
     </AssociationSet>
+    <AssociationSet Name="fk_UserId" Association="Model.Store.fk_UserId">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreatedUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="webpages_Membership">
     <Key>
       <PropertyRef Name="UserId" />
@@ -50,6 +75,18 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="RoleId" Type="int" Nullable="false" />
   </EntityType>
+  <Association Name="FK_Project_UserProfile">
+    <End Role="UserProfile" Type="Model.Store.UserProfile" Multiplicity="1" />
+    <End Role="Project" Type="Model.Store.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="CreatedUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_RoleId">
     <End Role="webpages_Roles" Type="Model.Store.webpages_Roles" Multiplicity="1" />
     <End Role="webpages_UsersInRoles" Type="Model.Store.webpages_UsersInRoles" Multiplicity="*" />
@@ -59,6 +96,18 @@
       </Principal>
       <Dependent Role="webpages_UsersInRoles">
         <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_UserId">
+    <End Role="UserProfile" Type="Model.Store.UserProfile" Multiplicity="1" />
+    <End Role="webpages_UsersInRoles" Type="Model.Store.webpages_UsersInRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="webpages_UsersInRoles">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

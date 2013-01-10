@@ -27,7 +27,10 @@
                             <li>@Html.ActionLink("Clear Votes", "ClearVotes", "Poker")</li>
                             <li>@Html.ActionLink("Clear All", "ClearAll", "Poker")</li>
                             }
-                            @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                            @if (SiteAdminSvc.IsSiteAdmin(User.Identity.Name))
+                            {
+                            <li>@Html.ActionLink("Administer Users", "Index", "UserManagement")</li>
+                            }
                         </ul>
                     </nav>
                 </div>

@@ -12,9 +12,9 @@ namespace ScrumPoker
     using System;
     using System.Collections.Generic;
     
-    public partial class Roles
+    public partial class Role
     {
-        public Roles()
+        public Role()
         {
             this.webpages_UsersInRoles = new HashSet<UsersInRoles>();
         }

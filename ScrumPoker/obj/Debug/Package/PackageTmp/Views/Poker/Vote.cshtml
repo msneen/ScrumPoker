@@ -32,10 +32,10 @@
 }
 @Html.Partial("_UserList")<br />
 
-@if ( SiteAdminSvc.IsSiteAdmin(User.Identity.Name) )
+@*@if ( SiteAdminSvc.IsSiteAdmin(User.Identity.Name) )
 {
     using (Html.BeginForm("MakeRoles", "Poker", FormMethod.Post))
     {
         <input type="submit" value="Add Roles"/>
     }
-}
+}*@

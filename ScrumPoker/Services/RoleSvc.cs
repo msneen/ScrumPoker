@@ -7,13 +7,13 @@ namespace ScrumPoker.Services
 {
     public class RoleSvc
     {
-        public List<Roles> GetAll()
+        public List<Role> GetAll()
         {
 
             using (ScrumPoker.Entities entitiesDb = new Entities())
             {
-                var Rolesquery = (from r in entitiesDb.Roles
-                                  select r).ToList<Roles>();
+                var Rolesquery = (from r in entitiesDb.Roles1
+                                  select r).ToList<Role>();
                 
                 return Rolesquery;
             }            

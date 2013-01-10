@@ -164,15 +164,15 @@ namespace ScrumPoker.Controllers
         {
             using (var db = new ScrumPoker.Entities())
             {
-                var developerQuery = from r in db.Roles
+                var developerQuery = from r in db.Roles1
                                      where r.RoleName == roleName
                                      select r;
 
                 if (developerQuery.Count() < 1)
                 {
-                    Roles newRole = new Roles();
+                    Role newRole = new Role();
                     newRole.RoleName = roleName;
-                    db.Roles.Add(newRole);
+                    db.Roles1.Add(newRole);
                     db.SaveChanges();
                 }
             }

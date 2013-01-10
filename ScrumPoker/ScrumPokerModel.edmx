@@ -4,17 +4,42 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Project" EntityType="Model.Store.Project" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfile" EntityType="Model.Store.UserProfile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Membership" EntityType="Model.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Model.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Roles" EntityType="Model.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_UsersInRoles" EntityType="Model.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Project_UserProfile" Association="Model.Store.FK_Project_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
           <AssociationSet Name="fk_RoleId" Association="Model.Store.fk_RoleId">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
+          <AssociationSet Name="fk_UserId" Association="Model.Store.fk_UserId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreatedUserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
             <PropertyRef Name="UserId" />
@@ -55,6 +80,18 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Project_UserProfile">
+          <End Role="UserProfile" Type="Model.Store.UserProfile" Multiplicity="1" />
+          <End Role="Project" Type="Model.Store.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_RoleId">
           <End Role="webpages_Roles" Type="Model.Store.webpages_Roles" Multiplicity="1" />
           <End Role="webpages_UsersInRoles" Type="Model.Store.webpages_UsersInRoles" Multiplicity="*" />
@@ -67,19 +104,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+        <Association Name="fk_UserId">
+          <End Role="UserProfile" Type="Model.Store.UserProfile" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Model.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Memberships" EntityType="Model.Membership" />
           <EntitySet Name="OAuthMemberships" EntityType="Model.OAuthMembership" />
-          <EntitySet Name="Roles" EntityType="Model.Roles" />
+          <EntitySet Name="Roles1" EntityType="Model.Role" />
           <EntitySet Name="UsersInRoles" EntityType="Model.UsersInRoles" />
           <AssociationSet Name="fk_RoleId" Association="Model.fk_RoleId">
-            <End Role="webpages_Roles" EntitySet="Roles" />
+            <End Role="webpages_Roles" EntitySet="Roles1" />
             <End Role="webpages_UsersInRoles" EntitySet="UsersInRoles" />
+          </AssociationSet>
+          <EntitySet Name="UserProfileScrums" EntityType="Model.UserProfileScrum" />
+          <AssociationSet Name="UsersInRolesUserProfileScrum" Association="Model.UsersInRolesUserProfileScrum">
+            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+            <End Role="UserProfileScrum" EntitySet="UserProfileScrums" />
+          </AssociationSet>
+          <EntitySet Name="Projects" EntityType="Model.Project" />
+          <AssociationSet Name="FK_Project_UserProfile" Association="Model.FK_Project_UserProfile">
+            <End Role="UserProfileScrum" EntitySet="UserProfileScrums" />
+            <End Role="Project" EntitySet="Projects" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Membership">
@@ -107,7 +165,7 @@
           <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Roles">
+        <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
@@ -123,9 +181,10 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="webpages_Roles" Relationship="Model.fk_RoleId" FromRole="webpages_UsersInRoles" ToRole="webpages_Roles" />
+          <NavigationProperty Name="UserProfileScrum" Relationship="Model.UsersInRolesUserProfileScrum" FromRole="UsersInRoles" ToRole="UserProfileScrum" />
         </EntityType>
         <Association Name="fk_RoleId">
-          <End Role="webpages_Roles" Type="Model.Roles" Multiplicity="1" />
+          <End Role="webpages_Roles" Type="Model.Role" Multiplicity="1" />
           <End Role="webpages_UsersInRoles" Type="Model.UsersInRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="webpages_Roles">
@@ -133,6 +192,50 @@
             </Principal>
             <Dependent Role="webpages_UsersInRoles">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserProfileScrum">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UsersInRoles" Relationship="Model.UsersInRolesUserProfileScrum" FromRole="UserProfileScrum" ToRole="UsersInRoles" />
+          <NavigationProperty Name="Projects" Relationship="Model.FK_Project_UserProfile" FromRole="UserProfileScrum" ToRole="Project" />
+        </EntityType>
+        <Association Name="UsersInRolesUserProfileScrum">
+          <End Type="Model.UsersInRoles" Role="UsersInRoles" Multiplicity="*" />
+          <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="UserProfileScrum">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CreatedUserId" Nullable="false" />
+          <NavigationProperty Name="UserProfile" Relationship="Model.FK_Project_UserProfile" FromRole="Project" ToRole="UserProfileScrum" />
+        </EntityType>
+        <Association Name="FK_Project_UserProfile">
+          <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1" />
+          <End Type="Model.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfileScrum">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CreatedUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -160,7 +263,7 @@
             <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
             <ScalarProperty Name="UserId" ColumnName="UserId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Roles"><EntityTypeMapping TypeName="Model.Roles"><MappingFragment StoreEntitySet="webpages_Roles">
+          <EntitySetMapping Name="Roles1"><EntityTypeMapping TypeName="Model.Role"><MappingFragment StoreEntitySet="webpages_Roles">
             <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             <ScalarProperty Name="RoleName" ColumnName="RoleName" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
@@ -168,6 +271,23 @@
             <ScalarProperty Name="UserId" ColumnName="UserId" />
             <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="UserProfileScrums">
+            <EntityTypeMapping TypeName="Model.UserProfileScrum">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="Model.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -190,15 +310,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="ScrumPokerModel">
-        <EntityTypeShape EntityType="Model.Membership" Width="2.625" PointX="0.75" PointY="3.75" Height="3.1340950520833335" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.OAuthMembership" Width="2.5" PointX="6" PointY="4.25" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Roles" Width="2.25" PointX="0.75" PointY="0.875" Height="1.5956835937499994" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.UsersInRoles" Width="2.75" PointX="5.25" PointY="1.125" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Membership" Width="2.625" PointX="0.625" PointY="3.125" Height="3.1340950520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.OAuthMembership" Width="2.5" PointX="4.125" PointY="3.5" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Role" Width="2.25" PointX="0.75" PointY="0.875" Height="1.5956835937499994" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.UsersInRoles" Width="2.75" PointX="4.625" PointY="0.875" Height="1.7879850260416661" IsExpanded="true" />
         <AssociationConnector Association="Model.fk_RoleId" ManuallyRouted="false">
-          <ConnectorPoint PointX="3" PointY="1.7978417968749998" />
-          <ConnectorPoint PointX="5.25" PointY="1.7978417968749998" />
+          <ConnectorPoint PointX="3" PointY="1.6728417968749998" />
+          <ConnectorPoint PointX="4.625" PointY="1.6728417968749998" />
         </AssociationConnector>
-      </Diagram>
+        <EntityTypeShape EntityType="Model.UserProfileScrum" Width="1.875" PointX="9.125" PointY="0.875" Height="1.59568359375" />
+        <AssociationConnector Association="Model.UsersInRolesUserProfileScrum">
+          <ConnectorPoint PointX="7.375" PointY="1.7689925130208328" />
+          <ConnectorPoint PointX="9.125" PointY="1.7689925130208328" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.Project" Width="1.5" PointX="9.25" PointY="3.75" Height="1.7879850260416674" />
+        <AssociationConnector Association="Model.FK_Project_UserProfile" >
+          <ConnectorPoint PointX="10" PointY="2.6629850260416665" />
+          <ConnectorPoint PointX="10" PointY="3.75" />
+        </AssociationConnector>
+        </Diagram>
     </Diagrams>
   </Designer>
 </edmx:Edmx>

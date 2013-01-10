@@ -10,6 +10,6 @@ namespace ScrumPoker.ViewModels.UserManagement
     {
         public UserProfile UserProfile { get; set; }
 
-        public List<ScrumPoker.Roles> Roles { get; set; }
+        public List<ScrumPoker.Role> Roles { get; set; }
     }
 }

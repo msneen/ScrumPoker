@@ -12,12 +12,18 @@ namespace ScrumPoker
     using System;
     using System.Collections.Generic;
     
-    public partial class UsersInRoles
+    public partial class UserProfileScrum
     {
-        public int UserId { get; set; }
-        public int RoleId { get; set; }
+        public UserProfileScrum()
+        {
+            this.UsersInRoles = new HashSet<UsersInRoles>();
+            this.Projects = new HashSet<Project>();
+        }
     
-        public virtual Role webpages_Roles { get; set; }
-        public virtual UserProfileScrum UserProfileScrum { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+    
+        public virtual ICollection<UsersInRoles> UsersInRoles { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
     }
 }
