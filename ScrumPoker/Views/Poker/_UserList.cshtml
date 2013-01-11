@@ -20,7 +20,9 @@
             <div>
             @if (Model.ProjectId > 0)
             {
-                @Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http")
+                <div>
+                    @Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId })
+                </div>
             }
             </div>
             <div>

@@ -6,19 +6,15 @@
     ViewBag.Title = "Scrum Poker";
 }
     @section scripts  {
-        <script language="javascript" type="text/javascript">
-            var getVotesAjaxUrl = '@Url.Action("GetVotes", "Poker")';
-            var clearVotesAjaxUrl = '@Url.Action("ClearVotes", "Poker")';
-            var clearAllAjaxUrl = '@Url.Action("ClearAll", "Poker")';
-        </script>
+        @Html.Partial("_ScrumPokerJs", Model)<br />
     }
-<h2>Scrum Poker <span id="spnProjectName">@Html.DisplayFor(model => model.ProjectName)</span></h2>
+<h2>Project - <span id="spnProjectName">@Html.DisplayFor(model => model.ProjectName)</span></h2>
 @using (Html.BeginForm("Vote", "Poker", FormMethod.Post))
 {
         <br />
         <div>
         <div>First Name*</div>
-    @Html.TextBox("firstName", (string)ViewBag.FirstName, new { id = "firstName", maxlength="12", size="12", list="users" })
+    @Html.TextBox("firstName", (string)ViewBag.FirstName, new { id = "firstName", maxlength = "12", size = "12", list = "users" })
     <datalist id="users">
         @foreach (User user in Users.UserList)
         {
@@ -30,7 +26,10 @@
     <div>
     @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:35px; background-color:red;font-size: xx-large;", type = "number" })
     @Html.Hidden("projectid", Model.ProjectId)
-    <input id="SubmitVote" type="button" value="Vote"/>
+    @{
+        string disabled = Model.ProjectId > 0 ? "" : "disabled";
+    <input id="SubmitVote" type="button" value="Vote" @disabled/>
+    }
     </div>
     @Html.Partial("_UserVotes")     
 }
