@@ -1,5 +1,7 @@
 ﻿@using ScrumPoker.Models;
 @using ScrumPoker.Services;
+@using ScrumPoker.ViewModels.Poker;
+@model PokerVm
 @{
     ViewBag.Title = "Scrum Poker";
 }
@@ -25,12 +27,12 @@
     <br />    
     <div>
     @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:35px; background-color:red;font-size: xx-large;", type = "number" })
-    
+    @Html.Hidden("projectid", Model.ProjectId)
     <input id="SubmitVote" type="button" value="Vote"/>
     </div>
     @Html.Partial("_UserVotes")     
 }
-@Html.Partial("_UserList")<br />
+@Html.Partial("_UserList", Model)<br />
 
 @*@if ( SiteAdminSvc.IsSiteAdmin(User.Identity.Name) )
 {

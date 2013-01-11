@@ -10,5 +10,6 @@ namespace ScrumPoker.Models
         public TaskEstimate UserEstimate { get; set; }
         public List<TaskEstimate> Votes { get; set; }
         public UserProfile UserProfile { get; set; }
+        public int ProjectId { get; set; }
     }
 }

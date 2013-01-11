@@ -13,6 +13,7 @@ var PokerGame = new function () {
     this.Votes = $.extend({}, []);
     this.UserProfile = $.extend({}, logonUserProfile);
     this.UserEstimate = $.extend({}, newUserEstimate);
+    this.ProjectId = 0;
 }
 
 function GetVotes(callback) {
@@ -68,6 +69,7 @@ $(document).ready(function () {
             PokerGame.UserEstimate.Name = $("#firstName").val();
             PokerGame.UserEstimate.Estimate = $("#estimate").val();
             $("#estimate").val("");
+            PokerGame.ProjectId = $("#projectid").val();
             RefreshVotes();
         }
     });

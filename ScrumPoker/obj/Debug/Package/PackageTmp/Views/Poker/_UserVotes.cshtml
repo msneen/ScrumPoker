@@ -1,20 +1,21 @@
 ﻿    @using ScrumPoker;
     @using ScrumPoker.Models;   
-   
     <hr />
     <table id="tblVotes">
             <thead>
-              @{int colorCounter = 0;
-                List<TaskEstimate> taskEstimates = TaskEstimates.EstimateList;
-                taskEstimates.Sort(delegate(TaskEstimate T1, TaskEstimate T2) 
-                { 
-                    return T1.Estimate.CompareTo(T2.Estimate); 
+                @{int colorCounter = 0;
+                List<TaskEstimate> taskEstimates = TaskEstimates.GetEstimateList();  
+                taskEstimates.Sort(delegate(TaskEstimate T1, TaskEstimate T2)
+                {
+                    return T1.Estimate.CompareTo(T2.Estimate);
                 }); //Sort
-              }
-            @foreach (var taskEstimate in taskEstimates)
-            {
-                <td>@taskEstimate.Name</td>
-            }
+                }
+              
+                @foreach (var taskEstimate in taskEstimates)
+                {
+                    <td>@taskEstimate.Name</td>
+                }
+                    
             </thead>
             <tbody>
                 <tr>
@@ -27,4 +28,5 @@
                 </tr>
             </tbody>
     </table>
+     
  
