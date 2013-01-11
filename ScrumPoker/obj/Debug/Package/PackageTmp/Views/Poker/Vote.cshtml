@@ -12,7 +12,7 @@
             var clearAllAjaxUrl = '@Url.Action("ClearAll", "Poker")';
         </script>
     }
-<h2>Scrum Poker</h2>
+<h2>Scrum Poker <span id="spnProjectName">@Html.DisplayFor(model => model.ProjectName)</span></h2>
 @using (Html.BeginForm("Vote", "Poker", FormMethod.Post))
 {
         <br />

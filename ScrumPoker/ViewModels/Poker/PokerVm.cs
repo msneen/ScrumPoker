@@ -8,6 +8,7 @@ namespace ScrumPoker.ViewModels.Poker
     public class PokerVm
     {
         public int ProjectId { get; set; }
+        public string ProjectName { get; set; }
 
         public List<Project> Projects { get; set; }        
     }

@@ -82,15 +82,18 @@ namespace ScrumPoker.Services
 
         public bool IsInRole(UserProfile userProfile, string roleName)
         {
-            UserProfile currentProfile = Find(userProfile.UserId);
-
-            var query = (from r in currentProfile.Roles
-                        where r.RoleName == roleName
-                        select r).FirstOrDefault();
-
-            if (query != null)
+            if (userProfile != null && !string.IsNullOrEmpty(roleName))
             {
-                return true;
+                UserProfile currentProfile = Find(userProfile.UserId);
+
+                var query = (from r in currentProfile.Roles
+                             where r.RoleName == roleName
+                             select r).FirstOrDefault();
+
+                if (query != null)
+                {
+                    return true;
+                }
             }
             return false;
         }

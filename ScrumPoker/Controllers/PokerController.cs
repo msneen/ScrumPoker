@@ -28,10 +28,19 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Vote(string estimate, string firstname, string id)
         {
+            int projectId = 0;
             if (!string.IsNullOrEmpty(id))
             {
-                int projectId = GetProjectId(); ;
+                int.TryParse(id, out projectId);
+            }
+            else
+            {
+                projectId = GetProjectId(); ;
+            }
 
+            if (projectId > 0)
+            {
+                Session["CurrentProjectId"] = projectId;
                 SaveEstimateToSession(estimate, firstname, projectId);
 
                 ViewBag.Estimate = estimate;
@@ -64,6 +73,7 @@ namespace ScrumPoker.Controllers
 
             pokerVm.Projects = projects;
             pokerVm.ProjectId = GetProjectId();
+            pokerVm.ProjectName = GetProjectName(pokerVm.ProjectId);
             return pokerVm;
         }
 
@@ -184,6 +194,8 @@ namespace ScrumPoker.Controllers
                                          where up.UserName == User.Identity.Name
                                          select up).FirstOrDefault();
             }
+            
+            pokerGame.ProjectName = GetProjectName(pokerGame.ProjectId);
             pokerGame.Votes = TaskEstimates.GetEstimateList(pokerGame.ProjectId);
             pokerGame.Votes.Sort(delegate(TaskEstimate T1, TaskEstimate T2) 
             { 
@@ -206,6 +218,19 @@ namespace ScrumPoker.Controllers
 
             JsonResult jsonResult = Json(pokerGame, JsonRequestBehavior.AllowGet);
             return jsonResult;
+        }
+
+        private static string GetProjectName(int projectId)
+        {
+            string projectName = "";
+            if (projectId > 0)
+            {
+                using (Entities db = new Entities())
+                {
+                    projectName = db.Projects.Find(projectId).ProjectName;
+                }
+            }
+            return projectName;
         }
 
         private static void AddRole(string roleName)

@@ -14,6 +14,7 @@ var PokerGame = new function () {
     this.UserProfile = $.extend({}, logonUserProfile);
     this.UserEstimate = $.extend({}, newUserEstimate);
     this.ProjectId = 0;
+    this.ProjectName = "";
 }
 function ClearAll(callback) {
     CallServer(clearAllAjaxUrl, callback); //getVotesAjaxUrl is in Votes @script section
@@ -49,7 +50,9 @@ function CallServer(url, callback) {
 function WriteVotes() {
     $("#tblVotes > thead").find("td").remove();
     $("#tblVotes > tbody > tr").find("td").remove();
-
+    if (PokerGame.ProjectName.length > 0) {
+        $("#spnProjectName").html(PokerGame.ProjectName);
+    }
     var colorCounter = 0;
 
     for (var i = 0; i < PokerGame.Votes.length; i++) {       
