@@ -135,35 +135,28 @@ namespace ScrumPoker.Controllers
             return RedirectToAction("Vote", "Poker", new { @id = GetProjectId() });
         }
 
-        public ActionResult ClearAll()
+        public JsonResult ClearAll(PokerGame pokerGame)
         {
             TaskEstimates.SetEstimateList(new List<TaskEstimate>());
             Users.UserList = new List<User>();
 
-            return RedirectToAction("Vote", "Poker", new { @id = GetProjectId() });
+            return GetVotes(pokerGame);
         }
 
-       
-        public ActionResult ClearVotes()
+        public JsonResult ClearVotes(PokerGame pokerGame)
         {
-            return ClearAllVotes();
+            ClearAllVotes();
+
+            return GetVotes(pokerGame);
         }
 
-        [HttpPost]
-        public ActionResult ClearVotes(string id)
-        {
-            return ClearAllVotes();
-        }
-
-        private ActionResult ClearAllVotes()
+        private void ClearAllVotes()
         {
 
                 foreach (var estimate in TaskEstimates.GetEstimateList())
                 {
                     estimate.Estimate = "";
                 }
-            //int projectId = 
-                return RedirectToAction("Vote", "Poker", new { @id = GetProjectId() });
         }
 
         [HttpPost]

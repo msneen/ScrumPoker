@@ -24,8 +24,8 @@
                             <li>@Html.ActionLink("Scrum Poker", "Vote", "Poker")</li><!-- This line is  a link to the first poker page -->
                             @if ( ScrumMasterSvc.IsScrumMaster(User.Identity.Name) )
                             {
-                            <li>@Html.ActionLink("Clear Votes", "ClearVotes", "Poker")</li>
-                            <li>@Html.ActionLink("Clear All", "ClearAll", "Poker")</li>
+                                <li><a href="#" id="aClearVotes">Clear Votes</a></li>
+                                <li><a href="#" id="aClearAll">Clear All</a></li>
                             <li>@Html.ActionLink("Projects", "Index", "Project")</li>    
                             }
                             @if (SiteAdminSvc.IsSiteAdmin(User.Identity.Name))

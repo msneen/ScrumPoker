@@ -15,9 +15,15 @@ var PokerGame = new function () {
     this.UserEstimate = $.extend({}, newUserEstimate);
     this.ProjectId = 0;
 }
+function ClearAll(callback) {
+    CallServer(clearAllAjaxUrl, callback); //getVotesAjaxUrl is in Votes @script section
+}
+function ClearVotes(callback) {
+    CallServer(clearVotesAjaxUrl, callback); //getVotesAjaxUrl is in Votes @script section
+}
 
 function GetVotes(callback) {
-    CallServer(getVotesAjaxUrl, callback); //getVotesAjaxUrl is in _UserVotes @script section
+    CallServer(getVotesAjaxUrl, callback); //getVotesAjaxUrl is in Votes @script section
 }
 
 var isRefreshed = false;
@@ -72,6 +78,13 @@ $(document).ready(function () {
             PokerGame.ProjectId = $("#projectid").val();
             RefreshVotes();
         }
+    });
+
+    $("#aClearVotes").click(function () {
+        ClearVotes(WriteVotes);
+    });
+    $("#aClearAll").click(function () {
+        ClearAll(WriteVotes);
     });
     keepRefreshing = true;
     RefreshVotes();
