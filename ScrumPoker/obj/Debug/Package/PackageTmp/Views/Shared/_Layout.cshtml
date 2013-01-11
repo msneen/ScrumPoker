@@ -21,16 +21,16 @@
                     </section>
                     <nav>
                         <ul id="menu">
-                            <li>@Html.ActionLink("Scrum Poker", "Vote", "Poker")</li><!-- This line is  a link to the first poker page -->
+                            <li>@Html.ActionLink("Poker", "Vote", "Poker")</li><!-- This line is  a link to the first poker page -->
                             @if ( ScrumMasterSvc.IsScrumMaster(User.Identity.Name) )
                             {
-                                <li><a href="#" id="aClearVotes">Clear Votes</a></li>
-                                <li><a href="#" id="aClearAll">Clear All</a></li>
+                                <li><a href="#" id="aClearVotes">Clear</a></li>
+                                <li><a href="#" id="aClearAll">Reset</a></li>
                             <li>@Html.ActionLink("Projects", "Index", "Project")</li>    
                             }
                             @if (SiteAdminSvc.IsSiteAdmin(User.Identity.Name))
                             {
-                            <li>@Html.ActionLink("Administer Users", "Index", "UserManagement")</li>
+                            <li>@Html.ActionLink("Users", "Index", "UserManagement")</li>
                             }
                         </ul>
                     </nav>
