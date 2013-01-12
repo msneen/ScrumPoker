@@ -6,18 +6,15 @@
     var getVotesAjaxUrl = '@Url.Action("GetVotes", "Poker")';
     var clearVotesAjaxUrl = '@Url.Action("ClearVotes", "Poker")';
     var clearAllAjaxUrl = '@Url.Action("ClearAll", "Poker")';
-
     var colors = ["Red", "Green", "Cyan", "Chartreuse", "Coral"];
     var logonUserProfile = {
         UserName: "",
         UserId: 0
     };
-
     var newUserEstimate = {
         Name: "",
         Estimate: ""
     }
-
     var PokerGame = new function () {
         this.Votes = $.extend({}, []);
         this.UserProfile = $.extend({}, logonUserProfile);
@@ -31,11 +28,9 @@
     function ClearVotes(callback) {
         CallServer(clearVotesAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
     }
-
     function GetVotes(callback) {
         CallServer(getVotesAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
     }
-
     var isRefreshed = false;
     function CallServer(url, callback) {
         isRefreshed = false;
@@ -55,13 +50,11 @@
             }
         });
     }
-
     function WriteVotes() {
         $("#tblVotes > thead").find("td").remove();
-        $("#tblVotes > tbody > tr").find("td").remove();
-        if (PokerGame.ProjectName.length > 0) {
-            $("#spnProjectName").html(PokerGame.ProjectName);
-        }
+        $("#tblVotes > tbody > tr").find("td").remove();       
+        $("#spnProjectName").html(PokerGame.ProjectName);
+        
         var colorCounter = 0;
 
         for (var i = 0; i < PokerGame.Votes.length; i++) {
@@ -72,26 +65,25 @@
             colorCounter += 1;
         }
     }
-
     var keepRefreshing = false;
     function RefreshVotes() {
+        if ($("#firstName").val().length != 0) {
+            PokerGame.UserEstimate.Name = $("#firstName").val();
+            PokerGame.ProjectId = $("#projectid").val();
+        }
         GetVotes(WriteVotes);
         if (keepRefreshing == true) {
             setTimeout('RefreshVotes()', 3000);
         }
     }
-
     $(document).ready(function () {
         $("#SubmitVote").click(function () {
-            if ($("#firstName").val().length != 0 && $("#estimate").val().length != 0) {
-                PokerGame.UserEstimate.Name = $("#firstName").val();
+            if ($("#firstName").val().length != 0) {
                 PokerGame.UserEstimate.Estimate = $("#estimate").val();
                 $("#estimate").val("");
-                PokerGame.ProjectId = $("#projectid").val();
                 RefreshVotes();
             }
         });
-
         $("#aClearVotes").click(function () {
             ClearVotes(WriteVotes);
         });
@@ -101,5 +93,4 @@
         keepRefreshing = true;
         RefreshVotes();
     });
-
 </script>

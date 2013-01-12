@@ -149,7 +149,8 @@ namespace ScrumPoker.Controllers
         {
             TaskEstimates.SetEstimateList(new List<TaskEstimate>());
             Users.UserList = new List<User>();
-
+            pokerGame.ProjectId = 0;
+            pokerGame.ProjectName = "";
             return GetVotes(pokerGame);
         }
 
