@@ -172,7 +172,6 @@
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PokerGame.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -180,7 +179,6 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\TaskEstimate.cs" />
     <Compile Include="Models\TaskEstimates.cs" />
-    <Compile Include="Models\Users.cs" />
     <Compile Include="OAuthMembership.cs">
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>

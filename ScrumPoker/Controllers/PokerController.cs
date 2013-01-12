@@ -108,17 +108,8 @@ namespace ScrumPoker.Controllers
 
         private void SaveEstimateToSession(string estimate, string firstname, int projectId)
         {
-            var user = (from u in Users.UserList
-                        where u.UserName == firstname
-                        select u).FirstOrDefault<User>();
-
             if (!string.IsNullOrEmpty(estimate)   //if "estimate" contains a value
-                    && !string.IsNullOrEmpty(firstname)  //and "firstname" contains a value
-                    && (Users.UserList.Count == 0 ||  //and the userlist doesn't have any values
-                                (Users.UserList.Count > 0  // OR the userlist does have values, and the submitted "firstname" is in the list of users.
-                                && user != null  //To see the list of users, you must be logged in as one of the developers with firstInitialLastname
-                                )
-                            )
+                    && !string.IsNullOrEmpty(firstname)  //and "firstname" contains a value                    
                 )
             {
                 Session["FirstName"] = firstname;
@@ -164,7 +155,6 @@ namespace ScrumPoker.Controllers
         public JsonResult ClearAll(PokerGame pokerGame)
         {
             TaskEstimates.SetEstimateList(new List<TaskEstimate>());
-            Users.UserList = new List<User>();
             SetProject( null);
             pokerGame.ProjectId = 0;
             pokerGame.ProjectName = "";

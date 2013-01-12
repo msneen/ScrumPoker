@@ -29,12 +29,12 @@
         
         @Html.TextBox("firstName", (string)ViewBag.FirstName, displayMode)
     }
-    <datalist id="users">
+@*    <datalist id="users"> ** mwsTodo: Make this read from Project.TeamMembers when it isn't null
         @foreach (User user in Users.UserList)
         {
             <option>@user.UserName</option>
         }
-    </datalist>
+    </datalist>*@
     </div>
     <br />    
     <div>
