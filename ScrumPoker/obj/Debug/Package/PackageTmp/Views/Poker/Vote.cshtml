@@ -14,7 +14,16 @@
         <br />
         <div>
         <div>First Name*</div>
-    @Html.TextBox("firstName", (string)ViewBag.FirstName, new { id = "firstName", maxlength = "12", size = "12", list = "users" })
+
+    @{
+        object displayMode = new {id = "firstName", maxlength = "12", size = "12", list = "users" };
+        if( !string.IsNullOrEmpty(Model.FirstName))
+        {
+            displayMode = new {id = "firstName", maxlength = "12", size = "12", list = "users", disabled = "disabled" };
+        }
+        
+        @Html.TextBox("firstName", (string)ViewBag.FirstName, displayMode)
+    }
     <datalist id="users">
         @foreach (User user in Users.UserList)
         {

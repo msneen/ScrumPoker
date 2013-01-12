@@ -6,7 +6,7 @@
     var getVotesAjaxUrl = '@Url.Action("GetVotes", "Poker")';
     var clearVotesAjaxUrl = '@Url.Action("ClearVotes", "Poker")';
     var clearAllAjaxUrl = '@Url.Action("ClearAll", "Poker")';
-    var colors = ["Red", "Green", "Cyan", "Chartreuse", "Coral"];
+    var colors = ["White", "Red", "Green", "Pink", "Blue", "Magenta", "Cyan", "Chartreuse", "Coral"];
     var logonUserProfile = {
         UserName: "",
         UserId: 0
@@ -60,16 +60,16 @@
         for (var i = 0; i < PokerGame.Votes.length; i++) {
             $("#tblVotes > thead").append('<td>' + PokerGame.Votes[i].Name + '</td>');
 
-            var colorIndex = colorCounter % 5;
+            var colorIndex = colorCounter % 8;
             $("#tblVotes > tbody > tr").append("<td style='height:40px;font-size:xx-large;text-align:center;background-color:" + colors[colorIndex] + "'>" + PokerGame.Votes[i].Estimate + "</td>");
             colorCounter += 1;
         }
     }
     var keepRefreshing = false;
     function RefreshVotes() {
+        PokerGame.ProjectId = $("#projectid").val();
         if ($("#firstName").val().length != 0) {
-            PokerGame.UserEstimate.Name = $("#firstName").val();
-            PokerGame.ProjectId = $("#projectid").val();
+            PokerGame.UserEstimate.Name = $("#firstName").val();           
         }
         GetVotes(WriteVotes);
         if (keepRefreshing == true) {
@@ -79,6 +79,7 @@
     $(document).ready(function () {
         $("#SubmitVote").click(function () {
             if ($("#firstName").val().length != 0) {
+                $("#firstName").attr("disabled","disabled");
                 PokerGame.UserEstimate.Estimate = $("#estimate").val();
                 $("#estimate").val("");
                 RefreshVotes();

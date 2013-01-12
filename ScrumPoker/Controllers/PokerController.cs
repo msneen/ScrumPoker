@@ -21,7 +21,7 @@ namespace ScrumPoker.Controllers
 
         public PokerController() 
         {
-            colors = new List<string>() { "Red", "Green", "Cyan", "Chartreuse", "Coral" };
+            colors = new List<string>() { "White", "Red", "Green", "Pink", "Blue", "Magenta", "Cyan", "Chartreuse", "Coral" };
             ViewBag.Colors = colors;
             ViewBag.Estimates = TaskEstimates.GetEstimateList();
         }
@@ -70,7 +70,10 @@ namespace ScrumPoker.Controllers
             {
                 projects = db.Projects.Include(p => p.UserProfile).Where(p => p.UserProfile.UserName == User.Identity.Name).ToList();
             }
-
+            if (Session["FirstName"] != null)
+            { 
+                pokerVm.FirstName = Session["FirstName"].ToString(); 
+            }
             pokerVm.Projects = projects;
             pokerVm.ProjectId = GetProjectId();
             pokerVm.ProjectName = GetProjectName(pokerVm.ProjectId);
@@ -149,6 +152,7 @@ namespace ScrumPoker.Controllers
         {
             TaskEstimates.SetEstimateList(new List<TaskEstimate>());
             Users.UserList = new List<User>();
+            Session["CurrentProjectId"] = null;
             pokerGame.ProjectId = 0;
             pokerGame.ProjectName = "";
             return GetVotes(pokerGame);
@@ -182,12 +186,19 @@ namespace ScrumPoker.Controllers
 
         public JsonResult GetVotes(PokerGame pokerGame)
         {
+ 
             if (pokerGame.UserEstimate != null && !string.IsNullOrEmpty(pokerGame.UserEstimate.Name) && !string.IsNullOrEmpty(pokerGame.UserEstimate.Estimate))
             {
-                SaveEstimateToSession(pokerGame.UserEstimate.Estimate, pokerGame.UserEstimate.Name, pokerGame.ProjectId);
+                    int intestimate = 0;
+                    int.TryParse(pokerGame.UserEstimate.Estimate, out intestimate);
+                    if (intestimate > 0)
+                    {
+                        SaveEstimateToSession(pokerGame.UserEstimate.Estimate, pokerGame.UserEstimate.Name, pokerGame.ProjectId);
 
-                pokerGame.UserEstimate.Name = "";
-                pokerGame.UserEstimate.Estimate = "";
+                        pokerGame.UserEstimate.Name = "";
+                        pokerGame.UserEstimate.Estimate = "";
+                    }
+
             }
             using (var db = new ScrumPoker.Models.UsersContext())
             {

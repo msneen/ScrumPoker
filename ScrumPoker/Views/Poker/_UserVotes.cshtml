@@ -21,7 +21,7 @@
                 <tr>
                 @foreach (var taskEstimate in taskEstimates)
                 {
-                    int colorIndex = colorCounter % 5;
+                    int colorIndex = colorCounter % 8;
                     <td style="height:40px;font-size:xx-large;text-align:center;background-color:@ViewBag.Colors[colorIndex]">@taskEstimate.Estimate</td>
                     colorCounter += 1;
                 }
