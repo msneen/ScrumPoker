@@ -19,6 +19,15 @@
       <End Role="UserProfileScrum" EntitySet="UserProfileScrums" />
       <End Role="Project" EntitySet="Projects" />
     </AssociationSet>
+    <EntitySet Name="TeamMembers" EntityType="Model.TeamMember" />
+    <AssociationSet Name="FK_TeamMember_Project" Association="Model.FK_TeamMember_Project">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="TeamMember" EntitySet="TeamMembers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TeamMember_UserProfile" Association="Model.FK_TeamMember_UserProfile">
+      <End Role="UserProfileScrum" EntitySet="UserProfileScrums" />
+      <End Role="TeamMember" EntitySet="TeamMembers" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Membership">
     <Key>
@@ -83,6 +92,7 @@
     <Property Type="String" Name="UserName" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="UsersInRoles" Relationship="Model.UsersInRolesUserProfileScrum" FromRole="UserProfileScrum" ToRole="UsersInRoles" />
     <NavigationProperty Name="Projects" Relationship="Model.FK_Project_UserProfile" FromRole="UserProfileScrum" ToRole="Project" />
+    <NavigationProperty Name="TeamMembers" Relationship="Model.FK_TeamMember_UserProfile" FromRole="UserProfileScrum" ToRole="TeamMember" />
   </EntityType>
   <Association Name="UsersInRolesUserProfileScrum">
     <End Type="Model.UsersInRoles" Role="UsersInRoles" Multiplicity="*" />
@@ -106,6 +116,7 @@
     <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="CreatedUserId" Nullable="false" />
     <NavigationProperty Name="UserProfile" Relationship="Model.FK_Project_UserProfile" FromRole="Project" ToRole="UserProfileScrum" />
+    <NavigationProperty Name="TeamMembers" Relationship="Model.FK_TeamMember_Project" FromRole="Project" ToRole="TeamMember" />
   </EntityType>
   <Association Name="FK_Project_UserProfile">
     <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1" />
@@ -116,6 +127,41 @@
       </Principal>
       <Dependent Role="Project">
         <PropertyRef Name="CreatedUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TeamMember">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="ProjectId" />
+    </Key>
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="Int32" Name="ProjectId" Nullable="false" />
+    <Property Type="String" Name="NickName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Project" Relationship="Model.FK_TeamMember_Project" FromRole="TeamMember" ToRole="Project" />
+    <NavigationProperty Name="UserProfile" Relationship="Model.FK_TeamMember_UserProfile" FromRole="TeamMember" ToRole="UserProfileScrum" />
+  </EntityType>
+  <Association Name="FK_TeamMember_Project">
+    <End Type="Model.Project" Role="Project" Multiplicity="1" />
+    <End Type="Model.TeamMember" Role="TeamMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TeamMember">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TeamMember_UserProfile">
+    <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1" />
+    <End Type="Model.TeamMember" Role="TeamMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfileScrum">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="TeamMember">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

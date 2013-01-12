@@ -7,6 +7,7 @@
     <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Project" EntityType="Model.Store.Project" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TeamMember" EntityType="Model.Store.TeamMember" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserProfile" EntityType="Model.Store.UserProfile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Membership" EntityType="Model.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Model.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
@@ -20,6 +21,14 @@
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_TeamMember_Project" Association="Model.Store.FK_TeamMember_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="TeamMember" EntitySet="TeamMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamMember_UserProfile" Association="Model.Store.FK_TeamMember_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="TeamMember" EntitySet="TeamMember" />
+          </AssociationSet>
           <AssociationSet Name="fk_UserId" Association="Model.Store.fk_UserId">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
@@ -32,6 +41,15 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ProjectName" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="CreatedUserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TeamMember">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="NickName" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -104,6 +122,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TeamMember_Project">
+          <End Role="Project" Type="Model.Store.Project" Multiplicity="1" />
+          <End Role="TeamMember" Type="Model.Store.TeamMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TeamMember">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamMember_UserProfile">
+          <End Role="UserProfile" Type="Model.Store.UserProfile" Multiplicity="1" />
+          <End Role="TeamMember" Type="Model.Store.TeamMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TeamMember">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_UserId">
           <End Role="UserProfile" Type="Model.Store.UserProfile" Multiplicity="1" />
           <End Role="webpages_UsersInRoles" Type="Model.Store.webpages_UsersInRoles" Multiplicity="*" />
@@ -138,6 +180,15 @@
           <AssociationSet Name="FK_Project_UserProfile" Association="Model.FK_Project_UserProfile">
             <End Role="UserProfileScrum" EntitySet="UserProfileScrums" />
             <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <EntitySet Name="TeamMembers" EntityType="Model.TeamMember" />
+          <AssociationSet Name="FK_TeamMember_Project" Association="Model.FK_TeamMember_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="TeamMember" EntitySet="TeamMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamMember_UserProfile" Association="Model.FK_TeamMember_UserProfile">
+            <End Role="UserProfileScrum" EntitySet="UserProfileScrums" />
+            <End Role="TeamMember" EntitySet="TeamMembers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Membership">
@@ -203,6 +254,7 @@
           <Property Type="String" Name="UserName" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UsersInRoles" Relationship="Model.UsersInRolesUserProfileScrum" FromRole="UserProfileScrum" ToRole="UsersInRoles" />
           <NavigationProperty Name="Projects" Relationship="Model.FK_Project_UserProfile" FromRole="UserProfileScrum" ToRole="Project" />
+          <NavigationProperty Name="TeamMembers" Relationship="Model.FK_TeamMember_UserProfile" FromRole="UserProfileScrum" ToRole="TeamMember" />
         </EntityType>
         <Association Name="UsersInRolesUserProfileScrum">
           <End Type="Model.UsersInRoles" Role="UsersInRoles" Multiplicity="*" />
@@ -226,6 +278,7 @@
           <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="CreatedUserId" Nullable="false" />
           <NavigationProperty Name="UserProfile" Relationship="Model.FK_Project_UserProfile" FromRole="Project" ToRole="UserProfileScrum" />
+          <NavigationProperty Name="TeamMembers" Relationship="Model.FK_TeamMember_Project" FromRole="Project" ToRole="TeamMember" />
         </EntityType>
         <Association Name="FK_Project_UserProfile">
           <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1" />
@@ -236,6 +289,41 @@
             </Principal>
             <Dependent Role="Project">
               <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TeamMember">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="ProjectId" Nullable="false" />
+          <Property Type="String" Name="NickName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Project" Relationship="Model.FK_TeamMember_Project" FromRole="TeamMember" ToRole="Project" />
+          <NavigationProperty Name="UserProfile" Relationship="Model.FK_TeamMember_UserProfile" FromRole="TeamMember" ToRole="UserProfileScrum" />
+        </EntityType>
+        <Association Name="FK_TeamMember_Project">
+          <End Type="Model.Project" Role="Project" Multiplicity="1" />
+          <End Type="Model.TeamMember" Role="TeamMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TeamMember">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamMember_UserProfile">
+          <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1" />
+          <End Type="Model.TeamMember" Role="TeamMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfileScrum">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TeamMember">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -288,6 +376,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TeamMembers">
+            <EntityTypeMapping TypeName="Model.TeamMember">
+              <MappingFragment StoreEntitySet="TeamMember">
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -325,8 +422,17 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="Model.Project" Width="1.5" PointX="9.25" PointY="3.75" Height="1.7879850260416674" />
         <AssociationConnector Association="Model.FK_Project_UserProfile" >
-          <ConnectorPoint PointX="10" PointY="2.6629850260416665" />
+          <ConnectorPoint PointX="10" PointY="2.8552864583333331" />
           <ConnectorPoint PointX="10" PointY="3.75" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.TeamMember" Width="1.5" PointX="11.75" PointY="2.375" Height="1.9802864583333317" />
+        <AssociationConnector Association="Model.FK_TeamMember_Project" >
+          <ConnectorPoint PointX="10.75" PointY="4.0526432291666659" />
+          <ConnectorPoint PointX="11.75" PointY="4.0526432291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_TeamMember_UserProfile" >
+          <ConnectorPoint PointX="11" PointY="2.6151432291666667" />
+          <ConnectorPoint PointX="11.75" PointY="2.6151432291666667" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

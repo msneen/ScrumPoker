@@ -12,18 +12,13 @@ namespace ScrumPoker
     using System;
     using System.Collections.Generic;
     
-    public partial class Project
+    public partial class TeamMember
     {
-        public Project()
-        {
-            this.TeamMembers = new HashSet<TeamMember>();
-        }
+        public int UserId { get; set; }
+        public int ProjectId { get; set; }
+        public string NickName { get; set; }
     
-        public int id { get; set; }
-        public string ProjectName { get; set; }
-        public int CreatedUserId { get; set; }
-    
+        public virtual Project Project { get; set; }
         public virtual UserProfileScrum UserProfile { get; set; }
-        public virtual ICollection<TeamMember> TeamMembers { get; set; }
     }
 }

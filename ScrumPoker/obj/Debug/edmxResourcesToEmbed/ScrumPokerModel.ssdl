@@ -2,6 +2,7 @@
 <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="ModelStoreContainer">
     <EntitySet Name="Project" EntityType="Model.Store.Project" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TeamMember" EntityType="Model.Store.TeamMember" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserProfile" EntityType="Model.Store.UserProfile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_Membership" EntityType="Model.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_OAuthMembership" EntityType="Model.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
@@ -15,6 +16,14 @@
       <End Role="webpages_Roles" EntitySet="webpages_Roles" />
       <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
     </AssociationSet>
+    <AssociationSet Name="FK_TeamMember_Project" Association="Model.Store.FK_TeamMember_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="TeamMember" EntitySet="TeamMember" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TeamMember_UserProfile" Association="Model.Store.FK_TeamMember_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="TeamMember" EntitySet="TeamMember" />
+    </AssociationSet>
     <AssociationSet Name="fk_UserId" Association="Model.Store.fk_UserId">
       <End Role="UserProfile" EntitySet="UserProfile" />
       <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
@@ -27,6 +36,15 @@
     <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="ProjectName" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="CreatedUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TeamMember">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="ProjectId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="NickName" Type="varchar" Nullable="false" MaxLength="50" />
   </EntityType>
   <EntityType Name="UserProfile">
     <Key>
@@ -96,6 +114,30 @@
       </Principal>
       <Dependent Role="webpages_UsersInRoles">
         <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TeamMember_Project">
+    <End Role="Project" Type="Model.Store.Project" Multiplicity="1" />
+    <End Role="TeamMember" Type="Model.Store.TeamMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TeamMember">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TeamMember_UserProfile">
+    <End Role="UserProfile" Type="Model.Store.UserProfile" Multiplicity="1" />
+    <End Role="TeamMember" Type="Model.Store.TeamMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="TeamMember">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

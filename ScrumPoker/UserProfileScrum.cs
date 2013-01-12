@@ -18,6 +18,7 @@ namespace ScrumPoker
         {
             this.UsersInRoles = new HashSet<UsersInRoles>();
             this.Projects = new HashSet<Project>();
+            this.TeamMembers = new HashSet<TeamMember>();
         }
     
         public int UserId { get; set; }
@@ -25,5 +26,6 @@ namespace ScrumPoker
     
         public virtual ICollection<UsersInRoles> UsersInRoles { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<TeamMember> TeamMembers { get; set; }
     }
 }

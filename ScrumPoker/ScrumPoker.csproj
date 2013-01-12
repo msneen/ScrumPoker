@@ -210,6 +210,9 @@
     <Compile Include="Services\ScrumMasterSvc.cs" />
     <Compile Include="Services\SiteAdminSvc.cs" />
     <Compile Include="Services\UserProfileSvc.cs" />
+    <Compile Include="TeamMember.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserProfileScrum.cs">
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>
