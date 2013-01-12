@@ -39,12 +39,12 @@
   </EntityType>
   <EntityType Name="TeamMember">
     <Key>
-      <PropertyRef Name="UserId" />
-      <PropertyRef Name="ProjectId" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" />
     <Property Name="ProjectId" Type="int" Nullable="false" />
-    <Property Name="NickName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="NickName" Type="varchar" MaxLength="50" />
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="UserProfile">
     <Key>
@@ -130,7 +130,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TeamMember_UserProfile">
-    <End Role="UserProfile" Type="Model.Store.UserProfile" Multiplicity="1" />
+    <End Role="UserProfile" Type="Model.Store.UserProfile" Multiplicity="0..1" />
     <End Role="TeamMember" Type="Model.Store.TeamMember" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserProfile">

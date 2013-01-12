@@ -14,9 +14,10 @@ namespace ScrumPoker
     
     public partial class TeamMember
     {
-        public int UserId { get; set; }
+        public Nullable<int> UserId { get; set; }
         public int ProjectId { get; set; }
         public string NickName { get; set; }
+        public int id { get; set; }
     
         public virtual Project Project { get; set; }
         public virtual UserProfileScrum UserProfile { get; set; }

@@ -17,6 +17,7 @@ namespace ScrumPoker.Controllers
         public List<string> colors;
         private UserProfileSvc _userProfileSvc = new UserProfileSvc();
         private RoleSvc _roleSvc = new RoleSvc();
+        private ProjectSvc _projectSvc = new ProjectSvc();
         private Entities db = new Entities();
 
         public PokerController() 
@@ -40,7 +41,7 @@ namespace ScrumPoker.Controllers
 
             if (projectId > 0)
             {
-                Session["CurrentProjectId"] = projectId;
+                SetProject( projectId);
                 SaveEstimateToSession(estimate, firstname, projectId);
 
                 ViewBag.Estimate = estimate;
@@ -55,7 +56,18 @@ namespace ScrumPoker.Controllers
         {
             if (!string.IsNullOrEmpty(Projects.Trim()))
             {
-                Session["CurrentProjectId"] = Projects.Trim();
+                SetProject( Projects.Trim());
+                int projectId = GetProjectId(); //Convert.ToInt32(Projects);
+
+                Project project = _projectSvc.Find(projectId);
+                if (project != null)
+                {
+                    foreach (var teamMember in project.TeamMembers)
+                    {
+                        AddEstimate("", teamMember.NickName, projectId, IsEmptyEstimate: true);
+                    }
+                }
+                             
             }
             return RedirectToAction("Vote", "Poker", new { @id = GetProjectId() });
         }
@@ -80,6 +92,10 @@ namespace ScrumPoker.Controllers
             return pokerVm;
         }
 
+        private void SetProject(object projectId)
+        {
+            Session["CurrentProjectId"] = projectId;
+        }
         private int GetProjectId()
         {
             int projectId = 0;
@@ -111,9 +127,9 @@ namespace ScrumPoker.Controllers
             }
         }
 
-        private static void AddEstimate(string estimate, string firstname, int projectId)
+        private static void AddEstimate(string estimate, string firstname, int projectId, bool IsEmptyEstimate = false)
         {
-            if (!string.IsNullOrEmpty(estimate) && !string.IsNullOrEmpty(firstname))
+            if (( IsEmptyEstimate == true || (IsEmptyEstimate == false &&  !string.IsNullOrEmpty(estimate))) && !string.IsNullOrEmpty(firstname))
             {
                 TaskEstimate currentEstimate = (from e in TaskEstimates.GetEstimateList(projectId)
                                                 where firstname.Equals(e.Name, StringComparison.OrdinalIgnoreCase)
@@ -133,17 +149,14 @@ namespace ScrumPoker.Controllers
         [HttpPost]
         public ActionResult AddUser(string userName, string Projects, FormCollection collection)
         {
-            
-            User user = (from u in Users.UserList
-                        where u.UserName == userName
-                        select u).FirstOrDefault<User>();
-            if (user == null && !string.IsNullOrEmpty(userName))
-            {
-                Users.UserList.Add(new User() { UserName = userName, IsSelected = true });
-            }
-            int projectId = Convert.ToInt32(Projects);
+            //List<TaskEstimate> taskEstimates = TaskEstimates.GetEstimateList(); 
 
-            AddEstimate("", userName, projectId);
+
+
+
+            int projectId = GetProjectId(); //Convert.ToInt32(Projects);
+
+            AddEstimate("", userName, projectId, IsEmptyEstimate:true);
 
             return RedirectToAction("Vote", "Poker", new { @id = GetProjectId() });
         }
@@ -152,7 +165,7 @@ namespace ScrumPoker.Controllers
         {
             TaskEstimates.SetEstimateList(new List<TaskEstimate>());
             Users.UserList = new List<User>();
-            Session["CurrentProjectId"] = null;
+            SetProject( null);
             pokerGame.ProjectId = 0;
             pokerGame.ProjectName = "";
             return GetVotes(pokerGame);
@@ -172,6 +185,35 @@ namespace ScrumPoker.Controllers
                 {
                     estimate.Estimate = "";
                 }
+        }
+
+        public JsonResult SaveTeamMembers(PokerGame pokerGame)
+        {
+            if (pokerGame.ProjectId > 0)
+            {
+                List<TaskEstimate> taskEstimates = TaskEstimates.GetEstimateList(pokerGame.ProjectId);
+                using (Entities db = new Entities())
+                {
+                    var savedTeamMembers = (from tm in db.TeamMembers
+                                            where tm.ProjectId == pokerGame.ProjectId
+                                            select tm).ToList<TeamMember>();
+
+                    foreach (var taskEstimate in taskEstimates)
+                    {
+                        TeamMember foundTeamMember = savedTeamMembers.Find(m => m.NickName == taskEstimate.Name);
+                        if (foundTeamMember == null)
+                        {
+                            TeamMember newMember = new TeamMember();
+                            newMember.ProjectId = pokerGame.ProjectId;
+                            newMember.NickName = taskEstimate.Name;
+                            db.TeamMembers.Add(newMember);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                
+            }
+            return GetVotes(pokerGame);
         }
 
         [HttpPost]

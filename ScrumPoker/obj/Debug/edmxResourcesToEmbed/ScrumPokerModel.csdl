@@ -132,12 +132,12 @@
   </Association>
   <EntityType Name="TeamMember">
     <Key>
-      <PropertyRef Name="UserId" />
-      <PropertyRef Name="ProjectId" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="Int32" Name="UserId" />
     <Property Type="Int32" Name="ProjectId" Nullable="false" />
-    <Property Type="String" Name="NickName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NickName" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="Project" Relationship="Model.FK_TeamMember_Project" FromRole="TeamMember" ToRole="Project" />
     <NavigationProperty Name="UserProfile" Relationship="Model.FK_TeamMember_UserProfile" FromRole="TeamMember" ToRole="UserProfileScrum" />
   </EntityType>
@@ -154,7 +154,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TeamMember_UserProfile">
-    <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1" />
+    <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="0..1" />
     <End Type="Model.TeamMember" Role="TeamMember" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserProfileScrum">

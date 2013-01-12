@@ -63,6 +63,7 @@
     <EntitySetMapping Name="TeamMembers">
       <EntityTypeMapping TypeName="Model.TeamMember">
         <MappingFragment StoreEntitySet="TeamMember">
+          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="NickName" ColumnName="NickName" />
           <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
