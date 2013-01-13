@@ -7,7 +7,7 @@
     var clearVotesAjaxUrl = '@Url.Action("ClearVotes", "Poker")';
     var clearAllAjaxUrl = '@Url.Action("ClearAll", "Poker")';
     var saveTeamMembersAjaxUrl = '@Url.Action("SaveTeamMembers", "Poker")'; 
-    var colors = [@{
+    var colors = [@{//Be careful.  This section mixes Javascipt and C#
                                 for (var i = 0; i < Model.Colors.Count; i++ ) 
                                 { 
                                     var color = Model.Colors[i];
