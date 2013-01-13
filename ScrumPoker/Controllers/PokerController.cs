@@ -22,7 +22,8 @@ namespace ScrumPoker.Controllers
 
         public PokerController() 
         {
-            colors = new List<string>() { "White", "Red", "Green", "Pink", "Blue", "Magenta", "Cyan", "Chartreuse", "Coral" };
+            //colors = new List<string>() { "White", "Red", "Green", "Pink", "Blue", "Magenta", "Cyan", "Chartreuse", "Coral" };
+            colors = new List<string>() { "#5ABFC6", "#CE95C8", "#D1C57E", "#E85AAA", "#FF2626", "#009ACD", "#FFFF00", "#FBBF51", "#9EFC7D" };
             ViewBag.Colors = colors;
             ViewBag.Estimates = TaskEstimates.GetEstimateList();
         }
