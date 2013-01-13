@@ -91,6 +91,7 @@ namespace ScrumPoker.Controllers
             pokerVm.Projects = projects;
             pokerVm.ProjectId = GetProjectId();
             pokerVm.ProjectName = GetProjectName(pokerVm.ProjectId);
+            pokerVm.CurrentProject = _projectSvc.Find(pokerVm.ProjectId);
             return pokerVm;
         }
 
