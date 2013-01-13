@@ -85,11 +85,18 @@ namespace ScrumPoker.Controllers
             if (Session["FirstName"] != null)
             { 
                 pokerVm.FirstName = Session["FirstName"].ToString(); 
-            }
+            }             
+
+            pokerVm.Colors = colors;
             pokerVm.Projects = projects;
             pokerVm.ProjectId = GetProjectId();
             pokerVm.ProjectName = GetProjectName(pokerVm.ProjectId);
             return pokerVm;
+        }
+
+        private void ResetProject()
+        {
+            Session.Remove("CurrentProjectId");
         }
 
         private void SetProject(object projectId)
@@ -155,7 +162,7 @@ namespace ScrumPoker.Controllers
         public JsonResult ClearAll(PokerGame pokerGame)
         {
             TaskEstimates.SetEstimateList(new List<TaskEstimate>());
-            SetProject( null);
+            ResetProject();
             pokerGame.ProjectId = 0;
             pokerGame.ProjectName = "";
             return GetVotes(pokerGame);

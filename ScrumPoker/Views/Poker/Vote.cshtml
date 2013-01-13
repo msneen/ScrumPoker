@@ -8,51 +8,43 @@
     @section scripts  {
         @Html.Partial("_ScrumPokerJs", Model)<br />
     }
-<h2 style="display:inline;">Project - <span id="spnProjectName">@Html.DisplayFor(model => model.ProjectName)</span></h2>
- <h3 style="display:inline;">@if (Model.ProjectId > 0)
-         {
-                    @Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId })
-         }
-</h3>  
-@using (Html.BeginForm("Vote", "Poker", FormMethod.Post))
+@if (Model.ProjectId > 0)
 {
-        <br />
-        <div>
-        <div>First Name*</div>
 
-    @{
-        object displayMode = new {id = "firstName", maxlength = "12", size = "12", list = "users" };
-        if( !string.IsNullOrEmpty(Model.FirstName))
+    <h2 style="display:inline;">Project - <span id="spnProjectName">@Html.DisplayFor(model => model.ProjectName)</span></h2>
+     <h3 style="display:inline;">@Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId })</h3>  
+    using (Html.BeginForm("Vote", "Poker", FormMethod.Post))
+    {
+            <br />
+            <div>
+            <div>First Name*</div>
+
+        @{
+        object displayMode = new { id = "firstName", maxlength = "12", size = "12", list = "users" };
+        if (!string.IsNullOrEmpty(Model.FirstName))
         {
-            displayMode = new {id = "firstName", maxlength = "12", size = "12", list = "users", disabled = "disabled" };
+            displayMode = new { id = "firstName", maxlength = "12", size = "12", list = "users", disabled = "disabled" };
         }
         
-        @Html.TextBox("firstName", (string)ViewBag.FirstName, displayMode)
-    }
-@*    <datalist id="users"> ** mwsTodo: Make this read from Project.TeamMembers when it isn't null
-        @foreach (User user in Users.UserList)
-        {
-            <option>@user.UserName</option>
+            @Html.TextBox("firstName", (string)ViewBag.FirstName, displayMode)
         }
-    </datalist>*@
-    </div>
-    <br />    
-    <div>
-    @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:35px; background-color:red;font-size: xx-large;", type = "number" })
-    @Html.Hidden("projectid", Model.ProjectId)
-    @{
+    @*    <datalist id="users"> ** mwsTodo: Make this read from Project.TeamMembers when it isn't null
+            @foreach (User user in Users.UserList)
+            {
+                <option>@user.UserName</option>
+            }
+        </datalist>*@
+        </div>
+        <br />    
+        <div>
+        @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:35px; background-color:red;font-size: xx-large;", type = "number" })
+        @Html.Hidden("projectid", Model.ProjectId)
+        @{
         string disabled = Model.ProjectId > 0 ? "" : "disabled";
-    <input id="SubmitVote" type="button" value="Vote" @disabled/>
+        <input id="SubmitVote" type="button" value="Vote" @disabled/>
+        }
+        </div>
+        @Html.Partial("_UserVotes")     
     }
-    </div>
-    @Html.Partial("_UserVotes")     
 }
 @Html.Partial("_UserList", Model)<br />
-
-@*@if ( SiteAdminSvc.IsSiteAdmin(User.Identity.Name) )
-{
-    using (Html.BeginForm("MakeRoles", "Poker", FormMethod.Post))
-    {
-        <input type="submit" value="Add Roles"/>
-    }
-}*@

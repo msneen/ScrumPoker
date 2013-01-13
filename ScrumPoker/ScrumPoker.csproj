@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PokerController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\TeamMemberController.cs" />
     <Compile Include="Controllers\UserManagementController.cs" />
     <Compile Include="Membership.cs">
       <DependentUpon>PokerModel.tt</DependentUpon>
@@ -374,6 +375,11 @@
     <Content Include="Views\Project\Edit.cshtml" />
     <Content Include="Views\Project\Delete.cshtml" />
     <Content Include="Views\Poker\_ScrumPokerJs.cshtml" />
+    <Content Include="Views\TeamMember\Index.cshtml" />
+    <Content Include="Views\TeamMember\Details.cshtml" />
+    <Content Include="Views\TeamMember\Create.cshtml" />
+    <Content Include="Views\TeamMember\Edit.cshtml" />
+    <Content Include="Views\TeamMember\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

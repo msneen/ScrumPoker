@@ -7,7 +7,17 @@
     var clearVotesAjaxUrl = '@Url.Action("ClearVotes", "Poker")';
     var clearAllAjaxUrl = '@Url.Action("ClearAll", "Poker")';
     var saveTeamMembersAjaxUrl = '@Url.Action("SaveTeamMembers", "Poker")'; 
-    var colors = ["White", "Red", "Green", "Pink", "Blue", "Magenta", "Cyan", "Chartreuse", "Coral"];
+    var colors = [@{
+                                for (var i = 0; i < Model.Colors.Count; i++ ) 
+                                { 
+                                    var color = Model.Colors[i];
+@:'@(color)'
+                                    if(i != Model.Colors.Count-1)
+                                    {
+@:,
+                                    }
+                                }
+                            }];
     var logonUserProfile = {
         UserName: "",
         UserId: 0
@@ -27,7 +37,10 @@
         CallServer(saveTeamMembersAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
     }
     function ClearAll(callback) {
+        keepRefreshing = false;
         CallServer(clearAllAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
+        window.location.href = '@Url.Action("Vote", "Poker")';
+        location.refresh();
     }
     function ClearVotes(callback) {
         CallServer(clearVotesAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
