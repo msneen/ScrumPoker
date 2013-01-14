@@ -31,7 +31,7 @@ namespace ScrumPoker.Services
             {
                 var existingFinalEstimate = (from fe in entitiesDb.FinalEstimates
                             where fe.ProjectId == finalEstimate.ProjectId
-                            && fe.TaskId.Contains(finalEstimate.TaskId)
+                            && fe.TaskId == finalEstimate.TaskId
                                 select fe).FirstOrDefault();
                 if (existingFinalEstimate != null)
                 {
