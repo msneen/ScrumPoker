@@ -11,7 +11,7 @@
 @if (Model.ProjectId > 0)
 {
 
-    <h2 style="display:inline;">Project - <span id="spnProjectName">@Html.DisplayFor(model => model.ProjectName)</span></h2>
+    <div style="display:inline;">Project <h2 id="spnProjectName" style="display:inline;">@Html.DisplayFor(model => model.ProjectName)</h2></div>
      <h3 style="display:inline;">@Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId })</h3>  
     using (Html.BeginForm("Vote", "Poker", FormMethod.Post))
     {
@@ -35,7 +35,15 @@
             }
         </datalist>
         </div>
-        <br />    
+        <br /> 
+        <div>
+            <div style="display:inline;">Task Id </div>
+            <h3 id="taskIdDisplay" style="display:inline;"></h3>
+            @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
+            {
+                <div style="display:inline;"><input id="taskId" type="text" /></div><div style="display:inline;"><input id="btnSetTaskId" type="button" value="Set Task Id" /></div>           
+            }
+        </div>
         <div>
         @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:35px; background-color:red;font-size: xx-large;", type = "number" })
         @Html.Hidden("projectid", Model.ProjectId)

@@ -28,6 +28,7 @@ namespace ScrumPoker.Controllers
             ViewBag.Estimates = TaskEstimates.GetEstimateList();
         }
 
+         //this is called to render the main voting "view" back to the browser
         public ActionResult Vote(string estimate, string firstname, string id)
         {
             int projectId = 0;
@@ -37,12 +38,12 @@ namespace ScrumPoker.Controllers
             }
             else
             {
-                projectId = GetProjectId(); ;
+                projectId = TaskEstimates.GetProjectId(); ;
             }
 
             if (projectId > 0)
             {
-                SetProject( projectId);
+                TaskEstimates.SetProject(projectId);
                 SaveEstimateToSession(estimate, firstname, projectId);
 
                 ViewBag.Estimate = estimate;
@@ -53,12 +54,13 @@ namespace ScrumPoker.Controllers
             return View(pokerVm);
         }
 
+         //This is called by the page to add a project to vote on from the ScrumMaster dropdown list
         public ActionResult AddProject(string Projects)
         {
             if (!string.IsNullOrEmpty(Projects.Trim()))
             {
-                SetProject( Projects.Trim());
-                int projectId = GetProjectId(); //Convert.ToInt32(Projects);
+                TaskEstimates.SetProject(Projects.Trim());
+                int projectId = TaskEstimates.GetProjectId(); //Convert.ToInt32(Projects);
 
                 Project project = _projectSvc.Find(projectId);
                 if (project != null)
@@ -70,9 +72,10 @@ namespace ScrumPoker.Controllers
                 }
                              
             }
-            return RedirectToAction("Vote", "Poker", new { @id = GetProjectId() });
+            return RedirectToAction("Vote", "Poker", new { @id = TaskEstimates.GetProjectId() });
         }
 
+         //this builds the Poker viewModel and should be moved to a helper class
         private PokerVm GetPokerVm()
         {
             PokerVm pokerVm = new PokerVm();
@@ -90,30 +93,17 @@ namespace ScrumPoker.Controllers
 
             pokerVm.Colors = colors;
             pokerVm.Projects = projects;
-            pokerVm.ProjectId = GetProjectId();
+            pokerVm.ProjectId = TaskEstimates.GetProjectId();
             pokerVm.ProjectName = GetProjectName(pokerVm.ProjectId);
             pokerVm.CurrentProject = _projectSvc.Find(pokerVm.ProjectId);
             return pokerVm;
         }
 
-        private void ResetProject()
-        {
-            Session.Remove("CurrentProjectId");
-        }
+         
 
-        private void SetProject(object projectId)
-        {
-            Session["CurrentProjectId"] = projectId;
-        }
-        private int GetProjectId()
-        {
-            int projectId = 0;
-            if (Session["CurrentProjectId"] != null)
-            {
-                projectId = Convert.ToInt32(Session["CurrentProjectId"]);
-            }
-            return projectId;
-        }
+
+
+
 
         private void SaveEstimateToSession(string estimate, string firstname, int projectId)
         {
@@ -154,17 +144,17 @@ namespace ScrumPoker.Controllers
 
 
 
-            int projectId = GetProjectId(); //Convert.ToInt32(Projects);
+            int projectId = TaskEstimates.GetProjectId(); //Convert.ToInt32(Projects);
 
             AddEstimate("", userName, projectId, IsEmptyEstimate:true);
 
-            return RedirectToAction("Vote", "Poker", new { @id = GetProjectId() });
+            return RedirectToAction("Vote", "Poker", new { @id = TaskEstimates.GetProjectId() });
         }
 
         public JsonResult ClearAll(PokerGame pokerGame)
         {
             TaskEstimates.SetEstimateList(new List<TaskEstimate>());
-            ResetProject();
+            TaskEstimates.ResetProject();
             pokerGame.ProjectId = 0;
             pokerGame.ProjectName = "";
             return GetVotes(pokerGame);
@@ -186,6 +176,7 @@ namespace ScrumPoker.Controllers
                 }
         }
 
+         //This is called by the ScrumMaster "Save Team" button under the Votes
         public JsonResult SaveTeamMembers(PokerGame pokerGame)
         {
             if (pokerGame.ProjectId > 0)
@@ -215,6 +206,16 @@ namespace ScrumPoker.Controllers
             return GetVotes(pokerGame);
         }
 
+        public JsonResult SetVotingTaskId(PokerGame pokerGame)
+        {
+            if (pokerGame.ProjectId > 0)
+            {
+                TaskEstimates.SetVotingTaskId(pokerGame.TaskId);
+            }
+            return GetVotes(pokerGame);
+        }
+
+         //This is currently unused.  It will make the 3 necessary roles in your database
         [HttpPost]
         public ActionResult MakeRoles()
         {            
@@ -225,6 +226,7 @@ namespace ScrumPoker.Controllers
             return RedirectToAction("Vote", "Poker");
         }
 
+        //This is the main method of the whole app.
         public JsonResult GetVotes(PokerGame pokerGame)
         {
  
@@ -249,6 +251,7 @@ namespace ScrumPoker.Controllers
             }
             
             pokerGame.ProjectName = GetProjectName(pokerGame.ProjectId);
+            pokerGame.TaskId = TaskEstimates.GetVotingTaskId();
             pokerGame.Votes = TaskEstimates.GetEstimateList(pokerGame.ProjectId);
             pokerGame.Votes.Sort(delegate(TaskEstimate T1, TaskEstimate T2) 
             { 

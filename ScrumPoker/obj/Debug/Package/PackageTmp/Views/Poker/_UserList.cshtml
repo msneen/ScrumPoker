@@ -12,7 +12,7 @@
         {
             SelectList list = new SelectList(Model.Projects, "id", "ProjectName", Model.Projects.Last().id.ToString());
             <div>
-                <h3>@Html.Label("ScrumMaster - Choose Project")</h3>
+                <h3>@Html.Label("Choose Project")</h3>
             </div>
             <div>
                 @Html.DropDownListFor(model => Model.Projects, list, new { @style="font-size: x-large;"})
@@ -21,17 +21,15 @@
                 <input type="submit" value="Vote on this Project"/>
             </div>
         }<br />
+    }      
+    if (Model.ProjectId > 0)
+    {       <h3>@Model.ProjectName Team Members</h3>
+            using (Html.BeginForm("AddUser", "Poker", FormMethod.Post))
+            {            
+                <input type="text" id="userName" name="userName" />
+                <input type="submit" value="Add Team Member"/>
+                }<br />
     }
-    <hr />   
-       
-        if (Model.ProjectId > 0)
-        {       <h3>ScrumMaster - @Model.ProjectName Team Members</h3>
-                using (Html.BeginForm("AddUser", "Poker", FormMethod.Post))
-                {            
-                    <input type="text" id="userName" name="userName" />
-                    <input type="submit" value="Add Team Member"/>
-                 }<br />
-        }
     <br />    
    
 }

@@ -7,6 +7,7 @@
     var clearVotesAjaxUrl = '@Url.Action("ClearVotes", "Poker")';
     var clearAllAjaxUrl = '@Url.Action("ClearAll", "Poker")';
     var saveTeamMembersAjaxUrl = '@Url.Action("SaveTeamMembers", "Poker")'; 
+    var saveTaskIdAjaxUrl = '@Url.Action("SetVotingTaskId", "Poker")';
     var colors = [@{//Be careful.  This section mixes Javascipt and C#
                                 for (var i = 0; i < Model.Colors.Count; i++ ) 
                                 { 
@@ -32,6 +33,10 @@
         this.UserEstimate = $.extend({}, newUserEstimate);
         this.ProjectId = 0;
         this.ProjectName = "";
+        this.TaskId = "";
+    }
+    function SaveTaskId(callback) {
+        CallServer(saveTaskIdAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
     }
     function SaveTeamMembers(callback) {
         CallServer(saveTeamMembersAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
@@ -71,7 +76,7 @@
         $("#tblVotes > thead").find("td").remove();
         $("#tblVotes > tbody > tr").find("td").remove();       
         $("#spnProjectName").html(PokerGame.ProjectName);
-        
+        $("#taskIdDisplay").html(PokerGame.TaskId);
         var colorCounter = 0;
 
         for (var i = 0; i < PokerGame.Votes.length; i++) {
@@ -110,6 +115,10 @@
         });
         $("#btnSaveTeamMembers").click(function () {
             SaveTeamMembers(WriteVotes);
+        });
+        $("#btnSetTaskId").click(function () {
+            PokerGame.TaskId = $("#taskId").val();
+            SaveTaskId(WriteVotes);
         });
         keepRefreshing = true;
         RefreshVotes();
