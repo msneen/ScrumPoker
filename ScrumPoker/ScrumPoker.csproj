@@ -164,6 +164,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FinalVoteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PokerController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -384,6 +385,11 @@
     <Content Include="Views\TeamMember\Create.cshtml" />
     <Content Include="Views\TeamMember\Edit.cshtml" />
     <Content Include="Views\TeamMember\Delete.cshtml" />
+    <Content Include="Views\FinalVote\Index.cshtml" />
+    <Content Include="Views\FinalVote\Details.cshtml" />
+    <Content Include="Views\FinalVote\Create.cshtml" />
+    <Content Include="Views\FinalVote\Edit.cshtml" />
+    <Content Include="Views\FinalVote\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

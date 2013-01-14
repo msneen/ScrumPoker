@@ -21,15 +21,16 @@
                 <input type="submit" value="Vote on this Project"/>
             </div>
         }<br />
-    }      
+    }
     if (Model.ProjectId > 0)
     {       <h3>@Model.ProjectName Team Members</h3>
-            using (Html.BeginForm("AddUser", "Poker", FormMethod.Post))
-            {            
+        using (Html.BeginForm("AddUser", "Poker", FormMethod.Post))
+        {            
                 <input type="text" id="userName" name="userName" />
                 <input type="submit" value="Add Team Member"/>
-                }<br />
+        }<br />
+    
+    <br />   
+    @Html.ActionLink("View Final Votes", "Index", "FinalVote", new { id = Model.ProjectId }, new { @style="font-size:large;" })
     }
-    <br />    
-   
 }

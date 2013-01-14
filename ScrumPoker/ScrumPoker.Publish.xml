@@ -29,6 +29,7 @@
     <file relUrl="bin/System.Net.Http.Formatting.xml" publishTime="01/04/2013 20:07:45" />
     <file relUrl="bin/System.Web.Razor.xml" publishTime="01/04/2013 20:07:44" />
     <file relUrl="bin/System.Net.Http.WebRequest.xml" publishTime="01/04/2013 20:07:45" />
+    <file relUrl="Views/FinalVote/Edit.cshtml" publishTime="01/14/2013 01:59:09" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="01/04/2013 20:07:37" />
     <file relUrl="Content/themes/base/minified/jquery.ui.progressbar.min.css" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Scripts/jquery-1.7.1.min.js" publishTime="01/04/2013 20:07:40" />
@@ -49,7 +50,7 @@
     <file relUrl="Images/orderedList1.png" publishTime="01/04/2013 20:07:36" />
     <file relUrl="Content/themes/base/images/ui-icons_2e83ff_256x240.png" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Content/themes/base/minified/jquery.ui.tabs.min.css" publishTime="01/04/2013 20:07:42" />
-    <file relUrl="bin/ScrumPoker.dll" publishTime="01/13/2013 20:47:25" />
+    <file relUrl="bin/ScrumPoker.dll" publishTime="01/14/2013 02:06:32" />
     <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="01/04/2013 20:07:44" />
     <file relUrl="bin/DotNetOpenAuth.Core.xml" publishTime="01/04/2013 20:07:48" />
     <file relUrl="Views/UserManagement/Edit.cshtml" publishTime="01/09/2013 17:15:59" />
@@ -62,7 +63,9 @@
     <file relUrl="bin/System.Web.WebPages.Razor.xml" publishTime="01/04/2013 20:07:44" />
     <file relUrl="Views/Account/ExternalLoginConfirmation.cshtml" publishTime="01/04/2013 20:07:36" />
     <file relUrl="Images/orderedList3.png" publishTime="01/04/2013 20:07:36" />
+    <file relUrl="Views/FinalVote/Index.cshtml" publishTime="01/14/2013 01:59:06" />
     <file relUrl="Content/themes/base/minified/jquery.ui.theme.min.css" publishTime="01/04/2013 20:07:42" />
+    <file relUrl="Views/FinalVote/Create.cshtml" publishTime="01/14/2013 01:59:09" />
     <file relUrl="Web.config" publishTime="01/13/2013 20:47:35" />
     <file relUrl="Views/Account/_SetPasswordPartial.cshtml" publishTime="01/04/2013 20:07:36" />
     <file relUrl="Images/orderedList8.png" publishTime="01/04/2013 20:07:36" />
@@ -76,7 +79,7 @@
     <file relUrl="bin/WebMatrix.Data.dll" publishTime="01/04/2013 20:07:47" />
     <file relUrl="Content/themes/base/minified/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Content/themes/base/images/ui-icons_222222_256x240.png" publishTime="01/04/2013 20:07:42" />
-    <file relUrl="Views/Poker/_UserList.cshtml" publishTime="01/13/2013 18:52:05" />
+    <file relUrl="Views/Poker/_UserList.cshtml" publishTime="01/14/2013 02:14:50" />
     <file relUrl="Content/themes/base/minified/images/ui-icons_cd0a0a_256x240.png" publishTime="01/04/2013 20:07:42" />
     <file relUrl="bin/DotNetOpenAuth.OpenId.xml" publishTime="01/04/2013 20:07:48" />
     <file relUrl="bin/System.Web.Optimization.dll" publishTime="01/04/2013 20:07:46" />
@@ -101,13 +104,14 @@
     <file relUrl="Content/themes/base/minified/images/ui-bg_glass_75_dadada_1x400.png" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Content/themes/base/minified/images/ui-bg_flat_75_ffffff_40x100.png" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Views/Poker/Vote.cshtml" publishTime="01/13/2013 19:33:40" />
+    <file relUrl="Views/FinalVote/Delete.cshtml" publishTime="01/14/2013 01:59:10" />
     <file relUrl="Scripts/jquery-1.7.1-vsdoc.js" publishTime="01/04/2013 20:07:40" />
     <file relUrl="Content/themes/base/minified/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Views/TeamMember/Create.cshtml" publishTime="01/12/2013 16:04:57" />
     <file relUrl="Content/themes/base/jquery.ui.button.css" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Content/themes/base/minified/images/ui-icons_888888_256x240.png" publishTime="01/04/2013 20:07:42" />
-    <file relUrl="bin/ScrumPoker.pdb" publishTime="01/13/2013 20:47:25" />
+    <file relUrl="bin/ScrumPoker.pdb" publishTime="01/14/2013 02:06:32" />
     <file relUrl="Content/themes/base/jquery.ui.core.css" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Content/themes/base/minified/images/ui-bg_glass_75_e6e6e6_1x400.png" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="01/04/2013 20:07:42" />
@@ -127,6 +131,7 @@
     <file relUrl="bin/System.Web.WebPages.dll" publishTime="01/04/2013 20:07:44" />
     <file relUrl="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Views/Shared/_LoginPartial.cshtml" publishTime="01/04/2013 20:07:37" />
+    <file relUrl="Views/FinalVote/Details.cshtml" publishTime="01/14/2013 01:59:07" />
     <file relUrl="Views/Account/ExternalLoginFailure.cshtml" publishTime="01/04/2013 20:07:36" />
     <file relUrl="Views/Account/_ExternalLoginsListPartial.cshtml" publishTime="01/04/2013 20:07:36" />
     <file relUrl="Views/Project/Edit.cshtml" publishTime="01/10/2013 13:56:13" />
