@@ -19,6 +19,21 @@
                                     }
                                 }
                             }];
+
+var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#   
+    if (Model.CurrentProject != null && Model.CurrentProject.TeamMembers != null)
+    {
+        foreach(var teamMember in Model.CurrentProject.TeamMembers ) 
+        { 
+@:'@(teamMember.NickName)'
+                if(teamMember != Model.CurrentProject.TeamMembers.Last())
+                {
+@:,
+                }
+        }
+    }
+}];
+
     var logonUserProfile = {
         UserName: "",
         UserId: 0
@@ -119,6 +134,9 @@
         $("#btnSetTaskId").click(function () {
             PokerGame.TaskId = $("#taskId").val();
             SaveTaskId(WriteVotes);
+        });
+        $("#firstName").autocomplete({
+            source: teamMembers
         });
         keepRefreshing = true;
         RefreshVotes();

@@ -20,20 +20,19 @@
             <div>First Name*</div>
 
         @{
-        object displayMode = new { id = "firstName", maxlength = "12", size = "12", list = "users" };
-        if (!string.IsNullOrEmpty(Model.FirstName))
-        {
-            displayMode = new { id = "firstName", maxlength = "12", size = "12", list = "users", disabled = "disabled" };
-        }
-        
+            object displayMode = new { id = "firstName", maxlength = "12", size = "12"/*, list = "users"*/ };
+            if (!string.IsNullOrEmpty(Model.FirstName))
+            {
+                displayMode = new { id = "firstName", maxlength = "12", size = "12", /*list = "users",*/ disabled = "disabled" };
+            }        
             @Html.TextBox("firstName", (string)ViewBag.FirstName, displayMode)
         }
-        <datalist id="users">
+@*        <datalist id="users">
             @foreach (var teamMember in Model.CurrentProject.TeamMembers)
             {
                 <option>@teamMember.NickName</option>
             }
-        </datalist>
+        </datalist>*@
         </div>
         <br /> 
         <div>
