@@ -40,16 +40,27 @@
             <h3 id="taskIdDisplay" style="display:inline;"></h3>
             @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
             {
-                <div style="display:inline;"><input id="taskId" type="text" /></div><div style="display:inline;"><input id="btnSetTaskId" type="button" value="Set Task Id" /></div>           
+                <div style="display:inline;">
+                    <input id="taskId" type="text" />
+                </div>
+                <div style="display:inline;">
+                    <input id="btnSetTaskId" type="button" value="Set Task Id" />
+                </div>         
             }
         </div>
         <div>
         @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:35px; background-color:red;font-size: xx-large;", type = "number" })
         @Html.Hidden("projectid", Model.ProjectId)
         @{
-        string disabled = Model.ProjectId > 0 ? "" : "disabled";
+            string disabled = Model.ProjectId > 0 ? "" : "disabled";
         <input id="SubmitVote" type="button" value="Vote" @disabled/>
         }
+        @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
+        {
+               <div style="display:inline;">
+                    <input id="btnSaveMyVote" type="button" value="Save My Vote" />
+                </div>  
+        }  
         </div>
         @Html.Partial("_UserVotes")     
     }

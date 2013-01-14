@@ -32,5 +32,6 @@ namespace ScrumPoker
         public DbSet<UserProfileScrum> UserProfileScrums { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<FinalEstimate> FinalEstimates { get; set; }
     }
 }

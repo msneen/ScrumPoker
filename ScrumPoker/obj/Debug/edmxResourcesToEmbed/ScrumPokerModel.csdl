@@ -28,6 +28,11 @@
       <End Role="UserProfileScrum" EntitySet="UserProfileScrums" />
       <End Role="TeamMember" EntitySet="TeamMembers" />
     </AssociationSet>
+    <EntitySet Name="FinalEstimates" EntityType="Model.FinalEstimate" />
+    <AssociationSet Name="FK_FinalEstimate_Project" Association="Model.FK_FinalEstimate_Project">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="FinalEstimate" EntitySet="FinalEstimates" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Membership">
     <Key>
@@ -117,6 +122,7 @@
     <Property Type="Int32" Name="CreatedUserId" Nullable="false" />
     <NavigationProperty Name="UserProfile" Relationship="Model.FK_Project_UserProfile" FromRole="Project" ToRole="UserProfileScrum" />
     <NavigationProperty Name="TeamMembers" Relationship="Model.FK_TeamMember_Project" FromRole="Project" ToRole="TeamMember" />
+    <NavigationProperty Name="FinalEstimates" Relationship="Model.FK_FinalEstimate_Project" FromRole="Project" ToRole="FinalEstimate" />
   </EntityType>
   <Association Name="FK_Project_UserProfile">
     <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1" />
@@ -162,6 +168,28 @@
       </Principal>
       <Dependent Role="TeamMember">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="FinalEstimate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="TaskId" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Estimate" Nullable="false" />
+    <Property Type="Int32" Name="ProjectId" Nullable="false" />
+    <NavigationProperty Name="Project" Relationship="Model.FK_FinalEstimate_Project" FromRole="FinalEstimate" ToRole="Project" />
+  </EntityType>
+  <Association Name="FK_FinalEstimate_Project">
+    <End Type="Model.Project" Role="Project" Multiplicity="1" />
+    <End Type="Model.FinalEstimate" Role="FinalEstimate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FinalEstimate">
+        <PropertyRef Name="ProjectId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

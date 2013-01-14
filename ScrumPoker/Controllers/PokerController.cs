@@ -18,6 +18,7 @@ namespace ScrumPoker.Controllers
         private UserProfileSvc _userProfileSvc = new UserProfileSvc();
         private RoleSvc _roleSvc = new RoleSvc();
         private ProjectSvc _projectSvc = new ProjectSvc();
+        private FinalEstimateSvc _finalEstimateSvc = new FinalEstimateSvc();
         private Entities db = new Entities();
 
         public PokerController() 
@@ -167,12 +168,12 @@ namespace ScrumPoker.Controllers
             return GetVotes(pokerGame);
         }
 
-        private void ClearAllVotes()
+        private void ClearAllVotes(string finalVote = "")
         {
 
                 foreach (var estimate in TaskEstimates.GetEstimateList())
                 {
-                    estimate.Estimate = "";
+                    estimate.Estimate = finalVote;
                 }
         }
 
@@ -205,26 +206,39 @@ namespace ScrumPoker.Controllers
             }
             return GetVotes(pokerGame);
         }
+        public JsonResult SaveMyVote(PokerGame pokerGame)
+        {
+            if (pokerGame.ProjectId > 0)
+            {
+                int estimate = -1;
+                int.TryParse(pokerGame.UserEstimate.Estimate, out estimate);
+                //Save final Vote Here
+                if (estimate >= 0)
+                {
+                    FinalEstimate finalEstimate = new FinalEstimate();
+                    finalEstimate.ProjectId = pokerGame.ProjectId;
+                    finalEstimate.TaskId = pokerGame.TaskId;
+                    finalEstimate.Estimate = estimate;
+                    _finalEstimateSvc.Add(finalEstimate);
+
+                    pokerGame.UserEstimate.Estimate = "";
+                    ClearAllVotes();
+                }
+            }
+            return GetVotes(pokerGame);
+        }
 
         public JsonResult SetVotingTaskId(PokerGame pokerGame)
         {
             if (pokerGame.ProjectId > 0)
             {
                 TaskEstimates.SetVotingTaskId(pokerGame.TaskId);
+                ClearAllVotes();
             }
             return GetVotes(pokerGame);
         }
 
-         //This is currently unused.  It will make the 3 necessary roles in your database
-        [HttpPost]
-        public ActionResult MakeRoles()
-        {            
-            AddRole("Developer");
-            AddRole("ScrumMaster");
-            AddRole("SiteAdmin");
 
-            return RedirectToAction("Vote", "Poker");
-        }
 
         //This is the main method of the whole app.
         public JsonResult GetVotes(PokerGame pokerGame)
@@ -287,6 +301,17 @@ namespace ScrumPoker.Controllers
                 }
             }
             return projectName;
+        }
+
+        //This is currently unused.  It will make the 3 necessary roles in your database
+        [HttpPost]
+        public ActionResult MakeRoles()
+        {
+            AddRole("Developer");
+            AddRole("ScrumMaster");
+            AddRole("SiteAdmin");
+
+            return RedirectToAction("Vote", "Poker");
         }
 
         private static void AddRole(string roleName)

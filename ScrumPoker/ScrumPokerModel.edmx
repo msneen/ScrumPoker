@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="FinalEstimate" EntityType="Model.Store.FinalEstimate" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Project" EntityType="Model.Store.Project" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TeamMember" EntityType="Model.Store.TeamMember" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserProfile" EntityType="Model.Store.UserProfile" store:Type="Tables" Schema="dbo" />
@@ -13,6 +14,10 @@
           <EntitySet Name="webpages_OAuthMembership" EntityType="Model.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Roles" EntityType="Model.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_UsersInRoles" EntityType="Model.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_FinalEstimate_Project" Association="Model.Store.FK_FinalEstimate_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="FinalEstimate" EntitySet="FinalEstimate" />
+          </AssociationSet>
           <AssociationSet Name="FK_Project_UserProfile" Association="Model.Store.FK_Project_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Project" EntitySet="Project" />
@@ -34,6 +39,15 @@
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="FinalEstimate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TaskId" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Estimate" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Project">
           <Key>
             <PropertyRef Name="id" />
@@ -98,6 +112,18 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_FinalEstimate_Project">
+          <End Role="Project" Type="Model.Store.Project" Multiplicity="1" />
+          <End Role="FinalEstimate" Type="Model.Store.FinalEstimate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FinalEstimate">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Project_UserProfile">
           <End Role="UserProfile" Type="Model.Store.UserProfile" Multiplicity="1" />
           <End Role="Project" Type="Model.Store.Project" Multiplicity="*" />
@@ -190,6 +216,11 @@
             <End Role="UserProfileScrum" EntitySet="UserProfileScrums" />
             <End Role="TeamMember" EntitySet="TeamMembers" />
           </AssociationSet>
+          <EntitySet Name="FinalEstimates" EntityType="Model.FinalEstimate" />
+          <AssociationSet Name="FK_FinalEstimate_Project" Association="Model.FK_FinalEstimate_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="FinalEstimate" EntitySet="FinalEstimates" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Membership">
           <Key>
@@ -279,6 +310,7 @@
           <Property Type="Int32" Name="CreatedUserId" Nullable="false" />
           <NavigationProperty Name="UserProfile" Relationship="Model.FK_Project_UserProfile" FromRole="Project" ToRole="UserProfileScrum" />
           <NavigationProperty Name="TeamMembers" Relationship="Model.FK_TeamMember_Project" FromRole="Project" ToRole="TeamMember" />
+          <NavigationProperty Name="FinalEstimates" Relationship="Model.FK_FinalEstimate_Project" FromRole="Project" ToRole="FinalEstimate" />
         </EntityType>
         <Association Name="FK_Project_UserProfile">
           <End Type="Model.UserProfileScrum" Role="UserProfileScrum" Multiplicity="1" />
@@ -324,6 +356,28 @@
             </Principal>
             <Dependent Role="TeamMember">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FinalEstimate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TaskId" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Estimate" Nullable="false" />
+          <Property Type="Int32" Name="ProjectId" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Model.FK_FinalEstimate_Project" FromRole="FinalEstimate" ToRole="Project" />
+        </EntityType>
+        <Association Name="FK_FinalEstimate_Project">
+          <End Type="Model.Project" Role="Project" Multiplicity="1" />
+          <End Type="Model.FinalEstimate" Role="FinalEstimate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FinalEstimate">
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -386,6 +440,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FinalEstimates">
+            <EntityTypeMapping TypeName="Model.FinalEstimate">
+              <MappingFragment StoreEntitySet="FinalEstimate">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Estimate" ColumnName="Estimate" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -434,6 +498,12 @@
         <AssociationConnector Association="Model.FK_TeamMember_UserProfile" >
           <ConnectorPoint PointX="11" PointY="2.5526432291666667" />
           <ConnectorPoint PointX="11.75" PointY="2.5526432291666667" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.FinalEstimate" Width="1.5" PointX="11.5" PointY="5.875" Height="1.9802864583333317" />
+        <AssociationConnector Association="Model.FK_FinalEstimate_Project" >
+          <ConnectorPoint PointX="10.75" PointY="5.1800434453124993" />
+          <ConnectorPoint PointX="11.59375" PointY="5.1800434453124993" />
+          <ConnectorPoint PointX="11.59375" PointY="5.875" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

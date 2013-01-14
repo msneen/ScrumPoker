@@ -169,6 +169,9 @@
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\TeamMemberController.cs" />
     <Compile Include="Controllers\UserManagementController.cs" />
+    <Compile Include="FinalEstimate.cs">
+      <DependentUpon>PokerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Membership.cs">
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>
@@ -205,6 +208,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ScrumPokerModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Services\FinalEstimateSvc.cs" />
     <Compile Include="Services\ProjectSvc.cs" />
     <Compile Include="Services\RoleSvc.cs" />
     <Compile Include="Services\ScrumMasterSvc.cs" />

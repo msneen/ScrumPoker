@@ -8,6 +8,7 @@
     var clearAllAjaxUrl = '@Url.Action("ClearAll", "Poker")';
     var saveTeamMembersAjaxUrl = '@Url.Action("SaveTeamMembers", "Poker")'; 
     var saveTaskIdAjaxUrl = '@Url.Action("SetVotingTaskId", "Poker")';
+    var saveMyVoteAjaxUrl = '@Url.Action("SaveMyVote", "Poker")';
     var colors = [@{//Be careful.  This section mixes Javascipt and C#
                                 for (var i = 0; i < Model.Colors.Count; i++ ) 
                                 { 
@@ -49,6 +50,9 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
         this.ProjectId = 0;
         this.ProjectName = "";
         this.TaskId = "";
+    }
+    function SaveMyVote(callback) {
+        CallServer(saveMyVoteAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
     }
     function SaveTaskId(callback) {
         CallServer(saveTaskIdAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
@@ -121,6 +125,16 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
                 $("#estimate").val("");
                 RefreshVotes();
             }
+        });
+        $("#btnSaveMyVote").click(function () {
+            if ($("#firstName").val().length != 0) {
+                $("#firstName").attr("disabled", "disabled");
+                PokerGame.UserEstimate.Name = $("#firstName").val();
+                PokerGame.UserEstimate.Estimate = $("#estimate").val();
+                PokerGame.TaskId = $("#taskId").val();
+                $("#estimate").val("");
+                SaveMyVote(WriteVotes);
+            }            
         });
         $("#aClearVotes").click(function () {
             ClearVotes(WriteVotes);
