@@ -29,13 +29,27 @@
         </td>
         <td>
             <h3>
-                @Html.DisplayFor(modelItem => item.Estimate)
+                @*@Html.DisplayFor(modelItem => item.Estimate)*@
+                @{
+                        if (item.Estimate == null)
+                        {                         
+                            @:?
+                        }
+                        else if ( item.Estimate == 0 || item.Estimate >=1)
+                        {                    
+                            @Math.Round(item.Estimate.Value, 0)
+                        }
+                        else
+                        {
+                            @String.Format( "{0:#.00}",item.Estimate)
+                        }
+                    }
             </h3>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id })
         </td>
     </tr>
 }
