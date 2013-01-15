@@ -154,6 +154,7 @@ namespace ScrumPoker.Controllers
 
         public JsonResult ClearAll(PokerGame pokerGame)
         {
+            TaskEstimates.SetVotingTaskId("");
             TaskEstimates.SetEstimateList(new List<TaskEstimate>());
             TaskEstimates.ResetProject();
             pokerGame.ProjectId = 0;
@@ -170,11 +171,11 @@ namespace ScrumPoker.Controllers
 
         private void ClearAllVotes(string finalVote = "")
         {
-
-                foreach (var estimate in TaskEstimates.GetEstimateList())
-                {
-                    estimate.Estimate = finalVote;
-                }
+            TaskEstimates.SetVotingTaskId("");
+            foreach (var estimate in TaskEstimates.GetEstimateList())
+            {
+                estimate.Estimate = finalVote;
+            }
         }
 
          //This is called by the ScrumMaster "Save Team" button under the Votes
@@ -232,8 +233,8 @@ namespace ScrumPoker.Controllers
         {
             if (pokerGame.ProjectId > 0)
             {
-                TaskEstimates.SetVotingTaskId(pokerGame.TaskId);
                 ClearAllVotes();
+                TaskEstimates.SetVotingTaskId(pokerGame.TaskId);                
             }
             return GetVotes(pokerGame);
         }

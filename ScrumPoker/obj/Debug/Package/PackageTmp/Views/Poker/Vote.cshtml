@@ -5,9 +5,13 @@
 @{
     ViewBag.Title = "Scrum Poker";
 }
-    @section scripts  {
-        @Html.Partial("_ScrumPokerJs", Model)<br />
-    }
+@section scripts  {
+    @Html.Partial("_ScrumPokerJs", Model)<br />
+}
+@section styles{
+    @Styles.Render("~/Content/poker")
+}
+}
 @if (Model.ProjectId > 0)
 {
 
@@ -27,12 +31,6 @@
             }        
             @Html.TextBox("firstName", (string)ViewBag.FirstName, displayMode)
         }
-@*        <datalist id="users">
-            @foreach (var teamMember in Model.CurrentProject.TeamMembers)
-            {
-                <option>@teamMember.NickName</option>
-            }
-        </datalist>*@
         </div>
         <br /> 
         <div>
@@ -49,7 +47,7 @@
             }
         </div>
         <div>
-        @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:35px; background-color:red;font-size: xx-large;", type = "number" })
+        @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:70px; background-color:red;font-size: xx-large;" })
         @Html.Hidden("projectid", Model.ProjectId)
         @{
             string disabled = Model.ProjectId > 0 ? "" : "disabled";
@@ -66,3 +64,20 @@
     }
 }
 @Html.Partial("_UserList", Model)<br />
+<div id="fibonacci" style="display:none">
+    <ol id="selectable">
+      <li class="ui-state-default">0</li>
+      <li class="ui-state-default">1/4</li>
+      <li class="ui-state-default">1/2</li>
+      <li class="ui-state-default">1</li>
+      <li class="ui-state-default">2</li>
+      <li class="ui-state-default">3</li>
+      <li class="ui-state-default">5</li>
+      <li class="ui-state-default">8</li>
+      <li class="ui-state-default">13</li>
+      <li class="ui-state-default">20</li>
+      <li class="ui-state-default">40</li>
+      <li class="ui-state-default">100</li>
+      <li class="ui-state-default">?</li>
+    </ol>
+</div>

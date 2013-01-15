@@ -2,7 +2,7 @@
 @using ScrumPoker.ViewModels.Poker;
 @model PokerVm
 <script language="javascript" type="text/javascript">
-
+    var timer;
     var getVotesAjaxUrl = '@Url.Action("GetVotes", "Poker")';
     var clearVotesAjaxUrl = '@Url.Action("ClearVotes", "Poker")';
     var clearAllAjaxUrl = '@Url.Action("ClearAll", "Poker")';
@@ -61,7 +61,6 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
         CallServer(saveTeamMembersAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
     }
     function ClearAll(callback) {
-        keepRefreshing = false;
         CallServer(clearAllAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
         window.location.href = '@Url.Action("Vote", "Poker")';
         location.refresh();
@@ -75,6 +74,7 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
     var isRefreshed = false;
     function CallServer(url, callback) {
         isRefreshed = false;
+        ClearTimer();
         $.ajax(url, {
             type: 'POST',
             dataType: 'json',
@@ -85,6 +85,7 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
                 PokerGame = $.extend({}, pokerGame);
                 isRefreshed = true;
                 callback();
+                SetTimer();
             },
             error: function (pokerGame, t, x) {
                 //alert(JSON.stringify(pokerGame));
@@ -106,16 +107,18 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
             colorCounter += 1;
         }
     }
-    var keepRefreshing = false;
     function RefreshVotes() {
         PokerGame.ProjectId = $("#projectid").val();
         if ($("#firstName").val().length != 0) {
             PokerGame.UserEstimate.Name = $("#firstName").val();           
         }
-        GetVotes(WriteVotes);
-        if (keepRefreshing == true) {
-            setTimeout('RefreshVotes()', 3000);
-        }
+        GetVotes(WriteVotes);     
+    }
+    function SetTimer(){
+        timer = setTimeout('RefreshVotes()', 3000); 
+    }
+    function ClearTimer(){
+        clearTimeout(timer);
     }
     $(document).ready(function () {
         $("#SubmitVote").click(function () {
@@ -149,10 +152,21 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
             PokerGame.TaskId = $("#taskId").val();
             SaveTaskId(WriteVotes);
         });
+        $("#estimate").click(function(){
+            $("#fibonacci").dialog({
+                width:"auto",
+                height:"auto"
+            });
+            $("#selectable").selectable({
+                selected: function(event, ui){
+                    $("#estimate").val(ui.selected.innerText);
+                    $("#fibonacci").dialog("close");
+                }
+            });
+        });
         $("#firstName").autocomplete({
             source: teamMembers
         });
-        keepRefreshing = true;
         RefreshVotes();
     });
 </script>
