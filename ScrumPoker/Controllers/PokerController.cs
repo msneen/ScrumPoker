@@ -56,11 +56,11 @@ namespace ScrumPoker.Controllers
         }
 
          //This is called by the page to add a project to vote on from the ScrumMaster dropdown list
-        public ActionResult AddProject(string Projects)
+        public ActionResult AddProject(string projectList)
         {
-            if (!string.IsNullOrEmpty(Projects.Trim()))
+            if (!string.IsNullOrEmpty(projectList.Trim()))
             {
-                TaskEstimates.SetProject(Projects.Trim());
+                TaskEstimates.SetProject(projectList.Trim());
                 int projectId = TaskEstimates.GetProjectId(); //Convert.ToInt32(Projects);
 
                 Project project = _projectSvc.Find(projectId);

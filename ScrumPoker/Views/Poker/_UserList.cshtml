@@ -10,12 +10,12 @@
     {
         if (Model.Projects != null && Model.Projects.Count > 0)
         {
-            SelectList list = new SelectList(Model.Projects, "id", "ProjectName", Model.Projects.Last().id.ToString());
+            SelectList list = new SelectList(Model.Projects.OrderBy(m => m.ProjectName), "id", "ProjectName", Model.ProjectId.ToString());
             <div>
                 <h3>@Html.Label("Choose Project")</h3>
             </div>
             <div>
-                @Html.DropDownListFor(model => Model.Projects, list, new { @style="font-size: x-large;"})
+                @Html.DropDownList("projectList", list, new { @style = "font-size: x-large;" })
             </div>
             <div>
                 <input type="submit" value="Vote on this Project"/>

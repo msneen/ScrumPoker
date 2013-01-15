@@ -14,7 +14,6 @@
 
 @if (Model.ProjectId > 0)
 {
-
     <div style="display:inline;">Project <h2 id="spnProjectName" style="display:inline;">@Html.DisplayFor(model => model.ProjectName)</h2></div>
      <h3 style="display:inline;">@Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId })</h3>  
     using (Html.BeginForm("Vote", "Poker", FormMethod.Post))

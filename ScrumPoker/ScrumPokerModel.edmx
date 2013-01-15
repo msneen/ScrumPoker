@@ -475,15 +475,15 @@
         <EntityTypeShape EntityType="Model.Membership" Width="2.625" PointX="0.625" PointY="3.125" Height="3.1340950520833335" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.OAuthMembership" Width="2.5" PointX="4.125" PointY="3.5" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Role" Width="2.25" PointX="0.75" PointY="0.875" Height="1.5956835937499994" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.UsersInRoles" Width="2.75" PointX="4.625" PointY="0.875" Height="1.7879850260416661" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.UsersInRoles" Width="2.75" PointX="4.625" PointY="0.875" Height="0.4" IsExpanded="false" />
         <AssociationConnector Association="Model.fk_RoleId" ManuallyRouted="false">
-          <ConnectorPoint PointX="3" PointY="1.6728417968749998" />
-          <ConnectorPoint PointX="4.625" PointY="1.6728417968749998" />
+          <ConnectorPoint PointX="3" PointY="1.075" />
+          <ConnectorPoint PointX="4.625" PointY="1.075" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model.UserProfileScrum" Width="1.875" PointX="9.125" PointY="0.875" Height="1.59568359375" />
         <AssociationConnector Association="Model.UsersInRolesUserProfileScrum">
-          <ConnectorPoint PointX="7.375" PointY="1.7689925130208328" />
-          <ConnectorPoint PointX="9.125" PointY="1.7689925130208328" />
+          <ConnectorPoint PointX="7.375" PointY="1.075" />
+          <ConnectorPoint PointX="9.125" PointY="1.075" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model.Project" Width="1.5" PointX="9.25" PointY="3.75" Height="1.7879850260416674" />
         <AssociationConnector Association="Model.FK_Project_UserProfile" >
