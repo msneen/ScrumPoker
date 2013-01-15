@@ -211,15 +211,27 @@ namespace ScrumPoker.Controllers
         {
             if (pokerGame.ProjectId > 0)
             {
-                int estimate = -1;
-                int.TryParse(pokerGame.UserEstimate.Estimate, out estimate);
+                decimal? nullableEstimate = -1;
+                decimal estimate = -1;
+                if (pokerGame.UserEstimate.Estimate.Trim().Equals("?"))
+                    nullableEstimate = null;
+                else if (pokerGame.UserEstimate.Estimate.Trim().Equals("1/4"))
+                    nullableEstimate = .25m;
+                else if (pokerGame.UserEstimate.Estimate.Trim().Equals("1/2"))
+                    nullableEstimate = .5m;
+                else
+                {
+                    decimal.TryParse(pokerGame.UserEstimate.Estimate, out estimate);
+                    nullableEstimate = estimate;
+                }
+                
                 //Save final Vote Here
-                if (estimate >= 0)
+                if (pokerGame.UserEstimate.Estimate.Trim().Equals("?") || estimate >= -1)
                 {
                     FinalEstimate finalEstimate = new FinalEstimate();
                     finalEstimate.ProjectId = pokerGame.ProjectId;
                     finalEstimate.TaskId = pokerGame.TaskId;
-                    finalEstimate.Estimate = estimate;
+                    finalEstimate.Estimate = nullableEstimate;
                     _finalEstimateSvc.Add(finalEstimate);
 
                     pokerGame.UserEstimate.Estimate = "";
@@ -247,9 +259,20 @@ namespace ScrumPoker.Controllers
  
             if (pokerGame.UserEstimate != null && !string.IsNullOrEmpty(pokerGame.UserEstimate.Name) && !string.IsNullOrEmpty(pokerGame.UserEstimate.Estimate))
             {
-                    int intestimate = 0;
-                    int.TryParse(pokerGame.UserEstimate.Estimate, out intestimate);
-                    if (intestimate > 0)
+                decimal? nullableEstimate = -1;
+                decimal estimate = -1;
+                if (pokerGame.UserEstimate.Estimate.Trim().Equals("?"))
+                    nullableEstimate = null;
+                else if (pokerGame.UserEstimate.Estimate.Trim().Equals("1/4"))
+                    nullableEstimate = .25m;
+                else if (pokerGame.UserEstimate.Estimate.Trim().Equals("1/2"))
+                    nullableEstimate = .5m;
+                else
+                {
+                    decimal.TryParse(pokerGame.UserEstimate.Estimate, out estimate);
+                    nullableEstimate = estimate;
+                }
+                if (pokerGame.UserEstimate.Estimate.Trim().Equals("?") || estimate >= -1)
                     {
                         SaveEstimateToSession(pokerGame.UserEstimate.Estimate, pokerGame.UserEstimate.Name, pokerGame.ProjectId);
 

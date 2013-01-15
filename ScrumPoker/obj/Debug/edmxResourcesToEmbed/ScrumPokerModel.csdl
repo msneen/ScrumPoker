@@ -177,7 +177,7 @@
     </Key>
     <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="TaskId" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Type="Int32" Name="Estimate" Nullable="false" />
+    <Property Type="Decimal" Name="Estimate" Precision="10" Scale="2" />
     <Property Type="Int32" Name="ProjectId" Nullable="false" />
     <NavigationProperty Name="Project" Relationship="Model.FK_FinalEstimate_Project" FromRole="FinalEstimate" ToRole="Project" />
   </EntityType>

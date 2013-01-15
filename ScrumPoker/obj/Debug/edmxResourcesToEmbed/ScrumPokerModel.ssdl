@@ -40,7 +40,7 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="TaskId" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Estimate" Type="int" Nullable="false" />
+    <Property Name="Estimate" Type="decimal" Precision="10" Scale="2" />
     <Property Name="ProjectId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Project">

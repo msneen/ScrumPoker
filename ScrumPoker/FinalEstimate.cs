@@ -16,7 +16,7 @@ namespace ScrumPoker
     {
         public int id { get; set; }
         public string TaskId { get; set; }
-        public int Estimate { get; set; }
+        public Nullable<decimal> Estimate { get; set; }
         public int ProjectId { get; set; }
     
         public virtual Project Project { get; set; }
