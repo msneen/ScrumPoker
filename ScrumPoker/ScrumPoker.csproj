@@ -391,6 +391,7 @@
     <Content Include="Views\FinalVote\Create.cshtml" />
     <Content Include="Views\FinalVote\Edit.cshtml" />
     <Content Include="Views\FinalVote\Delete.cshtml" />
+    <Content Include="Views\Poker\_FibonacciPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

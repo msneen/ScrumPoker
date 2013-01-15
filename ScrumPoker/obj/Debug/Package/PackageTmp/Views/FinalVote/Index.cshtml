@@ -17,22 +17,20 @@
         <th>
             @Html.DisplayNameFor(model => model.Estimate)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Project.ProjectName)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.TaskId)
+            <h4>
+                @Html.DisplayFor(modelItem => item.TaskId)
+            </h4>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Estimate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Project.ProjectName)
+            <h3>
+                @Html.DisplayFor(modelItem => item.Estimate)
+            </h3>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
