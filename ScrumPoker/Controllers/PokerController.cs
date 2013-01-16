@@ -21,10 +21,23 @@ namespace ScrumPoker.Controllers
         private FinalEstimateSvc _finalEstimateSvc = new FinalEstimateSvc();
         private Entities db = new Entities();
 
-        public PokerController() 
+        public PokerController()
         {
-            //colors = new List<string>() { "White", "Red", "Green", "Pink", "Blue", "Magenta", "Cyan", "Chartreuse", "Coral" };
+            #region New Color List Area
+
+            List<List<string>> colorList = new List<List<string>>();
+
+            List<string>  colors0 = new List<string>() { "White", "Red", "Green", "Pink", "Blue", "Magenta", "Cyan", "Chartreuse", "Coral" };
+            List<string>  colors1 = new List<string>() { "#5ABFC6", "#CE95C8", "#D1C57E", "#E85AAA", "#FF2626", "#009ACD", "#FFFF00", "#FBBF51", "#9EFC7D" };
+
+            colorList.Add(colors0);
+            colorList.Add(colors1);
+
+            #endregion
+            //colors = new List<string>() { "#5ABFC6", "#CE95C8", "#D1C57E", "#E85AAA", "#FF2626", "#009ACD", "#FFFF00", "#FBBF51", "#9EFC7D" };
             colors = new List<string>() { "#5ABFC6", "#CE95C8", "#D1C57E", "#E85AAA", "#FF2626", "#009ACD", "#FFFF00", "#FBBF51", "#9EFC7D" };
+            
+            
             ViewBag.Colors = colors;
             ViewBag.Estimates = TaskEstimates.GetEstimateList();
         }
