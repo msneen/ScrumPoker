@@ -24,7 +24,9 @@ namespace ScrumPoker.Controllers
         public PokerController()
         {
             #region New Color List Area
-
+            //Make a dropdown list that has color scheme names that correspond to colors{num} as "Text"
+            //     make the "values" correspond to the index, ie {num}
+            //once they pick, get the index, and use it to assign that colorList item "colorList[index]" to the variable "colors"
             List<List<string>> colorList = new List<List<string>>();
 
             List<string>  colors0 = new List<string>() { "White", "Red", "Green", "Pink", "Blue", "Magenta", "Cyan", "Chartreuse", "Coral" };
@@ -36,8 +38,7 @@ namespace ScrumPoker.Controllers
             #endregion
             //colors = new List<string>() { "#5ABFC6", "#CE95C8", "#D1C57E", "#E85AAA", "#FF2626", "#009ACD", "#FFFF00", "#FBBF51", "#9EFC7D" };
             colors = new List<string>() { "#5ABFC6", "#CE95C8", "#D1C57E", "#E85AAA", "#FF2626", "#009ACD", "#FFFF00", "#FBBF51", "#9EFC7D" };
-            
-            
+                        
             ViewBag.Colors = colors;
             ViewBag.Estimates = TaskEstimates.GetEstimateList();
         }
