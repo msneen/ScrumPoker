@@ -51,3 +51,12 @@ D:\Sneen\ScrumPoker\ScrumPoker\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 D:\Sneen\ScrumPoker\ScrumPoker\obj\Debug\ResolveAssemblyReference.cache
 D:\Sneen\ScrumPoker\ScrumPoker\obj\Debug\ScrumPoker.dll
 D:\Sneen\ScrumPoker\ScrumPoker\obj\Debug\ScrumPoker.pdb
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.Owin.dll
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Owin.dll
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.Owin.xml
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.Owin.Host.SystemWeb.xml

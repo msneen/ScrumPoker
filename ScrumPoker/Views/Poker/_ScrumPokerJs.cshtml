@@ -51,30 +51,44 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
         this.ProjectName = "";
         this.TaskId = "";
     }
+    function SendNotification(message){
+        var group = $("#projectid").val();
+        $.connection.notifier.server.notify(message, group);
+    }
     function SaveMyVote(callback) {
         CallServer(saveMyVoteAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
+        SendNotification('SAVEMYVOTE');
     }
     function SaveTaskId(callback) {
         CallServer(saveTaskIdAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
+        SendNotification('SAVETASKID');
     }
     function SaveTeamMembers(callback) {
         CallServer(saveTeamMembersAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
+        SendNotification('SAVETEAMMEMBERS');
     }
     function ClearAll(callback) {
         CallServer(clearAllAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
         window.location.href = '@Url.Action("Vote", "Poker")';
+        SendNotification('REFRESH');
         location.refresh();
     }
     function ClearVotes(callback) {
         CallServer(clearVotesAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
+        SendNotification('CLEARVOTES');
     }
+    function SendVote(callback) {
+        CallServer(getVotesAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
+        SendNotification('SENDVOTE');
+    }
+
     function GetVotes(callback) {
         CallServer(getVotesAjaxUrl, callback); //getVotesAjaxUrl is in Votes script section
     }
     var isRefreshed = false;
     function CallServer(url, callback) {
         isRefreshed = false;
-        ClearTimer();
+        //ClearTimer();
         $.ajax(url, {
             type: 'POST',
             dataType: 'json',
@@ -85,7 +99,7 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
                 PokerGame = $.extend({}, pokerGame);
                 isRefreshed = true;
                 callback();
-                SetTimer();
+                //SetTimer();
             },
             error: function (pokerGame, t, x) {
                 //alert(JSON.stringify(pokerGame));
@@ -109,24 +123,26 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
     }
     function RefreshVotes() {
         PokerGame.ProjectId = $("#projectid").val();
-        if ($("#firstName").val().length != 0) {
+        if ($("#firstName").val() != null && $("#firstName").val().length != 0) {
             PokerGame.UserEstimate.Name = $("#firstName").val();           
         }
         GetVotes(WriteVotes);     
     }
-    function SetTimer(){
-        timer = setTimeout('RefreshVotes()', 3000); 
-    }
-    function ClearTimer(){
-        clearTimeout(timer);
-    }
+//    function SetTimer(){
+//        timer = setTimeout('RefreshVotes()', 3000); 
+//    }
+//    function ClearTimer(){
+//        clearTimeout(timer);
+//    }
     $(document).ready(function () {
         $("#SubmitVote").click(function () {
+            PokerGame.ProjectId = $("#projectid").val();
             if ($("#firstName").val().length != 0) {
+                PokerGame.UserEstimate.Name = $("#firstName").val();
                 $("#firstName").attr("disabled", "disabled");
                 PokerGame.UserEstimate.Estimate = $("#estimate").val();
                 $("#estimate").val("");
-                RefreshVotes();
+                SendVote(WriteVotes);   //RefreshVotes(WriteVotes);
             }
         });
         $("#btnSaveMyVote").click(function () {
@@ -166,6 +182,26 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
         });
         $("#firstName").autocomplete({
             source: teamMembers
+        });
+        $(function() {            
+            $.connection.hub.url = 'http://localhost:44079/signalr'
+            var notifyProxy = $.connection.notifier;
+            notifyProxy.client.addNotification = function(message, groupName){
+                //what to do when we receive a message
+                if(groupName == $("#projectid").val()){
+                    RefreshVotes();
+                }
+            };
+            $.connection.hub.start({jsonp: true})
+                .done(function() {
+                    //attach click events and other events to send messages here
+                    if($("#projectid").val() != null && $("#projectid").val().length != 0){
+                        $.connection.notifier.server.join($("#projectid").val());
+                    }
+                })
+                .fail(function() {
+                    alert('connect failed');
+                });
         });
         RefreshVotes();
     });
