@@ -1,4 +1,4 @@
-@using ScrumPoker.Models;
+﻿@using ScrumPoker.Models;
 @using ScrumPoker.Services;
 @using ScrumPoker.ViewModels.Poker;
 @model PokerVm
@@ -46,18 +46,27 @@
             }
         </div>
         <div>
-        @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:70px; background-color:red;font-size: xx-large;" })
-        @Html.Hidden("projectid", Model.ProjectId)
-        @{
-            string disabled = Model.ProjectId > 0 ? "" : "disabled";
-        <input id="SubmitVote" type="button" value="Vote" @disabled/>
-        }
-        @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
-        {
-               <div style="display:inline;">
-                    <input id="btnSaveMyVote" type="button" value="Save My Vote" />
-                </div>  
-        }  
+            <div style="display:inline;">
+                @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:70px; background-color:red;font-size: xx-large;" })
+            </div>
+            <div style="display:inline-table; vertical-align:top;"> 
+                <div style="display:table-row">
+                    <input type="checkbox" id="chkUsePopup" checked="checked" style="margin: 0px 0px 0px 0px;padding: 0px 0px 0px 0px;"   />   
+                </div>
+                <div style="display:table-row; padding: 0px 0px 0px 0px;">      
+                    @{
+                        string disabled = Model.ProjectId > 0 ? "" : "disabled";
+                        <input id="SubmitVote" type="button" value="Vote" style="margin: 0px 0px 0px 0px;" @disabled/>
+                    }
+                </div>
+            </div>
+                @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
+                {
+                       <div style="display:inline;">
+                            <input id="btnSaveMyVote" type="button" value="Save My Vote" />
+                        </div>  
+                }  
+                @Html.Hidden("projectid", Model.ProjectId)
         </div>
         @Html.Partial("_UserVotes")     
     }

@@ -14,8 +14,8 @@
 
 @if (Model.ProjectId > 0)
 {
-    <div style="display:inline;">Project <h2 id="spnProjectName" style="display:inline;">@Html.DisplayFor(model => model.ProjectName)</h2></div>
-     <h3 style="display:inline;">@Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId })</h3>  
+    <div  class="displayGroup">Project <h2 id="spnProjectName"  class="displayGroup">@Html.DisplayFor(model => model.ProjectName)</h2></div>
+     <h3>@Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId })</h3>  
     using (Html.BeginForm("Vote", "Poker", FormMethod.Post))
     {
             <br />
@@ -33,36 +33,36 @@
         </div>
         <br /> 
         <div>
-            <div style="display:inline;">Task Id </div>
-            <h3 id="taskIdDisplay" style="display:inline;"></h3>
+            <div class="displayGroup">Task Id </div>
+            <h3 id="taskIdDisplay" class="displayGroup"></h3>
             @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
             {
-                <div style="display:inline;">
+                <div class="displayGroup">
                     <input id="taskId" type="text" />
                 </div>
-                <div style="display:inline;">
+                <div class="displayGroup">
                     <input id="btnSetTaskId" type="button" value="Set Task Id" />
                 </div>         
             }
         </div>
         <div>
-            <div style="display:inline;">
-                @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate", @style = "width:70px; background-color:red;font-size: xx-large;" })
+            <div class="displayGroup">
+                @Html.TextBox("estimate", (string)ViewBag.estimate, new { id = "estimate" })
             </div>
-            <div style="display:inline-table; vertical-align:top;"> 
-                <div style="display:table-row">
-                    <input type="checkbox" id="chkUsePopup" checked="checked" style="margin: 0px 0px 0px 0px;padding: 0px 0px 0px 0px;"   />   
+            <div id="votebutton"> 
+                <div>
+                    <input type="checkbox" id="chkUsePopup" checked="checked"   />   
                 </div>
-                <div style="display:table-row; padding: 0px 0px 0px 0px;">      
+                <div>      
                     @{
                         string disabled = Model.ProjectId > 0 ? "" : "disabled";
-                        <input id="SubmitVote" type="button" value="Vote" style="margin: 0px 0px 0px 0px;" @disabled/>
+                        <input id="SubmitVote" type="button" value="Vote" @disabled/>
                     }
                 </div>
             </div>
                 @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
                 {
-                       <div style="display:inline;">
+                       <div  class="displayGroup">
                             <input id="btnSaveMyVote" type="button" value="Save My Vote" />
                         </div>  
                 }  
