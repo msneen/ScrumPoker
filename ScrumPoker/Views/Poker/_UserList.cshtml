@@ -15,10 +15,10 @@
                 <h3>@Html.Label("Choose Project")</h3>
             </div>
             <div>
-                @Html.DropDownList("projectList", list, new { @style = "font-size: x-large;" })
+                @Html.DropDownList("projectList", list, new {@class="scrumMaster" })
             </div>
             <div>
-                <input type="submit" value="Vote on this Project"/>
+                <input type="submit" value="Vote on this Project" class="scrumMaster"/>
             </div>
         }<br />
     }
@@ -26,11 +26,9 @@
     {       <h3>@Model.ProjectName Team Members</h3>
         using (Html.BeginForm("AddUser", "Poker", FormMethod.Post))
         {            
-                <input type="text" id="userName" name="userName" />
-                <input type="submit" value="Add Team Member"/>
-        }<br />
-    
-    <br />   
-    @Html.ActionLink("View Final Votes", "Index", "FinalVote", new { id = Model.ProjectId }, new { @style="font-size:large;" })
+                <input type="text" id="userName" name="userName" class="scrumMaster" />
+                <input type="submit" value="Add Team Member" class="scrumMaster"/>
+        }
+        @Html.ActionLink("View Final Votes", "Index", "FinalVote", new { id = Model.ProjectId }, new {})
     }
 }

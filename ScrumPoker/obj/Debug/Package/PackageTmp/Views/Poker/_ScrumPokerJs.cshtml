@@ -112,7 +112,7 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
             $("#tblVotes > thead").append('<td>' + PokerGame.Votes[i].Name + '</td>');
 
             var colorIndex = colorCounter % 8;
-            $("#tblVotes > tbody > tr").append("<td style='height:40px;font-size:xx-large;text-align:center;background-color:" + colors[colorIndex] + "'>" + PokerGame.Votes[i].Estimate + "</td>");
+            $("#tblVotes > tbody > tr").append("<td style='background-color:" + colors[colorIndex] + "'>" + PokerGame.Votes[i].Estimate + "</td>");
             colorCounter += 1;
         }
     }

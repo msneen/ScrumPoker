@@ -3,7 +3,7 @@
     @using ScrumPoker.Services;
     @using ScrumPoker.ViewModels.Poker;
     <hr />
-        <table id="tblVotes" style="display: inline;">
+        <table id="tblVotes"  class="displayGroup">
                 <thead>
                     @{int colorCounter = 0;
                     List<TaskEstimate> taskEstimates = TaskEstimates.GetEstimateList();  
@@ -24,7 +24,7 @@
                     @foreach (var taskEstimate in taskEstimates)
                     {
                         int colorIndex = colorCounter % 8;
-                        <td style="height:40px;font-size:xx-large;text-align:center;background-color:@ViewBag.Colors[colorIndex]">@taskEstimate.Estimate</td>
+                        <td style="background-color:@ViewBag.Colors[colorIndex]">@taskEstimate.Estimate</td>
                         colorCounter += 1;
                     }
                     </tr>
@@ -32,6 +32,6 @@
         </table>
     @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
     {
-    <input id="btnSaveTeamMembers" type="button" value="Save Team" style="display:inline;" />
+    <input id="btnSaveTeamMembers" type="button" value="Save Team" class="displayGroup scrumMaster" />
     }
  

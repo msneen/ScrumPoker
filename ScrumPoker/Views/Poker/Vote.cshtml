@@ -14,8 +14,17 @@
 
 @if (Model.ProjectId > 0)
 {
-    <div  class="displayGroup">Project <h2 id="spnProjectName"  class="displayGroup">@Html.DisplayFor(model => model.ProjectName)</h2></div>
-     <h3>@Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId })</h3>  
+    <div  class="displayGroup">
+        Project <h2 id="spnProjectName">@Html.DisplayFor(model => model.ProjectName)</h2>
+    </div>
+    if (Context.Request.Url.AbsolutePath.ToLower().Contains("scrumpoker"))
+    {
+        <a href="http://TinyUrl.com/scpoket/@Model.ProjectId">tinyurl.com/scpoket/@Model.ProjectId</a>
+    }
+    else
+    {
+        @Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId }, new {})
+    }
     using (Html.BeginForm("Vote", "Poker", FormMethod.Post))
     {
             <br />
@@ -38,10 +47,10 @@
             @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
             {
                 <div class="displayGroup">
-                    <input id="taskId" type="text" />
+                    <input id="taskId" type="text" class="scrumMaster" />
                 </div>
                 <div class="displayGroup">
-                    <input id="btnSetTaskId" type="button" value="Set Task Id" />
+                    <input id="btnSetTaskId" type="button" value="Set Task Id" class="scrumMaster" />
                 </div>         
             }
         </div>
@@ -63,7 +72,7 @@
                 @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
                 {
                        <div  class="displayGroup">
-                            <input id="btnSaveMyVote" type="button" value="Save My Vote" />
+                            <input id="btnSaveMyVote" type="button" value="Save My Vote" class="scrumMaster" />
                         </div>  
                 }  
                 @Html.Hidden("projectid", Model.ProjectId)

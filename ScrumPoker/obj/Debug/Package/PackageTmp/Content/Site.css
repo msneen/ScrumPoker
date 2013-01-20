@@ -448,6 +448,10 @@ textarea {
         border: inherit;
         width: auto;
     }
+    input[type="text"] {
+        height:25px;
+        width:130px;
+    }
 
     input[type="submit"],
     input[type="button"],
@@ -586,6 +590,44 @@ tr.pager td {
     padding: 0 0.25em 0 0;
 }
 
+select{
+    font-size: x-large;
+}
+#estimate {
+    width:70px;
+    height:40px; 
+    font-size: xx-large;
+}
+
+div #votebutton{
+    display:inline-table; 
+    vertical-align:top;
+}
+
+#votebutton div {
+    display:table-row;
+    padding: 0px 0px 0px 0px;
+}
+
+#votebutton div, #votebutton div input{    
+    margin: 0px 0px 0px 0px;
+}
+
+.displayGroup{
+    display:inline;
+}
+
+table#tblVotes tbody tr td  {
+    height:40px;
+    width:60px;
+    font-size:xx-large;
+    text-align:center;
+}
+.scrumMaster{
+    color: Navy;
+    border-color: Navy;
+    border: 1px solid navy !important;
+}
 
 /********************
 *   Mobile Styles   *
