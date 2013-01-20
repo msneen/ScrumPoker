@@ -617,12 +617,42 @@ div #votebutton{
     display:inline;
 }
 
-table#tblVotes tbody tr td  {
+table#tblVotes tbody tr td, #olVotes li  {
     height:40px;
     width:60px;
     font-size:xx-large;
     text-align:center;
 }
+  #divVotes{
+      display:block;
+  }
+  #olVotes  
+  {
+      list-style-type: none; 
+      margin: 0; 
+      padding: 0; 
+      max-width:1200px;
+    }
+  #olVotes li 
+  {
+      margin: 3px; 
+      padding: 1px; 
+      /*float: left; */
+      display:inline-block;
+      width: 70px; 
+     height: 70px;
+    }
+    #olVotes li div:first-child{
+      font-size:medium; 
+      text-align: center; 
+      height: 20px;
+    }
+    #olVotes li div:last-child{
+      font-size: xx-large; 
+      text-align: center;
+      height: 50px;
+    }
+    
 .scrumMaster{
     color: Navy;
     border-color: Navy;

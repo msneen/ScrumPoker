@@ -26,6 +26,10 @@
                         int colorIndex = colorCounter % 8;
                         <td style="background-color:@ViewBag.Colors[colorIndex]">@taskEstimate.Estimate</td>
                         colorCounter += 1;
+                         @*if (colorCounter % 5 == 0)
+                        {
+                            @Html.Raw("</tr><tr>")                            
+                        }*@
                     }
                     </tr>
                 </tbody>           

@@ -102,17 +102,13 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
         });
     }
     function WriteVotes() {
-        $("#tblVotes > thead").find("td").remove();
-        $("#tblVotes > tbody > tr").find("td").remove();       
+        $("#divVotes > ol").find("li").remove();     
         $("#spnProjectName").html(PokerGame.ProjectName);
         $("#taskIdDisplay").html(PokerGame.TaskId);
         var colorCounter = 0;
-
         for (var i = 0; i < PokerGame.Votes.length; i++) {
-            $("#tblVotes > thead").append('<td>' + PokerGame.Votes[i].Name + '</td>');
-
             var colorIndex = colorCounter % 8;
-            $("#tblVotes > tbody > tr").append("<td style='background-color:" + colors[colorIndex] + "'>" + PokerGame.Votes[i].Estimate + "</td>");
+            $("#divVotes > ol").append("<li class='ui-state-default'><div>" + PokerGame.Votes[i].Name + "</div><div style='background-color:" + colors[colorIndex] + "'>" + PokerGame.Votes[i].Estimate +  "&nbsp;</div></li>")
             colorCounter += 1;
         }
     }
