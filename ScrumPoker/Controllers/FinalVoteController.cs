@@ -11,7 +11,12 @@ namespace ScrumPoker.Controllers
 {
     public class FinalVoteController : Controller
     {
-        private Entities db = new Entities();
+        private Entities _db; // = new Entities();
+
+        public FinalVoteController(Entities db)
+        {
+            _db = db;
+        }
 
         //
         // GET: /FinalVote/
@@ -19,7 +24,7 @@ namespace ScrumPoker.Controllers
         public ActionResult Index(int id)
         {
             int projectId = Convert.ToInt32(id);
-            var finalestimates = db.FinalEstimates.Include(f => f.Project).Where(f => f.ProjectId == projectId);
+            var finalestimates = _db.FinalEstimates.Include(f => f.Project).Where(f => f.ProjectId == projectId);
             ViewBag.ProjectId = projectId;
             return View(finalestimates.ToList());
         }
@@ -29,7 +34,7 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            FinalEstimate finalestimate = db.FinalEstimates.Find(id);
+            FinalEstimate finalestimate = _db.FinalEstimates.Find(id);
             if (finalestimate == null)
             {
                 return HttpNotFound();
@@ -42,7 +47,7 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.ProjectId = new SelectList(db.Projects, "id", "ProjectName");
+            ViewBag.ProjectId = new SelectList(_db.Projects, "id", "ProjectName");
             return View();
         }
 
@@ -54,12 +59,12 @@ namespace ScrumPoker.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.FinalEstimates.Add(finalestimate);
-                db.SaveChanges();
+                _db.FinalEstimates.Add(finalestimate);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectId = new SelectList(db.Projects, "id", "ProjectName", finalestimate.ProjectId);
+            ViewBag.ProjectId = new SelectList(_db.Projects, "id", "ProjectName", finalestimate.ProjectId);
             return View(finalestimate);
         }
 
@@ -68,12 +73,12 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            FinalEstimate finalestimate = db.FinalEstimates.Find(id);
+            FinalEstimate finalestimate = _db.FinalEstimates.Find(id);
             if (finalestimate == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ProjectId = new SelectList(db.Projects, "id", "ProjectName", finalestimate.ProjectId);
+            ViewBag.ProjectId = new SelectList(_db.Projects, "id", "ProjectName", finalestimate.ProjectId);
             return View(finalestimate);
         }
 
@@ -85,11 +90,11 @@ namespace ScrumPoker.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(finalestimate).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(finalestimate).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProjectId = new SelectList(db.Projects, "id", "ProjectName", finalestimate.ProjectId);
+            ViewBag.ProjectId = new SelectList(_db.Projects, "id", "ProjectName", finalestimate.ProjectId);
             return View(finalestimate);
         }
 
@@ -98,7 +103,7 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            FinalEstimate finalestimate = db.FinalEstimates.Find(id);
+            FinalEstimate finalestimate = _db.FinalEstimates.Find(id);
             if (finalestimate == null)
             {
                 return HttpNotFound();
@@ -112,9 +117,9 @@ namespace ScrumPoker.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            FinalEstimate finalestimate = db.FinalEstimates.Find(id);
-            db.FinalEstimates.Remove(finalestimate);
-            db.SaveChanges();
+            FinalEstimate finalestimate = _db.FinalEstimates.Find(id);
+            _db.FinalEstimates.Remove(finalestimate);
+            _db.SaveChanges();
             int projectId = TaskEstimates.GetProjectId();
             return RedirectToAction("Index", new { id=projectId});
         }
@@ -124,15 +129,15 @@ namespace ScrumPoker.Controllers
         {
             if (projectId == TaskEstimates.GetProjectId())
             {
-                var finalEstimatesQuery = from f in db.FinalEstimates
+                var finalEstimatesQuery = from f in _db.FinalEstimates
                             where f.ProjectId == projectId
                             select f;
 
                 foreach (var finalEstimate in finalEstimatesQuery.ToList())
                 {
-                    db.FinalEstimates.Remove(finalEstimate);
+                    _db.FinalEstimates.Remove(finalEstimate);
                 }
-                db.SaveChanges();
+                _db.SaveChanges();
 
             }
             return RedirectToAction("Index", new { id = projectId });
@@ -140,7 +145,7 @@ namespace ScrumPoker.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }

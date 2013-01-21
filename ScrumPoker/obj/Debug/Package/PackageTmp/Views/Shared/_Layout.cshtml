@@ -1,0 +1,62 @@
+﻿@using ScrumPoker.Services;
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/themes/base/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @RenderSection("styles", required: false)
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left mobile-hide">
+                    <p class="site-title">@Html.ActionLink("Scrum Poker", "Index", "Home")</p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Poker", "Vote", "Poker")</li><!-- This line is  a link to the first poker page -->
+                            @if ( ScrumMasterSvc.IsScrumMaster(User.Identity.Name) )
+                            {
+                                <li>@Html.ActionLink("Projects", "Index", "Project")</li>    
+                            }
+                            @if (SiteAdminSvc.IsSiteAdmin(User.Identity.Name))
+                            {
+                            <li>@Html.ActionLink("Users", "Index", "UserManagement")</li>
+                            }
+                            @Html.Partial("_LoginPartialMobile")
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Mike Sneen</p>
+                </div>
+            </div>
+        </footer>
+
+        
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/signalR")
+        <script type="text/javascript" src="~/signalr/hubs"></script>
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

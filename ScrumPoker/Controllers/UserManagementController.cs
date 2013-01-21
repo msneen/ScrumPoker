@@ -19,14 +19,16 @@ namespace ScrumPoker.Controllers
     {
         private UserProfileSvc _userProfileSvc;
         private RoleSvc _roleSvc;
+        private UsersContext _db; // = new UsersContext();
 
-        public UserManagementController()
+        public UserManagementController(UserProfileSvc userProfileSvc, RoleSvc roleSvc, UsersContext db)
         {
-            _userProfileSvc = new UserProfileSvc();
-            _roleSvc = new RoleSvc();
+            _userProfileSvc = userProfileSvc; //new UserProfileSvc();
+            _roleSvc = roleSvc; //new RoleSvc();
+            _db = db;
         }
 
-        private UsersContext db = new UsersContext();
+        
 
         //
         // GET: /UserManagement/
@@ -69,8 +71,8 @@ namespace ScrumPoker.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.UserProfiles.Add(userprofile);
-                db.SaveChanges();
+                _db.UserProfiles.Add(userprofile);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -142,8 +144,8 @@ namespace ScrumPoker.Controllers
                 }
                 
                 //collection["Role_" + 
-                db.Entry(userprofile).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(userprofile).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(userprofile);
@@ -154,7 +156,7 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            UserProfile userprofile = db.UserProfiles.Find(id);
+            UserProfile userprofile = _db.UserProfiles.Find(id);
             if (userprofile == null)
             {
                 return HttpNotFound();
@@ -168,15 +170,15 @@ namespace ScrumPoker.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            UserProfile userprofile = db.UserProfiles.Find(id);           
-            db.UserProfiles.Remove(userprofile);
-            db.SaveChanges();
+            UserProfile userprofile = _db.UserProfiles.Find(id);           
+            _db.UserProfiles.Remove(userprofile);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }

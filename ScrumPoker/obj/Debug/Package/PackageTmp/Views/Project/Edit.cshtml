@@ -1,0 +1,45 @@
+﻿@model ScrumPoker.Project
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Project</legend>
+
+        @Html.HiddenFor(model => model.id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProjectName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProjectName)
+            @Html.ValidationMessageFor(model => model.ProjectName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedUserId, "UserProfile")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CreatedUserId", String.Empty)
+            @Html.ValidationMessageFor(model => model.CreatedUserId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

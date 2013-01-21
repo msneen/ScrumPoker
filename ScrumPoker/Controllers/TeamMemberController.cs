@@ -10,14 +10,18 @@ namespace ScrumPoker.Controllers
 {
     public class TeamMemberController : Controller
     {
-        private Entities db = new Entities();
+        private Entities _db; // = new Entities();
 
+        public TeamMemberController(Entities db)
+        {
+            _db = db;
+        }
         //
         // GET: /TeamMember/
 
         public ActionResult Index()
         {
-            var teammembers = db.TeamMembers.Include(t => t.Project).Include(t => t.UserProfile);
+            var teammembers = _db.TeamMembers.Include(t => t.Project).Include(t => t.UserProfile);
             return View(teammembers.ToList());
         }
 
@@ -26,7 +30,7 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            TeamMember teammember = db.TeamMembers.Find(id);
+            TeamMember teammember = _db.TeamMembers.Find(id);
             if (teammember == null)
             {
                 return HttpNotFound();
@@ -39,8 +43,8 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.ProjectId = new SelectList(db.Projects, "id", "ProjectName");
-            ViewBag.UserId = new SelectList(db.UserProfileScrums, "UserId", "UserName");
+            ViewBag.ProjectId = new SelectList(_db.Projects, "id", "ProjectName");
+            ViewBag.UserId = new SelectList(_db.UserProfileScrums, "UserId", "UserName");
             return View();
         }
 
@@ -52,13 +56,13 @@ namespace ScrumPoker.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.TeamMembers.Add(teammember);
-                db.SaveChanges();
+                _db.TeamMembers.Add(teammember);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectId = new SelectList(db.Projects, "id", "ProjectName", teammember.ProjectId);
-            ViewBag.UserId = new SelectList(db.UserProfileScrums, "UserId", "UserName", teammember.UserId);
+            ViewBag.ProjectId = new SelectList(_db.Projects, "id", "ProjectName", teammember.ProjectId);
+            ViewBag.UserId = new SelectList(_db.UserProfileScrums, "UserId", "UserName", teammember.UserId);
             return View(teammember);
         }
 
@@ -67,13 +71,13 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            TeamMember teammember = db.TeamMembers.Find(id);
+            TeamMember teammember = _db.TeamMembers.Find(id);
             if (teammember == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ProjectId = new SelectList(db.Projects, "id", "ProjectName", teammember.ProjectId);
-            ViewBag.UserId = new SelectList(db.UserProfileScrums, "UserId", "UserName", teammember.UserId);
+            ViewBag.ProjectId = new SelectList(_db.Projects, "id", "ProjectName", teammember.ProjectId);
+            ViewBag.UserId = new SelectList(_db.UserProfileScrums, "UserId", "UserName", teammember.UserId);
             return View(teammember);
         }
 
@@ -85,12 +89,12 @@ namespace ScrumPoker.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(teammember).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(teammember).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProjectId = new SelectList(db.Projects, "id", "ProjectName", teammember.ProjectId);
-            ViewBag.UserId = new SelectList(db.UserProfileScrums, "UserId", "UserName", teammember.UserId);
+            ViewBag.ProjectId = new SelectList(_db.Projects, "id", "ProjectName", teammember.ProjectId);
+            ViewBag.UserId = new SelectList(_db.UserProfileScrums, "UserId", "UserName", teammember.UserId);
             return View(teammember);
         }
 
@@ -99,7 +103,7 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            TeamMember teammember = db.TeamMembers.Find(id);
+            TeamMember teammember = _db.TeamMembers.Find(id);
             if (teammember == null)
             {
                 return HttpNotFound();
@@ -113,15 +117,15 @@ namespace ScrumPoker.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            TeamMember teammember = db.TeamMembers.Find(id);
-            db.TeamMembers.Remove(teammember);
-            db.SaveChanges();
+            TeamMember teammember = _db.TeamMembers.Find(id);
+            _db.TeamMembers.Remove(teammember);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }

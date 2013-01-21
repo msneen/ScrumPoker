@@ -16,9 +16,17 @@ namespace ScrumPoker.Controllers
     [InitializeSimpleMembership]
     public class ProjectController : Controller
     {
-        private UserProfileSvc _userProfileSvc = new UserProfileSvc();
-        private RoleSvc  _roleSvc = new RoleSvc();
-        private Entities db = new Entities();
+        private UserProfileSvc _userProfileSvc; // = new UserProfileSvc();
+        private RoleSvc _roleSvc; // = new RoleSvc();
+        private Entities _db; // = new Entities();
+
+        public ProjectController(UserProfileSvc userProfileSvc, RoleSvc roleSvc, Entities db)
+        {
+            _userProfileSvc = userProfileSvc;
+            _roleSvc = roleSvc;
+            _db = db;
+        }
+
 
         //
         // GET: /Project/
@@ -30,11 +38,11 @@ namespace ScrumPoker.Controllers
            
             if (_userProfileSvc.IsInRole(userProfile, "SiteAdmin"))
             {
-                projects = db.Projects.Include(p => p.UserProfile).ToList();
+                projects = _db.Projects.Include(p => p.UserProfile).ToList();
             }
             else if (_userProfileSvc.IsInRole(userProfile, "ScrumMaster"))
             {
-                projects = db.Projects.Include(p => p.UserProfile).Where(p => p.UserProfile.UserName == User.Identity.Name).ToList();
+                projects = _db.Projects.Include(p => p.UserProfile).Where(p => p.UserProfile.UserName == User.Identity.Name).ToList();
             }
 
             return View(projects);
@@ -45,7 +53,7 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Project project = db.Projects.Find(id);
+            Project project = _db.Projects.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -58,7 +66,7 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CreatedUserId = new SelectList(db.UserProfileScrums, "UserId", "UserName");
+            ViewBag.CreatedUserId = new SelectList(_db.UserProfileScrums, "UserId", "UserName");
             return View();
         }
 
@@ -70,12 +78,12 @@ namespace ScrumPoker.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Projects.Add(project);
-                db.SaveChanges();
+                _db.Projects.Add(project);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CreatedUserId = new SelectList(db.UserProfileScrums, "UserId", "UserName", project.CreatedUserId);
+            ViewBag.CreatedUserId = new SelectList(_db.UserProfileScrums, "UserId", "UserName", project.CreatedUserId);
             return View(project);
         }
 
@@ -84,12 +92,12 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Project project = db.Projects.Find(id);
+            Project project = _db.Projects.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CreatedUserId = new SelectList(db.UserProfileScrums, "UserId", "UserName", project.CreatedUserId);
+            ViewBag.CreatedUserId = new SelectList(_db.UserProfileScrums, "UserId", "UserName", project.CreatedUserId);
             return View(project);
         }
 
@@ -101,11 +109,11 @@ namespace ScrumPoker.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(project).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CreatedUserId = new SelectList(db.UserProfileScrums, "UserId", "UserName", project.CreatedUserId);
+            ViewBag.CreatedUserId = new SelectList(_db.UserProfileScrums, "UserId", "UserName", project.CreatedUserId);
             return View(project);
         }
 
@@ -114,7 +122,7 @@ namespace ScrumPoker.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Project project = db.Projects.Find(id);
+            Project project = _db.Projects.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -128,15 +136,15 @@ namespace ScrumPoker.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Project project = db.Projects.Find(id);
-            db.Projects.Remove(project);
-            db.SaveChanges();
+            Project project = _db.Projects.Find(id);
+            _db.Projects.Remove(project);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }

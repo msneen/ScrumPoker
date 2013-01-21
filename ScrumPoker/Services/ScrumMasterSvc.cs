@@ -16,17 +16,6 @@ namespace ScrumPoker.Services
     {
         public static bool IsScrumMaster(string userName)
         {
-            //if ("msneen".Equals(HttpContext.Current.User.Identity.Name, StringComparison.OrdinalIgnoreCase)
-            //|| "michael.sneen@gmail.com".Equals(HttpContext.Current.User.Identity.Name, StringComparison.OrdinalIgnoreCase)
-            //|| "michael.sneen.gmail.com".Equals(HttpContext.Current.User.Identity.Name, StringComparison.OrdinalIgnoreCase)
-            //|| HttpContext.Current.User.Identity.Name == "dle"
-            //|| HttpContext.Current.User.Identity.Name == "jjohnston"
-            //|| HttpContext.Current.User.Identity.Name == "rhanson"
-            //|| HttpContext.Current.User.Identity.Name == "rodoughty")
-            //{
-            //    return true;
-            //}
-
             return UserProfileSvc.IsInRole(userName, "ScrumMaster");
         }
 
