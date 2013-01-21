@@ -10,7 +10,7 @@ namespace ScrumPoker
     {
         public override void Load()
         {
-            this.Bind<Services.UserProfileSvc>().To<Services.UserProfileSvc>();
+            //this.Bind<Services.UserProfileSvc>().To<Services.UserProfileSvc>();
         }
     }
 }

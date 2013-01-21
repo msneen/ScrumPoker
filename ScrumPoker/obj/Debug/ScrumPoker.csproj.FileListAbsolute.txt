@@ -8,7 +8,6 @@ D:\Sneen\ScrumPoker\ScrumPoker\bin\DotNetOpenAuth.OAuth.dll
 D:\Sneen\ScrumPoker\ScrumPoker\bin\DotNetOpenAuth.OpenId.dll
 D:\Sneen\ScrumPoker\ScrumPoker\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
 D:\Sneen\ScrumPoker\ScrumPoker\bin\EntityFramework.dll
-D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.Web.Infrastructure.dll
 D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.Web.WebPages.OAuth.dll
 D:\Sneen\ScrumPoker\ScrumPoker\bin\Newtonsoft.Json.dll
 D:\Sneen\ScrumPoker\ScrumPoker\bin\System.Net.Http.dll
@@ -60,10 +59,3 @@ D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.Core.xml
 D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.Owin.xml
 D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
 D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.Owin.Host.SystemWeb.xml
-D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.dll
-D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.Web.Common.dll
-D:\Sneen\ScrumPoker\ScrumPoker\bin\WebActivator.dll
-D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.pdb
-D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.xml
-D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.Web.Common.pdb
-D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.Web.Common.xml
