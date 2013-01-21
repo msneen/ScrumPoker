@@ -658,6 +658,9 @@ table#tblVotes tbody tr td, #olVotes li  {
     border-color: Navy;
     border: 1px solid navy !important;
 }
+ul#menu li.mobilemenu-show{
+    display:none;
+}
 
 /********************
 *   Mobile Styles   *
@@ -673,6 +676,9 @@ table#tblVotes tbody tr td, #olVotes li  {
     header .mobile-hide{
         display:none;
     }
+    ul#menu li.mobilemenu-show{
+    display:inline;
+}
 
     /* logo */
     header .site-title {

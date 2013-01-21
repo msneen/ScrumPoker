@@ -409,6 +409,7 @@
     <Content Include="Views\FinalVote\Delete.cshtml" />
     <Content Include="Views\Poker\_FibonacciPopup.cshtml" />
     <Content Include="Views\Poker\_UserVotes1.cshtml" />
+    <Content Include="Views\Shared\_LoginPartialMobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

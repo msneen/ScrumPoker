@@ -1,0 +1,6 @@
+﻿@if (Request.IsAuthenticated) {
+            <li class="mobilemenu-show"><a href="javascript:document.getElementById('logoutForm').submit()">LogOff</a></li>            
+} else {
+        <li class="mobilemenu-show">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li class="mobilemenu-show">@Html.ActionLink("LogIn", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+}
