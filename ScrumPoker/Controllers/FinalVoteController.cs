@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ScrumPoker.Models;
 
 namespace ScrumPoker.Controllers
 {
@@ -113,7 +114,8 @@ namespace ScrumPoker.Controllers
             FinalEstimate finalestimate = db.FinalEstimates.Find(id);
             db.FinalEstimates.Remove(finalestimate);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            int projectId = TaskEstimates.GetProjectId();
+            return RedirectToAction("Index", new { id=projectId});
         }
 
         protected override void Dispose(bool disposing)
