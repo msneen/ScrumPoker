@@ -57,7 +57,7 @@
     <file relUrl="Scripts/jquery.signalR-1.0.0-rc2.min.js" publishTime="01/21/2013 14:10:12" />
     <file relUrl="Content/themes/base/images/ui-icons_2e83ff_256x240.png" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Content/themes/base/minified/jquery.ui.tabs.min.css" publishTime="01/04/2013 20:07:42" />
-    <file relUrl="bin/ScrumPoker.dll" publishTime="01/21/2013 14:46:32" />
+    <file relUrl="bin/ScrumPoker.dll" publishTime="01/21/2013 14:56:00" />
     <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="01/04/2013 20:07:44" />
     <file relUrl="Content/themes/base/jquery.ui.all.css" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Views/UserManagement/Edit.cshtml" publishTime="01/09/2013 17:15:59" />
@@ -71,7 +71,7 @@
     <file relUrl="Images/orderedList3.png" publishTime="01/04/2013 20:07:36" />
     <file relUrl="Content/themes/base/minified/jquery.ui.theme.min.css" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Views/FinalVote/Create.cshtml" publishTime="01/14/2013 01:59:09" />
-    <file relUrl="Web.config" publishTime="01/21/2013 14:49:38" />
+    <file relUrl="Web.config" publishTime="01/21/2013 14:56:39" />
     <file relUrl="Views/Account/_SetPasswordPartial.cshtml" publishTime="01/04/2013 20:07:36" />
     <file relUrl="Images/orderedList8.png" publishTime="01/04/2013 20:07:36" />
     <file relUrl="Content/themes/base/minified/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="01/04/2013 20:07:42" />
@@ -122,7 +122,7 @@
     <file relUrl="Views/FinalVote/Index.cshtml" publishTime="01/21/2013 14:10:12" />
     <file relUrl="Content/themes/base/jquery.ui.button.css" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Content/themes/base/minified/images/ui-icons_888888_256x240.png" publishTime="01/04/2013 20:07:42" />
-    <file relUrl="bin/ScrumPoker.pdb" publishTime="01/21/2013 14:46:31" />
+    <file relUrl="bin/ScrumPoker.pdb" publishTime="01/21/2013 14:56:00" />
     <file relUrl="ScrumPokerModel.edmx.sql" publishTime="01/14/2013 23:09:03" />
     <file relUrl="Content/themes/base/jquery.ui.core.css" publishTime="01/04/2013 20:07:42" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="01/04/2013 20:07:42" />

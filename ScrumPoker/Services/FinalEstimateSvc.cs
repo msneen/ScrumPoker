@@ -7,42 +7,42 @@ namespace ScrumPoker.Services
 {
     public class FinalEstimateSvc
     {
+        private Entities _entitiesDb; // = new Entities();
+
+        public FinalEstimateSvc(Entities entitiesDb)
+        {
+            _entitiesDb = entitiesDb;
+        }
+
         public List<FinalEstimate> GetAll()
         {
-            using (ScrumPoker.Entities entitiesDb = new Entities())
-            {
-                var projectQuery = from p in entitiesDb.FinalEstimates
-                                   select p;
-                return projectQuery.ToList<FinalEstimate>();
-            }
+
+            var projectQuery = from p in _entitiesDb.FinalEstimates
+                                select p;
+            return projectQuery.ToList<FinalEstimate>();
+            
         }
 
         public FinalEstimate Find(int id)
         {
-            using (ScrumPoker.Entities entitiesDb = new Entities())
-            {
-                return entitiesDb.Set<FinalEstimate>().FirstOrDefault(p => p.id == id);
-            }
+            return _entitiesDb.Set<FinalEstimate>().FirstOrDefault(p => p.id == id);            
         }
 
         public void Add(FinalEstimate finalEstimate)
         {
-            using (ScrumPoker.Entities entitiesDb = new Entities())
+            var existingFinalEstimate = (from fe in _entitiesDb.FinalEstimates
+                        where fe.ProjectId == finalEstimate.ProjectId
+                        && fe.TaskId == finalEstimate.TaskId
+                            select fe).FirstOrDefault();
+            if (existingFinalEstimate != null)
             {
-                var existingFinalEstimate = (from fe in entitiesDb.FinalEstimates
-                            where fe.ProjectId == finalEstimate.ProjectId
-                            && fe.TaskId == finalEstimate.TaskId
-                                select fe).FirstOrDefault();
-                if (existingFinalEstimate != null)
-                {
-                    existingFinalEstimate.Estimate = finalEstimate.Estimate;
-                }
-                else
-                {
-                    entitiesDb.FinalEstimates.Add(finalEstimate);
-                }
-                entitiesDb.SaveChanges();
+                existingFinalEstimate.Estimate = finalEstimate.Estimate;
             }
+            else
+            {
+                _entitiesDb.FinalEstimates.Add(finalEstimate);
+            }
+            _entitiesDb.SaveChanges();            
         }
     }
 }
