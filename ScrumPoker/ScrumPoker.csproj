@@ -48,8 +48,18 @@
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.1.0.0-rc2\lib\net40\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net40-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -123,6 +133,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -178,6 +191,7 @@
     <Compile Include="App_Start\FilterConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -195,6 +209,7 @@
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Hubs\Notifier.cs" />
+    <Compile Include="IocConfig.cs" />
     <Compile Include="Membership.cs">
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>
@@ -206,7 +221,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\TaskEstimate.cs" />
     <Compile Include="Models\TaskEstimates.cs" />
-    <Compile Include="NinjectDependencyResolver.cs" />
+    <Compile Include="NinjectDependencyScope.cs" />
     <Compile Include="OAuthMembership.cs">
       <DependentUpon>PokerModel.tt</DependentUpon>
     </Compile>

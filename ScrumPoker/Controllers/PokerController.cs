@@ -9,21 +9,26 @@ using WebMatrix.WebData;
 using ScrumPoker.Filters;
 using ScrumPoker.ViewModels.Poker;
 
+
 namespace ScrumPoker.Controllers
 {
      [InitializeSimpleMembership]
     public class PokerController : Controller
     {
         public List<string> colors;
-        private UserProfileSvc _userProfileSvc = new UserProfileSvc();
-        private RoleSvc _roleSvc = new RoleSvc();
-        private ProjectSvc _projectSvc = new ProjectSvc();
-        private FinalEstimateSvc _finalEstimateSvc = new FinalEstimateSvc();
-        private Entities db = new Entities();
+        private UserProfileSvc _userProfileSvc; // = new UserProfileSvc();
+        private RoleSvc _roleSvc; // = new RoleSvc();
+        private ProjectSvc _projectSvc; // = new ProjectSvc();
+        private FinalEstimateSvc _finalEstimateSvc; // = new FinalEstimateSvc();
+        private Entities _db; // = new Entities();
 
-        public PokerController(/*UserProfileSvc userProfileSvc*/)
+        public PokerController(UserProfileSvc userProfileSvc, RoleSvc roleSvc, ProjectSvc projectSvc, FinalEstimateSvc finalEstimateSvc, Entities db)
         {
-            //_userProfileSvc = userProfileSvc;
+            _userProfileSvc = userProfileSvc;
+            _roleSvc = roleSvc;
+            _projectSvc = projectSvc;
+            _finalEstimateSvc = finalEstimateSvc;
+            _db = db;
 
             InitializeColors();
         }
@@ -106,7 +111,7 @@ namespace ScrumPoker.Controllers
 
             if (_userProfileSvc.IsInRole(userProfile, "ScrumMaster"))
             {
-                projects = db.Projects.Include(p => p.UserProfile).Where(p => p.UserProfile.UserName == User.Identity.Name).ToList();
+                projects = _db.Projects.Include(p => p.UserProfile).Where(p => p.UserProfile.UserName == User.Identity.Name).ToList();
             }
             if (Session["FirstName"] != null)
             { 

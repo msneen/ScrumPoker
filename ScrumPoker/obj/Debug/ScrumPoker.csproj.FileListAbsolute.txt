@@ -59,3 +59,13 @@ D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.Core.xml
 D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.Owin.xml
 D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
 D:\Sneen\ScrumPoker\ScrumPoker\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.dll
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.Web.Common.dll
+D:\Sneen\ScrumPoker\ScrumPoker\bin\WebActivator.dll
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.pdb
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.xml
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.Web.Common.pdb
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.Web.Common.xml
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.Web.Mvc.dll
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.Web.Mvc.pdb
+D:\Sneen\ScrumPoker\ScrumPoker\bin\Ninject.Web.Mvc.xml
