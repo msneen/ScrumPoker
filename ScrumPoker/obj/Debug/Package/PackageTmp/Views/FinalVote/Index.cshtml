@@ -1,4 +1,7 @@
-﻿@model IEnumerable<ScrumPoker.FinalEstimate>
+﻿@using ScrumPoker.Models;
+@using ScrumPoker.Services;
+@using ScrumPoker.ViewModels.Poker;
+@model IEnumerable<ScrumPoker.FinalEstimate>
 
 @{
     ViewBag.Title = "Index";
@@ -47,11 +50,22 @@
             </h3>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
+            {
+                <text>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </text>
+            }
         </td>
     </tr>
 }
 
 </table>
+@if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
+{
+    <div>
+        @Html.ActionLink("Delete All", "DeleteAll", "FinalVote", new { projectId = ViewBag.ProjectId }, new { })
+    </div>
+}

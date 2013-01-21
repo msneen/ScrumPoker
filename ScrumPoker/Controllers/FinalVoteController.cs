@@ -20,6 +20,7 @@ namespace ScrumPoker.Controllers
         {
             int projectId = Convert.ToInt32(id);
             var finalestimates = db.FinalEstimates.Include(f => f.Project).Where(f => f.ProjectId == projectId);
+            ViewBag.ProjectId = projectId;
             return View(finalestimates.ToList());
         }
 
@@ -116,6 +117,25 @@ namespace ScrumPoker.Controllers
             db.SaveChanges();
             int projectId = TaskEstimates.GetProjectId();
             return RedirectToAction("Index", new { id=projectId});
+        }
+        
+        //[HttpPost]
+        public ActionResult DeleteAll(int projectId)
+        {
+            if (projectId == TaskEstimates.GetProjectId())
+            {
+                var finalEstimatesQuery = from f in db.FinalEstimates
+                            where f.ProjectId == projectId
+                            select f;
+
+                foreach (var finalEstimate in finalEstimatesQuery.ToList())
+                {
+                    db.FinalEstimates.Remove(finalEstimate);
+                }
+                db.SaveChanges();
+
+            }
+            return RedirectToAction("Index", new { id = projectId });
         }
 
         protected override void Dispose(bool disposing)
