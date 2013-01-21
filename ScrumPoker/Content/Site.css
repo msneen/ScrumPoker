@@ -656,6 +656,7 @@ table#tblVotes tbody tr td, #olVotes li  {
 .scrumMaster{
     color: Navy;
     border-color: Navy;
+    background-color:Silver !important;
     border: 1px solid navy !important;
 }
 ul#menu li.mobilemenu-show{
@@ -736,6 +737,10 @@ ul#menu li.mobilemenu-show{
 
     /* main layout
     ----------------------------------------------------------*/
+    .main-content, header .content-wrapper {
+        padding-top: 15px;
+    }
+    
     .main-content,
     .featured + .main-content {
         background-position: 10px 0;

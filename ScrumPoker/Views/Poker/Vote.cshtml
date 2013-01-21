@@ -14,33 +14,28 @@
 
 @if (Model.ProjectId > 0)
 {
-    <div  class="displayGroup">
-        Project <h2 id="spnProjectName">@Html.DisplayFor(model => model.ProjectName)</h2>
-    </div>
+    <h2 id="spnProjectName">@Html.DisplayFor(model => model.ProjectName)</h2>
     if (Context.Request.Url.AbsolutePath.ToLower().Contains("scrumpoker"))
     {
-        <a href="http://TinyUrl.com/scpoket/@Model.ProjectId">tinyurl.com/scpoket/@Model.ProjectId</a>
+        <a href="http://TinyUrl.com/scpoket/@Model.ProjectId" class="spaced">tinyurl.com/scpoket/@Model.ProjectId</a>
     }
     else
     {
-        @Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId }, new {})
+        @Html.ActionLink(Url.Action("Vote", "Poker", new { @id = Model.ProjectId }, "http"), "Vote", "Poker", new { @id = Model.ProjectId }, new { })
     }
     using (Html.BeginForm("Vote", "Poker", FormMethod.Post))
     {
-            <br />
             <div>
-            <div>First Name*</div>
-
-        @{
-            object displayMode = new { id = "firstName", maxlength = "12", size = "12"/*, list = "users"*/ };
-            if (!string.IsNullOrEmpty(Model.FirstName))
-            {
-                displayMode = new { id = "firstName", maxlength = "12", size = "12", /*list = "users",*/ disabled = "disabled" };
-            }        
-            @Html.TextBox("firstName", (string)ViewBag.FirstName, displayMode)
-        }
-        </div>
-        <br /> 
+                    <div>First Name*</div>
+                    @{
+                    object displayMode = new { id = "firstName", maxlength = "12", size = "12"/*, list = "users"*/ };
+                    if (!string.IsNullOrEmpty(Model.FirstName))
+                    {
+                        displayMode = new { id = "firstName", maxlength = "12", size = "12", /*list = "users",*/ disabled = "disabled" };
+                    }        
+                        @Html.TextBox("firstName", (string)ViewBag.FirstName, displayMode)
+                    }
+            </div>
         <div>
             <div class="displayGroup">Task Id </div>
             <h3 id="taskIdDisplay" class="displayGroup"></h3>
@@ -64,7 +59,7 @@
                 </div>
                 <div>      
                     @{
-                        string disabled = Model.ProjectId > 0 ? "" : "disabled";
+            string disabled = Model.ProjectId > 0 ? "" : "disabled";
                         <input id="SubmitVote" type="button" value="Vote" @disabled/>
                     }
                 </div>
