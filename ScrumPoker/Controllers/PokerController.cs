@@ -23,6 +23,7 @@ namespace ScrumPoker.Controllers
 
         public PokerController()
         {
+
             #region New Color List Area
             //Make a dropdown list that has color scheme names that correspond to colors{num} as "Text"
             //     make the "values" correspond to the index, ie {num}
