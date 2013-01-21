@@ -133,11 +133,13 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
         $("#btnSaveMyVote").click(function () {
             if ($("#firstName").val().length != 0) {
                 $("#firstName").attr("disabled", "disabled");
-                PokerGame.UserEstimate.Name = $("#firstName").val();
-                PokerGame.UserEstimate.Estimate = $("#estimate").val();
-                PokerGame.TaskId = $("#taskId").val();
-                $("#estimate").val("");
-                SaveMyVote(WriteVotes);
+                if($("#estimate").val().length !=0){
+                    PokerGame.UserEstimate.Name = $("#firstName").val();
+                    PokerGame.UserEstimate.Estimate = $("#estimate").val();
+                    PokerGame.TaskId = $("#taskId").val();
+                    $("#estimate").val("");
+                    SaveMyVote(WriteVotes);
+                }
             }            
         });
         $("#aClearVotes").click(function () {

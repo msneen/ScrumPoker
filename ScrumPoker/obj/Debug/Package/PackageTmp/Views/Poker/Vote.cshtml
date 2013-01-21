@@ -72,9 +72,11 @@
                 @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
                 {
                        <div  class="displayGroup">
-                            <input id="btnSaveMyVote" type="button" value="Save My Vote" class="scrumMaster" />
+                            <input id="btnSaveMyVote" type="button" value="Save" class="scrumMaster" />
+                            <input id="aClearVotes" type="button" class="scrumMaster" value="Clear"  />
+                            <input id="aClearAll" type="button" class="scrumMaster" value="Reset" />
                         </div>  
-                }  
+                } 
                 @Html.Hidden("projectid", Model.ProjectId)
         </div>
         @Html.Partial("_UserVotes1")     

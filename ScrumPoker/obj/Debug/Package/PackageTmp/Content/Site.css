@@ -670,6 +670,9 @@ table#tblVotes tbody tr td, #olVotes li  {
     header .float-right {
         float: none;
     }
+    header .mobile-hide{
+        display:none;
+    }
 
     /* logo */
     header .site-title {

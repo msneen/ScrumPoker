@@ -369,9 +369,6 @@
     <Content Include="Views\Poker\Vote.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Poker\_UserVotes.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Poker\_UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>

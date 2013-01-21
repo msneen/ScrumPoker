@@ -14,7 +14,7 @@
     <body>
         <header>
             <div class="content-wrapper">
-                <div class="float-left">
+                <div class="float-left mobile-hide">
                     <p class="site-title">@Html.ActionLink("Scrum Poker", "Index", "Home")</p>
                 </div>
                 <div class="float-right">
@@ -26,9 +26,7 @@
                             <li>@Html.ActionLink("Poker", "Vote", "Poker")</li><!-- This line is  a link to the first poker page -->
                             @if ( ScrumMasterSvc.IsScrumMaster(User.Identity.Name) )
                             {
-                                <li><a href="#" id="aClearVotes">Clear</a></li>
-                                <li><a href="#" id="aClearAll">Reset</a></li>
-                            <li>@Html.ActionLink("Projects", "Index", "Project")</li>    
+                                <li>@Html.ActionLink("Projects", "Index", "Project")</li>    
                             }
                             @if (SiteAdminSvc.IsSiteAdmin(User.Identity.Name))
                             {
