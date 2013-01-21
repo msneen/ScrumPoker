@@ -23,4 +23,7 @@
             }
         </ol>
     </div>
-    <br />
+    @if (ScrumMasterSvc.IsScrumMaster(User.Identity.Name))
+    {
+    <input id="btnSaveTeamMembers" type="button" value="Save Team" class="displayGroup scrumMaster" />
+    }

@@ -12,22 +12,22 @@
         {
             SelectList list = new SelectList(Model.Projects.OrderBy(m => m.ProjectName), "id", "ProjectName", Model.ProjectId.ToString());
             <div>
-                <h3>@Html.Label("Choose Project")</h3>
+                <h3>@Html.Label("Project")</h3>
             </div>
-            <div>
+            <div class="displayGroup">
                 @Html.DropDownList("projectList", list, new {@class="scrumMaster" })
             </div>
-            <div>
-                <input type="submit" value="Vote on this Project" class="scrumMaster"/>
+            <div  class="displayGroup">
+                <input type="submit" value="Select" class="scrumMaster displayGroup"/>
             </div>
         }<br />
     }
     if (Model.ProjectId > 0)
-    {       <h3>@Model.ProjectName Team Members</h3>
+    {       <h3>New Team Member</h3>
         using (Html.BeginForm("AddUser", "Poker", FormMethod.Post))
         {            
                 <input type="text" id="userName" name="userName" class="scrumMaster" />
-                <input type="submit" value="Add Team Member" class="scrumMaster"/>
+                <input type="submit" value="Add" class="scrumMaster"/>
         }
         @Html.ActionLink("View Final Votes", "Index", "FinalVote", new { id = Model.ProjectId }, new {})
     }
