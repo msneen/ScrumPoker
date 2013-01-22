@@ -123,6 +123,12 @@ namespace ScrumPoker.Controllers
             pokerVm.ProjectId = TaskEstimates.GetProjectId();
             pokerVm.ProjectName = GetProjectName(pokerVm.ProjectId);
             pokerVm.CurrentProject = _projectSvc.Find(pokerVm.ProjectId);
+            pokerVm.Voters = new List<string>();
+            if (pokerVm.CurrentProject != null)
+            {
+                pokerVm.Voters = pokerVm.Voters.Union(pokerVm.CurrentProject.TeamMembers.Select(t => t.NickName)).ToList();
+                pokerVm.Voters = pokerVm.Voters.Union(TaskEstimates.GetEstimateList().Select(e => e.Name)).ToList();
+            }
             return pokerVm;
         }
 

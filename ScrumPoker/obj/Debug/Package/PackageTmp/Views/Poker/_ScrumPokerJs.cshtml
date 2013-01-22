@@ -22,12 +22,12 @@
                             }];
 
 var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#   
-    if (Model.CurrentProject != null && Model.CurrentProject.TeamMembers != null)
+    if (Model.Voters != null)
     {
-        foreach(var teamMember in Model.CurrentProject.TeamMembers ) 
+        foreach(var teamMember in Model.Voters ) 
         { 
-@:'@(teamMember.NickName)'
-                if(teamMember != Model.CurrentProject.TeamMembers.Last())
+@:'@(teamMember)'
+                if(teamMember != Model.Voters.Last())
                 {
 @:,
                 }

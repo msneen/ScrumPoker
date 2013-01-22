@@ -13,6 +13,7 @@ namespace ScrumPoker.ViewModels.Poker
         public string FirstName { get; set; }
         public Project CurrentProject { get; set; }
 
-        public List<Project> Projects { get; set; }        
+        public List<Project> Projects { get; set; }
+        public List<string> Voters { get; set; }
     }
 }
