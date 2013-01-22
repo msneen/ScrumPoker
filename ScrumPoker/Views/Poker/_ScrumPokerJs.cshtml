@@ -119,15 +119,25 @@ var teamMembers = [@{//Be careful.  This section mixes Javascipt and C#
         }
         GetVotes(WriteVotes);     
     }
+    function SubmitVote(){
+        PokerGame.ProjectId = $("#projectid").val();
+        if ($("#firstName").val().length != 0) {
+            PokerGame.UserEstimate.Name = $("#firstName").val();
+            $("#firstName").attr("disabled", "disabled");
+            PokerGame.UserEstimate.Estimate = $("#estimate").val();
+            $("#estimate").val("");
+            SendVote(WriteVotes); 
+        }
+    }
     $(document).ready(function () {
         $("#SubmitVote").click(function () {
-            PokerGame.ProjectId = $("#projectid").val();
-            if ($("#firstName").val().length != 0) {
-                PokerGame.UserEstimate.Name = $("#firstName").val();
-                $("#firstName").attr("disabled", "disabled");
-                PokerGame.UserEstimate.Estimate = $("#estimate").val();
-                $("#estimate").val("");
-                SendVote(WriteVotes); 
+            SubmitVote();
+        });
+        $("#estimate").keypress(function(e){
+            console.log(e.keyCode);
+            if(e.keyCode == '13'){
+                e.preventDefault();
+                SubmitVote();
             }
         });
         $("#btnSaveMyVote").click(function () {
